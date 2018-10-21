@@ -12,11 +12,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
+#define Random(x, t) (x + ((double) rand()/RAND_MAX)*(y-x))
 
 #define Vector double*
 #define Matrix double**
@@ -40,12 +42,17 @@ Vector allocVector(int);
 Matrix allocMatrix(int, int);
 Matrix allocQMatrix(int);
 
+Matrix parseQMatrix(int);
+
+Vector allocRandVector(int, double, double);
+Matrix allocRandMatrix(int, int, double, double);
+Matrix allocRandQMatrix(int, double, double);
+
 Vector multMV(int, int, Matrix, int, Vector);
 Matrix multMM(int, int, Matrix, int, int, Matrix);
 
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
-
 
 #endif /* mainHeader_h */

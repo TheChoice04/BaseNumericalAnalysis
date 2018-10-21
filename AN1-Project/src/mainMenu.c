@@ -24,7 +24,7 @@ char makeChoice();
 
 int mainMenu() {
     const int MAX_ATTEMPTs = 5;
-    int i, flag = 1;
+    int i = 0, flag = 1;
     char choice;
     printf("Hi There!\n");
     printf("Please choose one of the following:\n");

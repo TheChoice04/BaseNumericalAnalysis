@@ -10,6 +10,7 @@
 
 int main(){
     hi;
+    srand(time(NULL));
     return mainMenu();
 }
 

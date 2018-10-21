@@ -29,7 +29,9 @@ Matrix parseSource(int *);
 
 int gaussianElimination(){
     const int pivoting = 1;
+    int i, j, k, n;
     int *np = malloc(sizeof(int));
+    double mij;
     double **A;
     
     printf("\n");
@@ -38,8 +40,41 @@ int gaussianElimination(){
     printf("================================\n");
     printf("\n");
     A = parseSource(np);
-    
-    
+    n = *np;
+
+
+    // Column Cicle
+    for (i=0; i<n; i++){
+    	// Pivoting
+    	if (pivoting == 1){
+    		int max = i+1;
+    		for (j=i+2; j<n; j++){
+    			if (fabs(A[j][i]) > fabs(A[max][i])){
+    				max = j;
+    			}
+    		}
+    		if (max != i+1){
+    			double *app;
+    			app = A[i+1];
+    			A[i+1] = A[max];
+    			A[max] = app;
+    			printQMatrix(n, A);
+    		}
+    	}
+    	// Row Cicle
+    	for (j=i+1; j<n; j++){
+    		// Head Coefficient Calculus
+    		mij = A[j][i]/A[i][i];
+    		// Row Cicle
+    		for (k=i; k<n; k++){
+    			A[j][k] = A[j][k] - (mij*A[i][k]);
+    		}
+    	}
+    }
+    ln;
+    ln;
+    printf("Associated Echelon Matrix is:\n");
+    printQMatrix(n, A);
     
     return -1;
 }
@@ -67,16 +102,11 @@ Matrix parseSource(int *np){
             mat[i/n][i%n] = x;
         }
     } else {
-        printf("Inserisci la dimensione della matrice: ");
-        scanf("%d", &n);
-        
-        mat = allocQMatrix(n);
-        
-        for (i=0; i<n*n; i++){
-            printf("Inserici l'elemento A[%d][%d]: ", i/n, i%n);
-            scanf("%lf", &x);
-            mat[i/n][i%n] = x;
-        }
+    	printf("Insert the Matrix Dimension: ");
+    	scanf("%d", &n);
+    	scanf("%c", &voodoo);
+
+        mat = parseQMatrix(n);
     }
     
     np[0] = n;                                                                  ////??

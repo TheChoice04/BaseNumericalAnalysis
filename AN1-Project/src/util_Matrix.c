@@ -20,6 +20,12 @@ Vector allocVector(int);
 Matrix allocMatrix(int, int);
 Matrix allocQMatrix(int);
 
+Matrix parseQMatrix(int);
+
+Vector allocRandVector(int, double, double);
+Matrix allocRandMatrix(int, int, double, double);
+Matrix allocRandQMatrix(int, double, double);
+
 Vector multMV(int, int, Matrix, int, Vector);
 Matrix multMM(int, int, Matrix, int, int, Matrix);
 
@@ -51,12 +57,64 @@ Matrix allocQMatrix(int n){
     return allocMatrix(n, n);
 }
 
+Vector allocRandVector(int n, double x, double y){
+	int i;
+    Vector v = allocate(n, double);
+    for (i=0; i<n; i++)
+    	v[i] = Random(x, y);
+    return v;
+}
+
+Matrix allocRandMatrix(int m, int n, double x, double y){
+    int i;
+    Matrix mat;
+    mat = allocate(m, double*);
+    for (i = 0; i<m; i++)
+        mat[i] = allocRandVector(n, x, y);
+    return mat;
+}
+
+Matrix allocRandQMatrix(int n, double x, double y){
+    return allocRandMatrix(n, n, x, y);
+}
+
+Matrix parseQMatrix(int n){
+	Matrix mat;
+	int i;
+	double x;
+	char choice, voodoo;
+
+	printf("Do you want to randomic parse the Matrix? (y/n)");
+	scanf("%c", &choice);
+	scanf("%c", &voodoo);
+	printf("Choice = %c, Voodoo = %c", choice, voodoo);
+
+	if (choice == 'y'){
+		double x, y;
+	    printf("Insert minimum and maximum values for your matrix value range: ");
+	    scanf("%lf %lf", &x, &y);
+	    mat = allocRandQMatrix(n, x, y);
+
+	} else {
+	    mat = allocQMatrix(n);
+
+	    for (i=0; i<n*n; i++){
+	    	printf("Insert matrix element A[%d][%d]: ", i/n, i%n);
+	        scanf("%lf", &x);
+	        mat[i/n][i%n] = x;
+	    }
+	}
+	return mat;
+}
+
+
+
 //
 //  Algebraic Operation
 //
 
 Vector multMV(int m, int n, Matrix mat, int n1, Vector v){
-    Vector r;
+    Vector r = NULL;
     int i, j;
     double sum;
     
@@ -77,7 +135,7 @@ Vector multMV(int m, int n, Matrix mat, int n1, Vector v){
 Matrix multMM(int m, int n, Matrix mat, int m1, int n1, Matrix mat1){
     int i, j, k;
     double sum;
-    Matrix r;
+    Matrix r = NULL;
     
     if (n != m1)
         printf("ERROR: matrix multiplication only works with (mxn)(nxk)=(mxk)");
