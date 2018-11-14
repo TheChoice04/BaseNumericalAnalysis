@@ -82,14 +82,12 @@ Matrix parseQMatrix(int n){
 	Matrix mat;
 	int i;
 	double x;
-	char choice, voodoo;
+	int choice;
 
-	printf("Do you want to randomic parse the Matrix? (y/n)");
-	scanf("%c", &choice);
-	scanf("%c", &voodoo);
-	printf("Choice = %c, Voodoo = %c", choice, voodoo);
+	printf("Do you want to randomic parse the Matrix? (1=yes/0=no)");
+	scanf("%d", &choice);
 
-	if (choice == 'y'){
+	if (choice == 1){
 		double x, y;
 	    printf("Insert minimum and maximum values for your matrix value range: ");
 	    scanf("%lf %lf", &x, &y);

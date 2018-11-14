@@ -14,12 +14,17 @@
 #include <math.h>
 #include <time.h>
 
+//  Macros Declaration
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
 #define Random(x, t) (x + ((double) rand()/RAND_MAX)*(y-x))
 
+//  Global Const Declaration
+#define MAX_ATTEMPTs 10000
+
+//  New Type Declaration
 #define Vector double*
 #define Matrix double**
 
@@ -31,12 +36,14 @@
 //
 
 int mainMenu();
+int iterativeMenu();
 int gaussianElimination();
+double exeBisection(double (*f)(double));
+
 
 //
 //  From util_Matrix.c
 //
-
 
 Vector allocVector(int);
 Matrix allocMatrix(int, int);
@@ -54,5 +61,16 @@ Matrix multMM(int, int, Matrix, int, int, Matrix);
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
+
+//
+//  From functionList.c
+//
+
+// e^x-1
+double f1(double x);
+double df1(double x);
+// 1-sin(x)
+double f2(double x);
+double df2(double x);
 
 #endif /* mainHeader_h */

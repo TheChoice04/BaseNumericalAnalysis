@@ -20,29 +20,36 @@
 
 #include "mainHeader.h"
 
-char makeChoice();
+int selectTask();
 
 int mainMenu() {
-    const int MAX_ATTEMPTs = 5;
+    const int MENU_MAX_ATTEMPTs = 5;
     int i = 0, flag = 1;
     char choice;
     printf("Hi There!\n");
     printf("Please choose one of the following:\n");
-    
-    while (i <= MAX_ATTEMPTs && flag == 1) {
-        choice = makeChoice();
+
+    while (i <= MENU_MAX_ATTEMPTs && flag == 1) {
+        choice = selectTask();
         switch (choice) {
-            case 'g':
+            case 1:
                 gaussianElimination();
                 i=0;
                 break;
-            case 'q':
+
+            case 2:
+                iterativeMenu();
+                i=0;
+                break;
+
+            case 0:
                 flag = 0;
                 break;
+
             default:
                 printf("No choices associated to %c.\n", choice);
                 i++;
-                if (i > MAX_ATTEMPTs){
+                if (i > MENU_MAX_ATTEMPTs){
                     flag = 2;
                     printf("==========================\n");
                     printf("======To Much Errors======\n");
@@ -55,17 +62,16 @@ int mainMenu() {
 }
 
 
-char makeChoice(){
-    char c;
+int selectTask(){
+    int c;
     printf("You can choose one of the following:\n");
-    printf(" - press `g` to Gaussian Elimination;\n");
+    printf(" - type `1` to Gaussian Elimination;\n");
+    printf(" - type `2` to find a zero of a function\n");
     // Insert more choiches here...
-    printf(" - press `q` to quit.\n");
+    printf(" - type `0` to quit.\n");
     
     printf("Make your choice: ");
-    scanf("%c", &c);
-    char voodoo;
-    scanf("%c", &voodoo); //THIS IS TO IGNORE `\n` char THAT COMES OUT FROM INPUT.
+    scanf("%d", &c);
     printf("\n\n");
     
     return c;

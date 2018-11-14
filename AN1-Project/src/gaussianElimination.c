@@ -58,7 +58,9 @@ int gaussianElimination(){
     			app = A[i+1];
     			A[i+1] = A[max];
     			A[max] = app;
-    			printQMatrix(n, A);
+
+    			//ln;
+    			//printQMatrix(n, A);
     		}
     	}
     	// Row Cicle
@@ -82,16 +84,15 @@ int gaussianElimination(){
 Matrix parseSource(int *np){
     int i, n=0;
     double x;
-    char choice, voodoo;
+    int choice;
     double **mat;
     FILE *fileP;
     
-    printf("Do you want to parse Default File: ");
-    printf("`Source/GaussElimMatrix.txt`? (y/n)");
-    scanf("%c", &choice);
-    scanf("%c", &voodoo);
+    printf("Do you want to parse Default File:\n");
+    printf("\t`Source/GaussElimMatrix.txt`? (1=yes/0=no)");
+    scanf("%d", &choice);
     
-    if (choice == 'y') {
+    if (choice == 1) {
         fileP = fopen("Source/GaussElimMatrix.txt", "r");
         fscanf(fileP, "%d", &n);
         
@@ -104,7 +105,6 @@ Matrix parseSource(int *np){
     } else {
     	printf("Insert the Matrix Dimension: ");
     	scanf("%d", &n);
-    	scanf("%c", &voodoo);
 
         mat = parseQMatrix(n);
     }
