@@ -18,7 +18,7 @@
  */
 
 
-#include "mainHeader.h"
+#include "an1.h"
 
 int selectTask();
 
@@ -33,7 +33,7 @@ int mainMenu() {
         choice = selectTask();
         switch (choice) {
             case 1:
-                gaussianElimination();
+            	directMenu();
                 i=0;
                 break;
 
@@ -65,7 +65,7 @@ int mainMenu() {
 int selectTask(){
     int c;
     printf("You can choose one of the following:\n");
-    printf(" - type `1` to Gaussian Elimination;\n");
+    printf(" - type `1` to decompose a matrix;\n");
     printf(" - type `2` to find a zero of a function\n");
     // Insert more choiches here...
     printf(" - type `0` to quit.\n");

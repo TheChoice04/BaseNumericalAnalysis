@@ -6,7 +6,7 @@
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "mainHeader.h"
+#include "an1.direct.h"
 
 /**
  *  Here matrix are allocated by rows so mat[i][j] is the jth element

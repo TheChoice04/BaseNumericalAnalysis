@@ -6,7 +6,7 @@
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "mainHeader.h"
+#include "an1.iteratives.h"
 
 double exeBisection(double (*f)(double));
 

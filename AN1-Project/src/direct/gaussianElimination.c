@@ -23,7 +23,7 @@
  *      `1` : undefined error.
  */
 
-#include "mainHeader.h"
+#include "an1.direct.h"
 
 Matrix parseSource(int *);
 
@@ -89,13 +89,12 @@ Matrix parseSource(int *np){
     FILE *fileP;
     
     printf("Do you want to parse Default File:\n");
-    printf("\t`Source/GaussElimMatrix.txt`? (1=yes/0=no)");
+    printf("\t`source/GaussElimMatrix.txt`? (1=yes/0=no)");
     scanf("%d", &choice);
     
     if (choice == 1) {
-        fileP = fopen("Source/GaussElimMatrix.txt", "r");
+        fileP = fopen("source/GaussElimMatrix.txt", "r");
         fscanf(fileP, "%d", &n);
-        
         mat = allocQMatrix(n);
         
         for (i=0; i<n*n; i++){

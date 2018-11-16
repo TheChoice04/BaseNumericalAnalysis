@@ -1,13 +1,12 @@
-//
-//  mainHeader.h
-//  AN410 ProjectManager
-//
-//  Created by Elia Onofri on 02/10/18.
-//  Copyright © 2018 Elia Onofri. All rights reserved.
-//
+/*
+ * an1.direct.h
+ *
+ *  Created on: 16 nov 2018
+ *      Author: Elia
+ */
 
-#ifndef mainHeader_h
-#define mainHeader_h
+#ifndef AN1_DIRECT_H_
+#define AN1_DIRECT_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,18 +27,12 @@
 #define Vector double*
 #define Matrix double**
 
-
 //
-//     AN410 Functions
-//
-//  One from each .c file
+//	From gaussianElimination.c
 //
 
-int mainMenu();
-int iterativeMenu();
+int directMenu();
 int gaussianElimination();
-double exeBisection(double (*f)(double));
-
 
 //
 //  From util_Matrix.c
@@ -62,15 +55,4 @@ void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
 
-//
-//  From functionList.c
-//
-
-// e^x-1
-double f1(double x);
-double df1(double x);
-// 1-sin(x)
-double f2(double x);
-double df2(double x);
-
-#endif /* mainHeader_h */
+#endif /* AN1_DIRECT_H_ */

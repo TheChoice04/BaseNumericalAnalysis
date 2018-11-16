@@ -6,10 +6,10 @@
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "mainHeader.h"
+#include "an1.iteratives.h"
 
-int selectMethod();
-int selectFunction(double (*f)(double), double (*df)(double));
+int selectIterativeMethod();
+int selectFunction();
 
 /**
  * This function is meant to be a menù to choose between the Iterative
@@ -27,7 +27,7 @@ int iterativeMenu(){
 
     double (*f)(double);
     double (*df)(double);
-    c = selectFunction(f, df);
+    c = selectFunction();
     switch (c) {
         case 1:
             f = &f1;
@@ -43,7 +43,7 @@ int iterativeMenu(){
             return 2;
     }
 
-    c = selectMethod();
+    c = selectIterativeMethod();
     switch (c) {
         case 1:
             result = exeBisection(f);
@@ -61,7 +61,7 @@ int iterativeMenu(){
 }
 
 
-int selectMethod(){
+int selectIterativeMethod(){
     int c;
     printf("You can choose one of the following:\n");
     printf(" - type `1` to Bisezione;\n");
@@ -80,7 +80,7 @@ int selectMethod(){
     return c;
 }
 
-int selectFunction(double (*f)(double), double (*df)(double)){
+int selectFunction(){
     int c;
 
     printf("Choose one of the following functions:\n");
