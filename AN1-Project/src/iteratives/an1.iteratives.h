@@ -23,18 +23,35 @@
 //  Global Const Declaration
 #define MAX_ATTEMPTs 10000
 
+//
+//  Execute Function
+//
+
 int iterativeMenu();
+
+//
+//  Execute Function
+//
+
 double exeBisection(double (*f)(double));
+double exeNewton(double (*f)(double), double (*f1)(double));
+
+//
+//  Direct Function
+//
+
+double bisection(double a, double b, double e, double (*f)(double));
+double newton(double x, double e, double (*f)(double), double (*f1)(double));
 
 //
 //  From functionList.c
 //
 
 // e^x-1
-double f1(double x);
-double df1(double x);
+double samplef1(double x);
+double dsamplef1(double x);
 // 1-sin(x)
-double f2(double x);
-double df2(double x);
+double samplef2(double x);
+double dsamplef2(double x);
 
 #endif /* AN1_ITERATIVES_H_ */

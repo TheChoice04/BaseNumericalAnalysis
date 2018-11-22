@@ -22,76 +22,97 @@ int selectFunction();
  */
 
 int iterativeMenu(){
-    int c;
-    double result;
+	int c;
+	double result;
 
-    double (*f)(double);
-    double (*df)(double);
-    c = selectFunction();
-    switch (c) {
-        case 1:
-            f = &f1;
-            df = &df1;
-            break;
+	double (*f)(double);
+	double (*df)(double);
+	c = selectFunction();
+	switch (c) {
+	case 1:
+		f = &samplef1;
+		df = &dsamplef1;
+		break;
 
-        case 2:
-            f = &f2;
-            df = &df2;
-            break;
+	case 2:
+		f = &samplef2;
+		df = &dsamplef2;
+		break;
 
-        default:
-            return 2;
-    }
+	default:
+		return 2;
+	}
 
-    c = selectIterativeMethod();
-    switch (c) {
-        case 1:
-            result = exeBisection(f);
-            break;
+	c = selectIterativeMethod();
+	switch (c) {
+	case 1:
+		result = exeBisection(f);
+		break;
 
-        case 0:
-            printf("Aborted\n");
-            break;
+	case 2:
+		//result = exeFixedPoint(f);
+		break;
 
-        default:
-            return 3;
-    }
+	case 3:
+		//result = exeChord(f);
+		break;
 
-    return 0;
+	case 4:
+		//result = exeSecant(f);
+		break;
+
+	case 5:
+		result = exeNewton(f, df);
+		break;
+
+	case 6:
+		//result = exeQNewton(f);
+		break;
+
+	case 0:
+		printf("Aborted\n");
+		break;
+
+	default:
+		printf("ERROR: no function for the choice made.");
+		return 3;
+	}
+
+	return 0;
 }
 
 
 int selectIterativeMethod(){
-    int c;
-    printf("You can choose one of the following:\n");
-    printf(" - type `1` to Bisezione;\n");
-    printf(" - type `2` to Punto Fisso (NY);\n");
-    printf(" - type `3` to Corde (NY);\n");
-    printf(" - type `4` to Secanti (NY);\n");
-    printf(" - type `5` to Newton (NY);\n");
-    printf(" - type `6` to Quasi Newton (NY);\n");
-    // Insert more choiches here...
-    printf(" - type `0` to quit.\n\n");
+	int c;
+	printf("You can choose one of the following:\n");
+	printf(" - type `1` to Bisezione;\n");
+	printf(" - type `2` to Punto Fisso (NY);\n");
+	printf(" - type `3` to Corde (NY);\n");
+	printf(" - type `4` to Secanti (NY);\n");
+	printf(" - type `5` to Newton (NY);\n");
+	printf(" - type `6` to Quasi Newton (NY);\n");
+	// Insert more choiches here...
+	printf(" - type `0` to quit.\n\n");
 
-    printf("Make your choice: ");
-    scanf("%d", &c);
-    printf("\n\n");
+	printf("Make your choice: ");
+	scanf("%d", &c);
+	printf("\n\n");
 
-    return c;
+	return c;
 }
 
 int selectFunction(){
-    int c;
+	int c;
 
-    printf("Choose one of the following functions:\n");
-    printf(" - type '1' to choose: (e^x)-1\n");
-    printf(" - type '2' to choose: x/2-sin(x)\n");
-    // Insert more choiches here...
+	printf("Choose one of the following functions:\n");
+	printf(" - type '1' to choose: (e^x)-1\n");
+	printf(" - type '2' to choose: x/2-sin(x)\n");
+	// Insert more choiches here...
 
-    printf("Make your choice: ");
-    scanf("%d", &c);
-    printf("\n\n");
+	printf("Make your choice: ");
+	scanf("%d", &c);
+	printf("\n\n");
 
-    return c;
+	return c;
 }
 

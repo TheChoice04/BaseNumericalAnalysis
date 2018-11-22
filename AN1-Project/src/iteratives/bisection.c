@@ -11,7 +11,7 @@
 double exeBisection(double (*f)(double));
 
 /**
- * Bisection method is a recursive method to compute the zero of a given
+ * Bisection method is a Iterative method to compute the zero of a given
  *  funtion `f`. To do so, it needs a left and a right element tostarf from.
  *
  * @param a double: left margin;
