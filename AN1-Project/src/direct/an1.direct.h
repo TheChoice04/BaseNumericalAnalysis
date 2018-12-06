@@ -1,8 +1,8 @@
 /*
  * an1.direct.h
  *
- *  Created on: 16 nov 2018
- *      Author: Elia
+ *  Created on: 16 Nov 2018
+ *      Author: Elia Onofri
  */
 
 #ifndef AN1_DIRECT_H_

@@ -12,7 +12,7 @@ int selectIterativeMethod();
 int selectFunction();
 
 /**
- * This function is meant to be a menù to choose between the Iterative
+ * This function is meant to be a menu to choose between the Iterative
  *  algorithms for the search of a zero of a function.
  *
  * @return int exit code:
@@ -54,7 +54,7 @@ int iterativeMenu(){
 		break;
 
 	case 3:
-		//result = exeChord(f);
+		result = exeChord(f);
 		break;
 
 	case 4:
@@ -85,13 +85,13 @@ int iterativeMenu(){
 int selectIterativeMethod(){
 	int c;
 	printf("You can choose one of the following:\n");
-	printf(" - type `1` to Bisezione;\n");
-	printf(" - type `2` to Punto Fisso (NY);\n");
-	printf(" - type `3` to Corde (NY);\n");
+	printf(" - type `1` to Bisection;\n");
+	printf(" - type `2` to Fixed Point (NY);\n");
+	printf(" - type `3` to Chord;\n");
 	printf(" - type `4` to Secanti (NY);\n");
-	printf(" - type `5` to Newton (NY);\n");
-	printf(" - type `6` to Quasi Newton (NY);\n");
-	// Insert more choiches here...
+	printf(" - type `5` to Newton;\n");
+	printf(" - type `6` to Near Newton (NY);\n");
+	// Insert more choices here...
 	printf(" - type `0` to quit.\n\n");
 
 	printf("Make your choice: ");
@@ -107,7 +107,7 @@ int selectFunction(){
 	printf("Choose one of the following functions:\n");
 	printf(" - type '1' to choose: (e^x)-1\n");
 	printf(" - type '2' to choose: x/2-sin(x)\n");
-	// Insert more choiches here...
+	// Insert more choices here...
 
 	printf("Make your choice: ");
 	scanf("%d", &c);

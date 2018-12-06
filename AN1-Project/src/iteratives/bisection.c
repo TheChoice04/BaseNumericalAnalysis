@@ -12,7 +12,7 @@ double exeBisection(double (*f)(double));
 
 /**
  * Bisection method is a Iterative method to compute the zero of a given
- *  funtion `f`. To do so, it needs a left and a right element tostarf from.
+ *  function `f`. To do so, it needs a left and a right element to start from.
  *
  * @param a double: left margin;
  * @param b double: right margin;
@@ -45,13 +45,13 @@ double bisection(double a, double b, double e, double (*f)(double)){
         counter++;
     }
     if (counter >= MAX_ATTEMPTs) printf("No zeros where found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, c);
-    else printf("La funzione presenta uno zero in `%lf` con un errore di `%lf`.\n", c, e);
+    else printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", c, counter, e);
     return c;
 }
 
 double exeBisection(double (*f)(double)){
     double a, b, e;
-    printf("Type left inizialization, right inizialization and error: ");
+    printf("Type left initialization, right initialization and error: ");
     scanf("%lf %lf %lf", &a, &b, &e);
     return bisection(a, b, e, f);
 }

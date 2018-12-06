@@ -10,7 +10,7 @@
 int selectDirectMethod();
 
 /**
- * This function is meant to be a menù to choose between the Iterative
+ * This function is meant to be a menu to choose between the Iterative
  *  algorithms for the search of a zero of a function.
  *
  * @return int exit code:
@@ -47,10 +47,10 @@ int selectDirectMethod(){
     int c;
     printf("You can choose one of the following:\n");
     printf(" - type `1` to Gaussian Elimination;\n");
-    printf(" - type `2` to LU factorization (doolittle) (NY);\n");
-    printf(" - type `3` to LU factorization (cholesky) (NY);\n");
+    printf(" - type `2` to LU factorization (Doolittle) (NY);\n");
+    printf(" - type `3` to LU factorization (Cholesky) (NY);\n");
     printf(" - type `4` to QR factorization (NY);\n");
-    // Insert more choiches here...
+    // Insert more choices here...
     printf(" - type `0` to quit.\n\n");
 
     printf("Make your choice: ");
