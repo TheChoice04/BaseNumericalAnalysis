@@ -13,11 +13,14 @@ double exeChord(double (*f)(double));
  * Chord method is a Iterative method to compute the zero of a given
  *  function `f`. To do so, it needs a left `a` and a right `b` element to
  *  initialize the chord parameter and a point to start from `x`.
- *  <p>
- *  This method follows the following formula:
- *  ```math
- *  g(x) = x - c * f(x), c = (b - a) / (f(b) - f(a))
- *  ```
+ *
+ * <p>
+ *
+ * This method follows the following formula:
+ * ```math
+ *   g(x) = x - p * f(x),    p = (b - a) / (f(b) - f(a))
+ * ```
+ *  using the secant (fixed) angular coefficient as increaser.
  *
  * @param a double: left margin;
  * @param b double: right margin;
@@ -60,7 +63,7 @@ double chord(double a, double b, double x, double e, double (*f)(double)){
 
 double exeChord(double (*f)(double)){
 	double a, b, x, e;
-	    printf("Type left initialization, right initialization, starting point and error: ");
+	    printf("Type in the left initialization, the right one, the starting point and the error range: ");
 	    scanf("%lf %lf %lf %lf", &a, &b, &x, &e);
 	return chord(a, b, x, e, f);
 }

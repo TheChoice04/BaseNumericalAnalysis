@@ -12,11 +12,13 @@ double exeSteffensen(double (*f)(double));
 /**
  * Steffensen method is a Iterative method to compute the zero of a given
  *  function `f`. To do so, it only needs a starting point `x`.
- *  <p>
- *  This method follows the following formula:
- *  ```math
- *  g(x) = x - f(x)^2 / (f(x) - f(x - f(x)))
- *  ```
+ *
+ * <p>
+ *
+ * This method follows the following formula:
+ * ```math
+ *   g(x) = x - p(x) * f(x),    p(x) = f(x) / (f(x) - f(x - f(x)))
+ * ```
  *
  * @param x double: starting point;
  * @param e double: approx error needed;
@@ -46,7 +48,7 @@ double steffensen(double x, double e, double (*f)(double)){
 
 double exeSteffensen(double (*f)(double)){
 	double x, e;
-	    printf("Type starting point and error: ");
+	    printf("Type the starting point and the error: ");
 	    scanf("%lf %lf", &x, &e);
 	return steffensen(x, e, f);
 }

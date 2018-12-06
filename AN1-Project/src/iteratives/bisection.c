@@ -13,6 +13,8 @@ double exeBisection(double (*f)(double));
 /**
  * Bisection method is a Iterative method to compute the zero of a given
  *  function `f`. To do so, it needs a left `a` and a right `b` element to start from.
+ * It evaluates the mid point and assign it either to the left or to the right margin
+ *  so that it has the same sign. It continue doing so till the min error is reached.
  *
  * @param a double: left margin;
  * @param b double: right margin;
@@ -51,7 +53,7 @@ double bisection(double a, double b, double e, double (*f)(double)){
 
 double exeBisection(double (*f)(double)){
     double a, b, e;
-    printf("Type left initialization, right initialization and error: ");
+    printf("Type in the left initialization, the right one and the error range: ");
     scanf("%lf %lf %lf", &a, &b, &e);
     return bisection(a, b, e, f);
 }
