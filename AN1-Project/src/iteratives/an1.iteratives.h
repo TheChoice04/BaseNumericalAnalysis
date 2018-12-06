@@ -36,6 +36,7 @@ int iterativeMenu();
 double exeBisection(double (*f)(double));
 double exeChord(double (*f)(double));
 double exeNewton(double (*f)(double), double (*f1)(double));
+double exeSteffensen(double (*f)(double));
 
 //
 //  Direct Function
@@ -44,6 +45,7 @@ double exeNewton(double (*f)(double), double (*f1)(double));
 double bisection(double a, double b, double e, double (*f)(double));
 double chord(double a, double b, double x, double e, double (*f)(double));
 double newton(double x, double e, double (*f)(double), double (*f1)(double));
+double steffensen(double x, double e, double (*f)(double));
 
 //
 //  From functionList.c

@@ -12,7 +12,7 @@ double exeBisection(double (*f)(double));
 
 /**
  * Bisection method is a Iterative method to compute the zero of a given
- *  function `f`. To do so, it needs a left and a right element to start from.
+ *  function `f`. To do so, it needs a left `a` and a right `b` element to start from.
  *
  * @param a double: left margin;
  * @param b double: right margin;

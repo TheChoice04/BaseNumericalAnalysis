@@ -10,14 +10,14 @@
 
 /**
  * Newton Method is an iterative method to compute a zero of a given
- *  function `f` by the knowledge of its first derivate. Starting from
- *  a nearby point, the method collides on the zero if:
+ *  function `f` by the knowledge of its first derivative `f1`. Starting from
+ *  a nearby point `x0`, the method collides on the zero if:
  *   - convex  increasing and `x0 > x`
  *   - concave increasing and `x0 < x`
  *   - convex  decreasing and `x0 < x`
  *   - concave decreasing and `x0 > x`
  *
- * @param x double: starting point of the function
+ * @param x double: starting point of the function `x0`
  * @param e double: max error expected
  * @param f double *(double): pointer to the function
  * @param f1 double *(double): pointer to the first derivate of `f`

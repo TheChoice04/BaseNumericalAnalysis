@@ -11,8 +11,8 @@ double exeChord(double (*f)(double));
 
 /**
  * Chord method is a Iterative method to compute the zero of a given
- *  function `f`. To do so, it needs a left and a right element to
- *  initialize the chord parameter and a point to start from.
+ *  function `f`. To do so, it needs a left `a` and a right `b` element to
+ *  initialize the chord parameter and a point to start from `x`.
  *  <p>
  *  This method follows the following formula:
  *  ```math
