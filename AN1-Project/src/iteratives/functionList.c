@@ -16,17 +16,17 @@
  */
 
 double samplef1(double x){
-    return exp(x)-1;
+	return exp(x)-1;
 }
 
 double dsamplef1(double x){
-    return exp(x);
+	return exp(x);
 }
 
 double samplef2(double x){
-    return x/2-sin(x);
+	return x/2-sin(x);
 }
 
 double dsamplef2(double x){
-    return 1/2-cos(x);
+	return 1/2-cos(x);
 }

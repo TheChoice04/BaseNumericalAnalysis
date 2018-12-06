@@ -11,7 +11,7 @@ double exeSteffensen(double (*f)(double));
 
 /**
  * Steffensen method is a Iterative method to compute the zero of a given
- *  function `f`. To do so, it only needs a starting point `x`.
+ *  function `f`. To do so, it only needs a initial point `x0`.
  *
  * <p>
  *
@@ -20,7 +20,7 @@ double exeSteffensen(double (*f)(double));
  *   g(x) = x - p(x) * f(x),    p(x) = f(x) / (f(x) - f(x - f(x)))
  * ```
  *
- * @param x double: starting point;
+ * @param x double: initial point `x0`;
  * @param e double: approx error needed;
  * @param f double *(double): pointer to the function.
  *
@@ -39,7 +39,7 @@ double steffensen(double x, double e, double (*f)(double)){
 		counter++;
 	}
 
-	if (counter >= MAX_ATTEMPTs) printf("No zeros where found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
+	if (counter >= MAX_ATTEMPTs) printf("No zeros were found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
 	else if (ffx == fx) printf("The method failed (at step %d) as f(x - f(x)) - f(x) = 0", counter);
 	else printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", x, counter, e);
 
@@ -48,8 +48,10 @@ double steffensen(double x, double e, double (*f)(double)){
 
 double exeSteffensen(double (*f)(double)){
 	double x, e;
-	    printf("Type the starting point and the error: ");
-	    scanf("%lf %lf", &x, &e);
+
+	printf("Type the starting point and the error: ");
+	scanf("%lf %lf", &x, &e);
+
 	return steffensen(x, e, f);
 }
 

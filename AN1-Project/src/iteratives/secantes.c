@@ -35,7 +35,6 @@ double secantes(double xp, double x, double e, double (*f)(double)){
 	double fx = f(x);
 	double fxp = f(xp);
 
-
 	while (fabs(fx) > e && fx != fxp && counter < MAX_ATTEMPTs) {
 		x = x - fx * (x - xp) / (fx - fxp);
 		fxp = fx;
@@ -43,7 +42,7 @@ double secantes(double xp, double x, double e, double (*f)(double)){
 		counter++;
 	}
 
-	if (counter >= MAX_ATTEMPTs) printf("No zeros where found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
+	if (counter >= MAX_ATTEMPTs) printf("No zeros were found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
 	else if (fxp == fx) printf("The method failed (at step %d) as f(x) - f(xp) = 0", counter);
 	else printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", x, counter, e);
 
@@ -52,7 +51,9 @@ double secantes(double xp, double x, double e, double (*f)(double)){
 
 double exeSecantes(double (*f)(double)){
 	double x0, x1, e;
-	    printf("Type the first two points of the iterations and the error: ");
-	    scanf("%lf %lf %lf", &x0, &x1, &e);
-	return steffensen(x0, x1, e, f);
+
+	printf("Type in the first two points of the iterations and the error range: ");
+	scanf("%lf %lf %lf", &x0, &x1, &e);
+
+	return secantes(x0, x1, e, f);
 }

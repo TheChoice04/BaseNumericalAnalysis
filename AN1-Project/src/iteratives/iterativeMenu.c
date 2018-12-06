@@ -50,23 +50,23 @@ int iterativeMenu(){
 		break;
 
 	case 2:
-		//result = exeFixedPoint(f);
-		break;
-
-	case 3:
 		result = exeChord(f);
 		break;
 
-	case 4:
-		result = exeSecant(f);
+	case 3:
+		//result = exeMuller(f);
 		break;
 
-	case 5:
+	case 4:
 		result = exeNewton(f, df);
 		break;
 
+	case 5:
+		result = exeNewtonQuotient(f);
+		break;
+
 	case 6:
-		//result = exeQNewton(f);
+		result = exeSecantes(f);
 		break;
 
 	case 7:
@@ -90,11 +90,11 @@ int selectIterativeMethod(){
 	int c;
 	printf("You can choose one of the following:\n");
 	printf(" - type `1` to Bisection;\n");
-	printf(" - type `2` to Fixed Point (NY);\n");
-	printf(" - type `3` to Chord;\n");
-	printf(" - type `4` to Secantes;\n");
-	printf(" - type `5` to Newton;\n");
-	printf(" - type `6` to Near Newton (NY);\n");
+	printf(" - type `2` to Chord;\n");
+	printf(" - type `3` to Muller (NY);\n");
+	printf(" - type `4` to Newton;\n");
+	printf(" - type `5` to Newton Quotient;\n");
+	printf(" - type `6` to Secantes;\n");
 	printf(" - type `7` to Steffensen;\n");
 	// Insert more choices here...
 	printf(" - type `0` to quit.\n\n");

@@ -2,7 +2,7 @@
  * newton.c
  *
  *  Created on: 22 nov 2018
- *      Author: Elia
+ *      Author: Elia Onofri
  */
 
 
@@ -26,7 +26,7 @@
  *  using the derivative as increaser.
  * The method is fast but need to know the derivative of the given function.
  *
- * @param x double: starting point of the function `x0`
+ * @param x double: initial point of the function `x0`
  * @param e double: max error expected
  * @param f double *(double): pointer to the function
  * @param f1 double *(double): pointer to the first derivate of `f`
@@ -44,7 +44,7 @@ double newton(double x, double e, double (*f)(double), double (*f1)(double)){
 		counter++;
 	}
 
-	if (counter >= MAX_ATTEMPTs) printf("No zeros where found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
+	if (counter >= MAX_ATTEMPTs) printf("No zeros were found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
 	else printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", x, counter, e);
 
 	return x;

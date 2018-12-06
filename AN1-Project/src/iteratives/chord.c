@@ -2,7 +2,7 @@
  *  chord.c
  *
  *  Created on: 22 nov 2018
- *      Author: Elia
+ *      Author: Elia Onofri
  */
 
 #include "an1.iteratives.h"
@@ -12,7 +12,7 @@ double exeChord(double (*f)(double));
 /**
  * Chord method is a Iterative method to compute the zero of a given
  *  function `f`. To do so, it needs a left `a` and a right `b` element to
- *  initialize the chord parameter and a point to start from `x`.
+ *  initialize the chord parameter and a point to start from `x0`.
  *
  * <p>
  *
@@ -20,11 +20,11 @@ double exeChord(double (*f)(double));
  * ```math
  *   g(x) = x - p * f(x),    p = (b - a) / (f(b) - f(a))
  * ```
- *  using the secant (fixed) angular coefficient as increaser.
+ *  using the chord (fixed) angular coefficient as increaser.
  *
  * @param a double: left margin;
  * @param b double: right margin;
- * @param x double: starting point;
+ * @param x double: initial point `x0`;
  * @param e double: approx error needed;
  * @param f double *(double): pointer to the function.
  *
@@ -55,7 +55,7 @@ double chord(double a, double b, double x, double e, double (*f)(double)){
 		counter++;
 	}
 
-	if (counter >= MAX_ATTEMPTs) printf("No zeros where found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
+	if (counter >= MAX_ATTEMPTs) printf("No zeros were found within the first %d iterations with the required precision. The partial zero found is located at `%lf`.\n", counter, x);
 	else printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", x, counter, e);
 
 	return x;
@@ -63,7 +63,9 @@ double chord(double a, double b, double x, double e, double (*f)(double)){
 
 double exeChord(double (*f)(double)){
 	double a, b, x, e;
-	    printf("Type in the left initialization, the right one, the starting point and the error range: ");
-	    scanf("%lf %lf %lf %lf", &a, &b, &x, &e);
+
+	printf("Type in the left initialization, the right one, the initial point and the error range: ");
+	scanf("%lf %lf %lf %lf", &a, &b, &x, &e);
+
 	return chord(a, b, x, e, f);
 }
