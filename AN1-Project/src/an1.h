@@ -14,8 +14,11 @@
 #include <math.h>
 #include <time.h>
 
-#include "function-zeroes/an1.function-zeroes.h"
 #include "direct/an1.direct.h"
+#include "linear-systems/an1.linear-systems.h"
+#include "function-zeroes/an1.function-zeroes.h"
+#include "interpolation/an1.interpolation.h"
+#include "least-squares/an1.least-squares.h"
 
 
 //
