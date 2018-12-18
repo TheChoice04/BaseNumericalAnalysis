@@ -1,12 +1,12 @@
 /*
- * an1.function-zeroes.h
+ * an1.linear-systems.h
  *
  *  Created on: 18 dic 2018
  *      Author: Elia
  */
 
-#ifndef SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_
-#define SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_
+#ifndef SRC_LINEAR_SYSTEMS_ITERATIVES_AN1_LINEAR_SYSTEMS_H_
+#define SRC_LINEAR_SYSTEMS_ITERATIVES_AN1_LINEAR_SYSTEMS_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@
 //  Execute Function
 //
 
-int functionZeroesMenu();
+int iterativeMenu();
 
 //
 //  Execute Function
@@ -62,4 +62,4 @@ double dsamplef1(double x);
 double samplef2(double x);
 double dsamplef2(double x);
 
-#endif /* SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_ */
+#endif /* SRC_LINEAR_SYSTEMS_ITERATIVES_AN1_LINEAR_SYSTEMS_H_ */

@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  */
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 double exeNewtonQuotient(double (*f)(double));
 

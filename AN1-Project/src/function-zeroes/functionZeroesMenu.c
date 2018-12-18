@@ -1,12 +1,12 @@
 //
-//  iterativeMenu.c
+//  functionZeroesMenu.c
 //  ProjectManager
 //
 //  Created by Elia Onofri on 13/11/18.
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 int selectIterativeMethod();
 int selectFunction();
@@ -21,7 +21,7 @@ int selectFunction();
  *      `3` : Wrong Method Choosing
  */
 
-int iterativeMenu(){
+int functionZeroesMenu(){
 	int c;
 	double result;
 

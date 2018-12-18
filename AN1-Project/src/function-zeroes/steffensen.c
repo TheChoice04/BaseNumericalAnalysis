@@ -5,7 +5,7 @@
  *      Author: Elia
  */
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 double exeSteffensen(double (*f)(double));
 

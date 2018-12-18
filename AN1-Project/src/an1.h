@@ -14,7 +14,7 @@
 #include <math.h>
 #include <time.h>
 
-#include "iteratives/an1.iteratives.h"
+#include "function-zeroes/an1.function-zeroes.h"
 #include "direct/an1.direct.h"
 
 

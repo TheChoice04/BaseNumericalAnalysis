@@ -6,7 +6,7 @@
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 double exeBisection(double (*f)(double));
 

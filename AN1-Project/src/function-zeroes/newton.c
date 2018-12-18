@@ -6,7 +6,7 @@
  */
 
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 /**
  * Newton Method is an iterative method to compute a zero of a given

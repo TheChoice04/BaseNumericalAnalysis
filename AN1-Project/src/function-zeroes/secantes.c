@@ -6,7 +6,7 @@
  */
 
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 double exeSecantes(double (*f)(double));
 
