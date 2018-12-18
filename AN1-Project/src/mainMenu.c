@@ -12,8 +12,8 @@
  *
  *  @return int exit-code:
  *      `0` : correct outcome
- *      `1` : wrong exit from the main menù
- *      `2` : wrong attempts in main menù more than MAX_ATTEMPTs
+ *      `1` : wrong exit from the main menu
+ *      `2` : wrong attempts in main menu more than MAX_ATTEMPTs
  *      `9` : manual exit.
  */
 
@@ -38,7 +38,7 @@ int mainMenu() {
                 break;
 
             case 2:
-                iterativeMenu();
+                functionZeroesMenu();
                 i=0;
                 break;
 
@@ -67,7 +67,7 @@ int selectTask(){
     printf("You can choose one of the following:\n");
     printf(" - type `1` to decompose a matrix;\n");
     printf(" - type `2` to find a zero of a function\n");
-    // Insert more choiches here...
+    // Insert more choices here...
     printf(" - type `0` to quit.\n");
     
     printf("Make your choice: ");

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Elia Onofri. All rights reserved.
 //
 
-#include "an1.iteratives.h"
+#include "an1.function-zeroes.h"
 
 /**
  * Everywhere in the code you can say
@@ -15,18 +15,18 @@
  * to set a fix value for f.
  */
 
-double f1(double x){
-    return exp(x)-1;
+double samplef1(double x){
+	return exp(x)-1;
 }
 
-double df1(double x){
-    return exp(x);
+double dsamplef1(double x){
+	return exp(x);
 }
 
-double f2(double x){
-    return x/2-sin(x);
+double samplef2(double x){
+	return x/2-sin(x);
 }
 
-double df2(double x){
-    return 1/2-cos(x);
+double dsamplef2(double x){
+	return 1/2-cos(x);
 }

@@ -9,7 +9,7 @@
 #include "an1.direct.h"
 
 /**
- *  Here matrix are allocated by rows so mat[i][j] is the jth element
+ *  Here matrix are allocated by rows so mat[i][j] is the j-th element
  *    of the i-th row.
  *
  *
@@ -84,7 +84,7 @@ Matrix parseQMatrix(int n){
 	double x;
 	int choice;
 
-	printf("Do you want to randomic parse the Matrix? (1=yes/0=no)");
+	printf("Do you want to build a random Matrix? (1=yes/0=no)");
 	scanf("%d", &choice);
 
 	if (choice == 1){

@@ -9,7 +9,7 @@
 /**
  *  This Function implements Gaussian Elimination with both partial (1)
  *    and total (2) pivoting over a double space.
- *  Gaussian Elimination is a method to retrieve a echelon matrix from
+ *  Gaussian Elimination is a method to retrieve a Echelon matrix from
  *    a given nxn matrix. This matrix could be loaded from a file or
  *    from keyborad input:
  *     - In order to read from a file it must be written as a .txt file
@@ -113,7 +113,7 @@ Matrix parseSource(int *np){
     printf("\n======Data Reading Complete======\n\n");
     
     printf("n = %d\n", *np);
-    printf("La matrice A parsata è:\n");
+    printf("Matrix A has been parsed in:\n");
     printQMatrix(*np, mat);
     return mat;
 }
