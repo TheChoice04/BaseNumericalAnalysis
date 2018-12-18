@@ -38,7 +38,7 @@ int mainMenu() {
                 break;
 
             case 2:
-                iterativeMenu();
+                functionZeroesMenu();
                 i=0;
                 break;
 

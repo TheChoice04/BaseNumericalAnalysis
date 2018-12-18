@@ -10,6 +10,7 @@
 
 int selectIterativeMethod();
 int selectFunction();
+int exeAll();
 
 /**
  * This function is meant to be a menu to choose between the Iterative
@@ -73,6 +74,10 @@ int functionZeroesMenu(){
 		result = exeSteffensen(f);
 		break;
 
+	case 8:
+		result = exeAll(f, df);
+		break;
+
 	case 0:
 		printf("Aborted\n");
 		break;
@@ -96,6 +101,7 @@ int selectIterativeMethod(){
 	printf(" - type `5` to Newton Quotient;\n");
 	printf(" - type `6` to Secantes;\n");
 	printf(" - type `7` to Steffensen;\n");
+	printf(" - type `8` to execute them all and compare!;\n");
 	// Insert more choices here...
 	printf(" - type `0` to quit.\n\n");
 
@@ -119,5 +125,49 @@ int selectFunction(){
 	printf("\n\n");
 
 	return c;
+}
+
+int exeAll(double (*f)(double), double (*df)(double)){
+	double e;
+	double a, b;
+	double x, x2;
+	double h;
+
+	printf("Type in the error range: ");
+	scanf("%lf", &e);
+
+	printf("\n#---Bisection--Chord---#\n Type in the left and the right initialization: ");
+	scanf("%lf %lf", &a, &b);
+
+	printf("\n#---Chord--Newton--NewtonQuotient--Secantes--Steffensen---#\n Type in the initial point: ");
+	scanf("%lf", &x);
+
+	printf("\n#---Secantes---#\n Type in the second point: ");
+	scanf("%lf", &x2);
+
+	printf("\n#---NewtonQuotient---#\n Type in the incremental value: ");
+	scanf("%lf", &h);
+
+	printf("\n\n\nExecuting Bisection method...\n\n");
+	bisection(a, b, e, f);
+
+	printf("\n\n\nExecuting Chord method...\n\n");
+	chord(a, b, x, e, f);
+
+	//printf("\nExecuting  method...\n\n");
+	//result = exeMuller(f);
+
+	printf("\n\n\nExecuting Newton method...\n\n");
+	newton(x, e, f, df);
+
+	printf("\n\n\nExecuting Newton Quotient method...\n\n");
+	newtonQuotient(x, h, e, f);
+
+	printf("\n\n\nExecuting Secantes method...\n\n");
+	secantes(x, x2, e, f);
+
+	printf("\n\n\nExecuting Steffensen method...\n\n");
+	steffensen(x, e, f);
+	return 0;
 }
 
