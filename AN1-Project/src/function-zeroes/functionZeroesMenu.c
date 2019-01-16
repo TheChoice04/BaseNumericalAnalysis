@@ -18,6 +18,7 @@ int exeAll();
  *
  * @return int exit code:
  *      `0` : Correct outcome
+ *      `1` : Aborted
  *      `2` : Wrong Function Choosing
  *      `3` : Wrong Method Choosing
  */
@@ -80,7 +81,7 @@ int functionZeroesMenu(){
 
 	case 0:
 		printf("Aborted\n");
-		break;
+		return 1;
 
 	default:
 		printf("ERROR: no function for the choice made.");

@@ -14,14 +14,16 @@
  *
  * @return int exit code:
  *      `0` : Correct outcome
+ *      `1` : Aborted
  *      `2` : Wrong Function Choosing
  *      `3` : Wrong Method Choosing
- *      `4` : Aborted
+ *      `4` : Wrong
  */
 
 int interpolationMenu(){
-	int c, npts;
-	double result;
+	int c, npts, dpts, ans = -1;
+	double a, b;
+	Vector knot;
 	double (*f)(double);
 
 	//==========FUNCTION CHOOSING
@@ -42,6 +44,12 @@ int interpolationMenu(){
 
 	//==========KNOT CHOOSING
 
+	printf("Type in left and right edge of the range: ");
+	scanf("%lf %lf", &a, &b);
+
+	printf("Type in the number of data points you want to evaluate: ");
+	scanf("%d", &dpts);
+
 	printf("How many knots do you want to build? ");
 	scanf("%d", &npts);
 
@@ -56,19 +64,19 @@ int interpolationMenu(){
 
 	switch (c) {
 	case 1:
-		//k = buildEquidistantKnots(n+1);
+		knot = buildEquidistantKnots(npts, a, b);
 		break;
 
 	case 2:
-		//k = buildChebyshevKnots(n+1);
+		knot = buildChebyshevKnots(npts, a, b);
 		break;
 	case 0:
 		printf("Aborted\n");
-		return 4;
+		return 1;
 
 	default:
 		printf("ERROR: no function for the choice made.");
-		return 3;
+		return 5;
 	}
 
 	//==========INTERPOLATION CHOOSING
@@ -85,25 +93,25 @@ int interpolationMenu(){
 
 	switch (c) {
 	case 1:
-		//result = exeLagrange(f);
+		ans = lagrange(f, npts, knot, dpts, a, b);
 		break;
 
 	case 2:
-		//result = exeNewton(f);
+		//ans = exeNewton(f);
 		break;
 
 	case 3:
-		//result = exeHermite(f);
+		//ans = exeHermite(f);
 		break;
 
 	case 0:
 		printf("Aborted\n");
-		return 4;
+		return 1;
 
 	default:
 		printf("ERROR: no function for the choice made.");
 		return 3;
 	}
 
-	return 0;
+	return ans;
 }
