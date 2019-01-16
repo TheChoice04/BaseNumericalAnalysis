@@ -21,7 +21,7 @@
  */
 
 int interpolationMenu(){
-	int c, npts, dpts, ans = -1;
+	int c, npts, dpts, isClose;
 	double a, b;
 	Vector knot;
 	double (*f)(double);
@@ -53,6 +53,10 @@ int interpolationMenu(){
 	printf("How many knots do you want to build? ");
 	scanf("%d", &npts);
 
+	printf(" - type `0` for open knots\n");
+	printf(" - type `1` for close knots\n");
+	scanf("%d", &isClose);
+
 	printf("You can choose one of the Knot Construction:\n");
 	printf(" - type `1` to build %d equidistant knots (ToDo);\n", npts);
 	printf(" - type `2` to build %d Chebyshev knots (ToDo);\n", npts);
@@ -64,11 +68,11 @@ int interpolationMenu(){
 
 	switch (c) {
 	case 1:
-		knot = buildEquidistantKnots(npts, a, b);
+		knot = buildEquidistantKnots(npts, a, b, isClose);
 		break;
 
 	case 2:
-		knot = buildChebyshevKnots(npts, a, b);
+		knot = buildChebyshevKnots(npts, a, b, isClose);
 		break;
 	case 0:
 		printf("Aborted\n");
@@ -93,7 +97,7 @@ int interpolationMenu(){
 
 	switch (c) {
 	case 1:
-		ans = lagrange(f, npts, knot, dpts, a, b);
+		lagrange(f, npts, knot, dpts, a, b);
 		break;
 
 	case 2:
@@ -113,5 +117,5 @@ int interpolationMenu(){
 		return 3;
 	}
 
-	return ans;
+	return 0;
 }

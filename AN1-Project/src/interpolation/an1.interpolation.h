@@ -12,9 +12,10 @@
 
 int interpolationMenu();
 
-int lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
+void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
+void exeLagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
 
-Vector buildEquidistantKnots(int npts, float a, float b);
-Vector buildChebyshevKnots(int npts, float a, float b);
+Vector buildEquidistantKnots(int npts, float a, float b, int isClose);
+Vector buildChebyshevKnots(int npts, float a, float b, int isClose);
 
 #endif /* SRC_INTERPOLATION_AN1_INTERPOLATION_H_ */

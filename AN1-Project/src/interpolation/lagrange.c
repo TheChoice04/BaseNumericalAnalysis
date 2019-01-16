@@ -8,9 +8,31 @@
 
 #include "an1.interpolation.h"
 
-int lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b){
+/**
+ * This method generate and evaluate (over `dpts` points) the interpolate (from a Lagrange point of view) of the `*f` function
+ *  over the `knot` vector, given in input.
+ * To do so it creates the Lagrange base defined as:
+ * ```math
+ * 	L_i(x) = \prod_{j \ne i}\frac{x-x_j}{x_i-x_j}
+ * ```
+ * and evaluates the interpolate:
+ * ```math
+ * \Pi_n(x) = \sum_{i=0}^n f(x_i) \cdot L_i(x)
+ * ```
+ * It then save the results of the interpolation in `interpolation.lagrange.txt` with the following structure:
+ *  x    \Pi(x)    f(x)    delta
+ *
+ * @param f double *(double): The real function;
+ * @param npts int: number of knots;
+ * @param knot Vector: vector of the knots;
+ * @param dpts int: number of data points;
+ * @param a float: left margin of the range;
+ * @param b float: right margin of the range.
+ */
+
+void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b){
 	float step = (b-a)/(dpts-1);
-	float x = a, acc, L, err;
+	float x = a, acc, L, err, fx;
 	int i, j, k;
 	int n = npts-1;
 	Vector knotVal = allocVector(npts);
@@ -41,12 +63,17 @@ int lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, floa
 			}
 			acc += (L * knotVal[i]);
 		}
-		err = fabs(f(x)-acc);
-		fprintf(file, "%lf %lf %lf", x, acc, err);
+		fx = f(x);
+		err = fabs(fx-acc);
+		fprintf(file, "%lf %lf %lf %lf", x, acc, fx, err);
 		x += step;
 	}
 
 	fclose(file);
 
-	return 0;
+	return ;
+}
+
+void exeLagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b){
+	lagrange(f, npts, knot, dpts, a, b);
 }
