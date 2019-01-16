@@ -8,10 +8,7 @@
 #ifndef SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_
 #define SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include "../utils/an1.utils.h"
 
 //  Macros Declaration
 #define max(a,b) a>=b?a:b
@@ -50,16 +47,5 @@ double newton(double x, double e, double (*f)(double), double (*f1)(double));
 double newtonQuotient(double x, double h, double e, double (*f)(double));
 double secantes(double xp, double x, double e, double (*f)(double));
 double steffensen(double x, double e, double (*f)(double));
-
-//
-//  From functionList.c
-//
-
-// e^x-1
-double samplef1(double x);
-double dsamplef1(double x);
-// 1-sin(x)
-double samplef2(double x);
-double dsamplef2(double x);
 
 #endif /* SRC_FUNCTION_ZEROES_AN1_FUNCTION_ZEROES_H_ */

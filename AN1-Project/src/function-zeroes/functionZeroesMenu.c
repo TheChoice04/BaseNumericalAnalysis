@@ -112,21 +112,6 @@ int selectIterativeMethod(){
 	return c;
 }
 
-int selectFunction(){
-	int c;
-
-	printf("Choose one of the following functions:\n");
-	printf(" - type '1' to choose: (e^x)-1\n");
-	printf(" - type '2' to choose: x/2-sin(x)\n");
-	// Insert more choices here...
-
-	printf("Make your choice: ");
-	scanf("%d", &c);
-	printf("\n\n");
-
-	return c;
-}
-
 int exeAll(double (*f)(double), double (*df)(double)){
 	double e;
 	double a, b;
