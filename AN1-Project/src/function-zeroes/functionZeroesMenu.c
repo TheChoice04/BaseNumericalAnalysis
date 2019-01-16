@@ -1,10 +1,9 @@
-//
-//  functionZeroesMenu.c
-//  ProjectManager
-//
-//  Created by Elia Onofri on 13/11/18.
-//  Copyright © 2018 Elia Onofri. All rights reserved.
-//
+/*
+ *  functionZeroesMenu.c
+ *
+ *  Created on: 13 nov 2018
+ *      Author: Elia Onofri
+ */
 
 #include "an1.function-zeroes.h"
 
