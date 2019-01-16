@@ -18,6 +18,7 @@ int exeAll();
  *
  * @return int exit code:
  *      `0` : Correct outcome
+ *      `1` : Aborted
  *      `2` : Wrong Function Choosing
  *      `3` : Wrong Method Choosing
  */
@@ -80,7 +81,7 @@ int functionZeroesMenu(){
 
 	case 0:
 		printf("Aborted\n");
-		break;
+		return 1;
 
 	default:
 		printf("ERROR: no function for the choice made.");
@@ -104,21 +105,6 @@ int selectIterativeMethod(){
 	printf(" - type `8` to execute them all and compare!;\n");
 	// Insert more choices here...
 	printf(" - type `0` to quit.\n\n");
-
-	printf("Make your choice: ");
-	scanf("%d", &c);
-	printf("\n\n");
-
-	return c;
-}
-
-int selectFunction(){
-	int c;
-
-	printf("Choose one of the following functions:\n");
-	printf(" - type '1' to choose: (e^x)-1\n");
-	printf(" - type '2' to choose: x/2-sin(x)\n");
-	// Insert more choices here...
 
 	printf("Make your choice: ");
 	scanf("%d", &c);

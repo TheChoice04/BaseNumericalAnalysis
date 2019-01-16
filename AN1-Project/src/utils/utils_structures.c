@@ -1,12 +1,12 @@
-//
-//  util_Matrix.c
-//  AN410 ProjectManager
-//
-//  Created by Elia Onofri on 09/10/18.
-//  Copyright © 2018 Elia Onofri. All rights reserved.
-//
+/*
+ * utils_structures.c
+ *
+ *  Created on: 16 gen 2019
+ *      Author: Elia Onofri
+ */
 
-#include "an1.direct.h"
+
+#include "an1.utils.h"
 
 /**
  *  Here matrix are allocated by rows so mat[i][j] is the j-th element
@@ -33,6 +33,7 @@ void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
 
+void fprintVector(char *dest, Vector arg, int len);
 
 
 //
@@ -115,7 +116,7 @@ Vector multMV(int m, int n, Matrix mat, int n1, Vector v){
     Vector r = NULL;
     int i, j;
     double sum;
-    
+
     if (n != n1)
         printf("ERROR: matrix multiplication only works with (mxn)(nxk)=(mxk)");
     else {
@@ -134,7 +135,7 @@ Matrix multMM(int m, int n, Matrix mat, int m1, int n1, Matrix mat1){
     int i, j, k;
     double sum;
     Matrix r = NULL;
-    
+
     if (n != m1)
         printf("ERROR: matrix multiplication only works with (mxn)(nxk)=(mxk)");
     else {
@@ -173,4 +174,17 @@ void printMatrix(int m, int n, Matrix mat){
 
 void printQMatrix(int n, Matrix mat){
     printMatrix(n, n, mat);
+}
+
+void fprintVector(char *dest, Vector arg, int len){
+	int i;
+	FILE *file = fopen(dest, "w");
+
+	if (file == NULL) {
+		    printf("ERROR: can't open %s in writing mode.\n", dest);
+		    exit(1);
+		}
+
+	for (i=0; i<len; i++)
+		fprintf(file, "%lf\n", arg[i]);
 }

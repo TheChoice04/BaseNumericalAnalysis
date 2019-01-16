@@ -38,9 +38,23 @@ int mainMenu() {
                 break;
 
             case 2:
+            	i=0;
+            	break;
+
+            case 3:
                 functionZeroesMenu();
                 i=0;
                 break;
+
+            case 4:
+            	interpolationMenu();
+            	i=0;
+            	break;
+
+            case 5:
+
+            	i=0;
+            	break;
 
             case 0:
                 flag = 0;
@@ -65,8 +79,11 @@ int mainMenu() {
 int selectTask(){
     int c;
     printf("You can choose one of the following:\n");
-    printf(" - type `1` to decompose a matrix;\n");
-    printf(" - type `2` to find a zero of a function\n");
+    printf(" - type `1` to solve a linear system via direct method;\n");
+    printf(" - type `2` to solve a linear system via iterative method;\n");
+    printf(" - type `3` to find a zero of a function\n");
+    printf(" - type `4` to approximate a function via interpolation\n");
+    printf(" - type `5` to approximate a function via least squares method.\n");
     // Insert more choices here...
     printf(" - type `0` to quit.\n");
     
