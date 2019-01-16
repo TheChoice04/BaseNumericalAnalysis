@@ -47,7 +47,7 @@ int mainMenu() {
                 break;
 
             case 4:
-
+            	interpolationMenu();
             	i=0;
             	break;
 

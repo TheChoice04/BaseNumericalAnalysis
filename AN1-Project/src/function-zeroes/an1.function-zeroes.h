@@ -10,18 +10,8 @@
 
 #include "../utils/an1.utils.h"
 
-//  Macros Declaration
-#define max(a,b) a>=b?a:b
-#define hi printf("Hello, World!\n")
-#define ln printf("\n")
-#define allocate(num, type) ((type*)malloc(num * sizeof(type)))
-#define Random(x, t) (x + ((double) rand()/RAND_MAX)*(y-x))
-
-//  Global Const Declaration
-#define MAX_ATTEMPTs 10000
-
 //
-//  Execute Function
+//  fromfunctionZerosMenu.c
 //
 
 int functionZeroesMenu();

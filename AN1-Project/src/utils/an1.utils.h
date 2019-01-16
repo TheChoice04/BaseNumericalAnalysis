@@ -39,7 +39,7 @@ double dsamplef2(double x);
 int selectFunction();
 
 //
-//  From utils_matrix.c
+//  From utils_structures.c
 //
 
 Vector allocVector(int);
@@ -58,5 +58,7 @@ Matrix multMM(int, int, Matrix, int, int, Matrix);
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
+
+void fprintVector(char *dest, Vector arg, int len);
 
 #endif /* SRC_UTILS_AN1_UTILS_H_ */

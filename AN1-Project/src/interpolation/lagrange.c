@@ -36,10 +36,10 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 	int i, j, k;
 	int n = npts-1;
 	Vector knotVal = allocVector(npts);
-	FILE *file = fopen("interpolation.lagrange.txt", "w");
+	FILE *file = fopen("results/interpolation/lagrange_interpolate.txt", "w");
 
 	if (file == NULL) {
-	    printf("Error opening file!\n");
+	    printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
 	    exit(1);
 	}
 
@@ -52,7 +52,7 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 		knotVal[i] = f(knot[i]);
 	}
 
-	for (k = 0; k <= dpts; k++){
+	for (k = 0; k <= dpts-1; k++){
 		acc = 0;
 		for (i = 0; i <= n; i++){
 			L = 1;
@@ -65,7 +65,7 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 		}
 		fx = f(x);
 		err = fabs(fx-acc);
-		fprintf(file, "%lf %lf %lf %lf", x, acc, fx, err);
+		fprintf(file, "%lf %lf %lf %lf\n", x, acc, fx, err);
 		x += step;
 	}
 

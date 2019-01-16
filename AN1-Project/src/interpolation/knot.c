@@ -45,6 +45,8 @@ Vector buildEquidistantKnots(int npts, float a, float b, int isClose){
 		x += step;
 	}
 
+	fprintVector("results/interpolation/knots.txt", knot, npts+1);
+
 	return knot;
 }
 
@@ -84,6 +86,8 @@ Vector buildChebyshevKnots(int npts, float a, float b, int isClose){
 		knot[j] = a + (b - a)/2 * (1 - cos(cosArg));
 		cosArg += step;
 	}
+
+	fprintVector("results/interpolation/knots.txt", knot, npts+1);
 
 	return knot;
 

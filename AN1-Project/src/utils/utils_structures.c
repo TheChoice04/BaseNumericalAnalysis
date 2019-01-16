@@ -1,5 +1,5 @@
 /*
- * utils_matrix.c
+ * utils_structures.c
  *
  *  Created on: 16 gen 2019
  *      Author: Elia Onofri
@@ -33,6 +33,7 @@ void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
 
+void fprintVector(char *dest, Vector arg, int len);
 
 
 //
@@ -173,4 +174,17 @@ void printMatrix(int m, int n, Matrix mat){
 
 void printQMatrix(int n, Matrix mat){
     printMatrix(n, n, mat);
+}
+
+void fprintVector(char *dest, Vector arg, int len){
+	int i;
+	FILE *file = fopen(dest, "w");
+
+	if (file == NULL) {
+		    printf("ERROR: can't open %s in writing mode.\n", dest);
+		    exit(1);
+		}
+
+	for (i=0; i<len; i++)
+		fprintf(file, "%lf\n", arg[i]);
 }
