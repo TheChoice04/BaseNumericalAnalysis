@@ -33,7 +33,7 @@ int directMenu(){
 	scanf("%d", &c);
 	printf("\n\n");
 
-	c = selectDirectMethod();
+
 	switch (c) {
 	case 1:
 		ans = gaussianElimination();

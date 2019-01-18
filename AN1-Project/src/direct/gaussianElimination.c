@@ -7,17 +7,22 @@
 //
 
 /**
- *  This Function implements Gaussian Elimination with both partial (1)
+ *  This Function implements Gaussian Elimination with both no (0), partial (1)
  *    and total (2) pivoting over a double space.
  *  Gaussian Elimination is a method to retrieve a Echelon matrix from
  *    a given nxn matrix. This matrix could be loaded from a file or
  *    from keyborad input:
  *     - In order to read from a file it must be written as a .txt file
  *      where the first element is the dimension `n` of the matrix,
- *      followed by the n^2 elements of the matrix.
+ *      followed by the n^2 elements of the matrix and by the n values of
+ *      the known terms.
  *     - If you want to gain the values from keyboard you have to specify
  *      the matrix dimension. Then you will be prompted in the insertion of
  *      each and every single element. Tedious.
+ *  @param A Matrix: the complete matrix associated to a linear system;
+ *  @param n int: the number of columns (unknown + 1).
+ *  @param m int: the number of rows (equations).
+ *
  *  @return int exit-code integer:
  *      `0` : Success;
  *      `1` : undefined error.
@@ -26,6 +31,39 @@
 #include "an1.direct.h"
 
 Matrix parseSource(int *);
+
+int gaussianSolution(Matrix A, int n, int m){
+	const int pivoting = 1;
+	int i, j, k, max;
+
+	for (i = 0; i < m; i++){
+		switch (pivoting) {
+		case 0:
+			break;
+
+		case 1:
+			max = i;
+			for (j = i+1; j < m; j++)
+				if (fabs(A[j][i]) > fabs(A[max][i]))
+					max = j;
+			if (max != i){
+				double *app;
+				app = A[i];
+				A[i] = A[max];
+				A[max] = app;
+			}
+			break;
+		case 2:
+			//To Do
+			break;
+		}
+
+
+
+	}
+
+	return 0;
+}
 
 int gaussianElimination(){
     const int pivoting = 1;
