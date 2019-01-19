@@ -18,4 +18,13 @@ int directMenu();
 int gaussianSolution(Matrix A, Vector b, int m, int n);
 
 
+//
+//	From triangularSolver.c
+//
+
+int triSupSolver(Matrix A, Vector b, int m, int n);
+
+int triInfSolver(Matrix A, Vector b, int m, int n);
+
+
 #endif /* AN1_DIRECT_H_ */

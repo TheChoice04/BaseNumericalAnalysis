@@ -35,10 +35,11 @@ int directMenu(){
 	printf("You can choose one of the following:\n");
 	printf(" - type `1` to Gaussian Elimination;\n");
 	printf(" * type `2` to LU factorization;\n");
-	printf(" * type `3` to LU factorization;\n");
-	printf(" * type `4` to QR factorization;\n ");
+	printf(" * type `2` to Doolittle factorization;\n");
+	printf(" * type `4` to Cholesky factorization;\n");
+	printf(" * type `5` to QR factorization;\n");
 	printf(" - type `0` to quit.\n\n");
-	c = scanInt(0, 4);
+	c = scanInt(0, 5);
 	printf("\n\n");
 
 
@@ -50,11 +51,12 @@ int directMenu(){
 
 	case 0:
 		printf("Aborted\n");
-		break;
+		return 0;
 
 	default:
 		return 3;
 	}
+
 
 	return 0;
 }
@@ -63,7 +65,7 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	int i, j, m, n;
 	FILE *fileP;
 	int choice;
-	double x, min, y;
+	double x, min, max;
 	Matrix A;
 	Vector b;
 
@@ -112,12 +114,12 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 		// Random Scan
 		if (choice == 3){
 			printf("Insert minimum and maximum values for your system value range:\n>> ");
-			scanf("%lf %lf", &min, &y);
+			scanf("%lf %lf", &min, &max);
 			for (i = 0; i < m; i++){
 				for (j = 0; j < n; j++){
-					A[i][j] = Random(min, y);
+					A[i][j] = Random(min, max);
 				}
-				b[i] = Random(min, y);
+				b[i] = Random(min, max);
 			}
 			// Manual Scan
 		} else {

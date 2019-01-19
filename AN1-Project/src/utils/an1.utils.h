@@ -18,11 +18,12 @@
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
-#define Random(x, t) (x + ((double) rand()/RAND_MAX)*(y-x))
+#define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 10000
 #define MAX_ERRs 5
+#define ERR 0.0000000001 //10^-10
 
 //  New Type Declaration
 #define Vector double*

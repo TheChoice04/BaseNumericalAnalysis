@@ -35,11 +35,15 @@
 int gaussianSolution(Matrix A, Vector b, int m, int n){
 	int i, j, k, max, pivoting;
 	float aij;
+	int *piv = allocate(n, int);
 
 	if (m < n) {
 		printf("ERROR: The system is under-determined.");
 		return 1;
 	}
+
+	for (i = 0; i < n; i++)
+		piv[i] = i;
 
 	printf("===Running Gaussian Solution===");
 	printf("Do you want to have pivoting?\n");
@@ -73,6 +77,8 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 			}
 			break;
 
+
+
 			// Total Pivoting
 		case 2:
 			//ToDo
@@ -80,11 +86,12 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 		}
 		// Check for singularity
 		if (A[i][i] == 0.0){
+			printMatrix(m, n, A);
 			printf("ERROR: The coefficient matrix is Singular.");
 			return 1;
 		}
 		// Row Cicle
-		for (j = i+1; j < n; j++){
+		for (j = i+1; j < m; j++){
 			// Head Coefficient Calculus
 			aij = A[j][i]/A[i][i];
 			// Column Cicle
@@ -96,6 +103,12 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 
 
 	}
+
+	//printSystem(A, b, m, n);
+
+	printf("%lf", b[0]);
+
+	triSupSolver(A, b, m, n);
 
 	return 0;
 }
@@ -176,6 +189,6 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 
 	return 0;
 }
-*/
+ */
 
 
