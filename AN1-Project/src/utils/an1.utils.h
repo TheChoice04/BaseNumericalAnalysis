@@ -22,6 +22,7 @@
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 10000
+#define MAX_ERRs 5
 
 //  New Type Declaration
 #define Vector double*
@@ -60,5 +61,12 @@ void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
 
 void fprintVector(char *dest, Vector arg, int len);
+
+
+//
+//	From utils_utility.c
+//
+
+int scanInt(int min, int max);
 
 #endif /* SRC_UTILS_AN1_UTILS_H_ */

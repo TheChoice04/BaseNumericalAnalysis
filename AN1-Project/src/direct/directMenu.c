@@ -70,10 +70,10 @@ int* parseLinearSystem(Matrix A, Vector b){
 	printf(" - type `1` to parse the default system `source/GaussDefaultSystem.txt`;");
 	printf(" - type `2` to parse a `.txt` file;\n");
 	printf(" - type `3` to parse a random system;\n");
-	printf(" - type `4` to parse a system manually (discouraged).\n>> ");
-	scanf("%d", &choice);
+	printf(" - type `4` to parse a system manually (discouraged);");
+	choice = scanInt(1, 4);
 
-	if (choice == 1 || choice ==2){
+	if (choice == 1 || choice == 2){
 		// Default Source
 		if (choice == 1)
 			fileP = fopen("source/GaussElimMatrix.txt", "r");
@@ -98,10 +98,12 @@ int* parseLinearSystem(Matrix A, Vector b){
 			else
 				A[i/np][i%np] = x;
 		}
-	// Manual Scan
-	} else if (choice == 3 || choice == 4){
-		printf("Insert the number of equations and the number of unknowns:\n>> ");
-		scanf("%d %d", &m, &n);
+		// Manual Scan
+	} else {
+		printf("Insert the number of equations:\n");
+		m = scanInt(1, 100);
+		printf("Insert the number of unknowns:\n");
+		n = scanInt(1, 100);
 
 		A = allocMatrix(m, n);
 		b = allocVector(m);
@@ -114,12 +116,21 @@ int* parseLinearSystem(Matrix A, Vector b){
 				for (j = 0; j < n; j++){
 					A[i][j] = Random(min, y);
 				}
+				b[i] = Random(min, y);
 			}
-		// Manual Scan
+			// Manual Scan
 		} else {
-
+			for (i = 0; i < m; i++){
+				printf("Insert the coefficient list for the %d-th equation and its known term:\n>> ", (i+1));
+				for (j = 0; j < m; j++)
+					scanf("%lf", &A[i][j]);
+				scanf("%lf", &b[i]);
+			}
 		}
 	}
+
+	ret[0] = m;
+	ret[1] = n;
 
 	return ret;
 }
