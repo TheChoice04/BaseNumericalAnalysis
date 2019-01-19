@@ -11,24 +11,28 @@ int selectIterativeMethod();
 int selectFunction();
 int exeAll();
 
-/**
- * This function is meant to be a menu to choose between the Iterative
- *  algorithms for the search of a zero of a function.
+/** functionZeroesMenu ****************************************************
  *
- * @return int exit code:
- *      `0` : Correct outcome
- *      `1` : Aborted
- *      `2` : Wrong Function Choosing
- *      `3` : Wrong Method Choosing
- */
+ *	This function is meant to be a menu to choose between the Iterative
+ *	 algorithms for the search of a zero of a function.
+ *
+ *	@return int exit code:
+ *	  `0` : Correct outcome
+ *	  `1` : Aborted
+ *	  `2` : Wrong Function Choosing
+ *	  `3` : Wrong Method Choosing
+ *
+ *************************************************************************/
 
 int functionZeroesMenu(){
-	int c;
-	double result;
+	int c;              // choicer
+	double result;      // exit-code
 
-	double (*f)(double);
-	double (*df)(double);
+	double (*f)(double);     // function pointer
+	double (*df)(double);    // derivative pointer
+
 	c = selectFunction();
+
 	switch (c) {
 	case 1:
 		f = &samplef1;
@@ -45,6 +49,7 @@ int functionZeroesMenu(){
 	}
 
 	c = selectIterativeMethod();
+
 	switch (c) {
 	case 1:
 		result = exeBisection(f);
@@ -96,17 +101,16 @@ int selectIterativeMethod(){
 	printf("You can choose one of the following:\n");
 	printf(" - type `1` to Bisection;\n");
 	printf(" - type `2` to Chord;\n");
-	printf(" - type `3` to Muller (NY);\n");
+	printf(" * type `3` to Muller;\n");
 	printf(" - type `4` to Newton;\n");
 	printf(" - type `5` to Newton Quotient;\n");
 	printf(" - type `6` to Secantes;\n");
 	printf(" - type `7` to Steffensen;\n");
 	printf(" - type `8` to execute them all and compare!;\n");
 	// Insert more choices here...
-	printf(" - type `0` to quit.\n\n");
+	printf(" - type `0` to quit.\n");
 
-	printf("Make your choice: ");
-	scanf("%d", &c);
+	c = scanInt(0, 8);
 	printf("\n\n");
 
 	return c;
