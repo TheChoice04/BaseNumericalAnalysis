@@ -104,9 +104,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 
 	}
 
-	//printSystem(A, b, m, n);
-
-	printf("%lf", b[0]);
+	printSystem(A, b, m, n);
 
 	triSupSolver(A, b, m, n);
 
