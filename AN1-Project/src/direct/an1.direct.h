@@ -11,11 +11,24 @@
 #include "../utils/an1.utils.h"
 
 //
-//	From gaussianElimination.c
+//	From directMenu.c
 //
 
 int directMenu();
-int gaussianElimination();
+
+//
+//	From gaussianElimination.c
+//
+
+int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x);
+
+
+//
+//	From triangularSolver.c
+//
+
+int triSupSolver(Matrix A, Vector b, int m, int n, Vector x);
+int triInfSolver(Matrix A, Vector b, int m, int n, Vector x);
 
 
 #endif /* AN1_DIRECT_H_ */

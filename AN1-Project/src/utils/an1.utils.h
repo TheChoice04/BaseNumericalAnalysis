@@ -2,7 +2,7 @@
  * an1.utils.h
  *
  *  Created on: 16 gen 2019
- *      Author: Elia
+ *      Author: Elia Onofri
  */
 
 #ifndef SRC_UTILS_AN1_UTILS_H_
@@ -18,10 +18,12 @@
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
-#define Random(x, t) (x + ((double) rand()/RAND_MAX)*(y-x))
+#define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 10000
+#define MAX_ERRs 5
+#define ERR 0.0000000001 //10^-10
 
 //  New Type Declaration
 #define Vector double*
@@ -58,7 +60,14 @@ Matrix multMM(int, int, Matrix, int, int, Matrix);
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
+void printSystem(Matrix, Vector, int, int);
 
 void fprintVector(char *dest, Vector arg, int len);
+
+//
+//	From utils_utility.c
+//
+
+int scanInt(int min, int max);
 
 #endif /* SRC_UTILS_AN1_UTILS_H_ */
