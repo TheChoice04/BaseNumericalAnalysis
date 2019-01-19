@@ -32,8 +32,6 @@
 
 #include "an1.direct.h"
 
-Matrix parseSource(int *);
-
 int gaussianSolution(Matrix A, Vector b, int m, int n){
 	int i, j, k, max, pivoting;
 	Matrix M;
@@ -56,7 +54,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 	printf("Do you want to have pivoting?\n");
 	printf(" - type `0` for no pivoting;\n");
 	printf(" - type `1` for partial pivoting;\n");
-	printf(" * type `2` for total pivoting;\n\n");
+	printf(" * type `2` for total pivoting;\n>> ");
 
 	scanf("%d", &pivoting);
 
@@ -106,97 +104,6 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 	}
 
 	return 0;
-}
-
-int gaussianElimination(){
-	const int pivoting = 1;
-	int i, j, k, n;
-	int *np = malloc(sizeof(int));
-	double mij;
-	double **A;
-
-	printf("\n");
-	printf("================================\n");
-	printf("======Gaussian Elimination======\n");
-	printf("================================\n");
-	printf("\n");
-	A = parseSource(np);
-	n = *np;
-
-
-	// Column Cicle
-	for (i=0; i<n; i++){
-		// Pivoting
-		if (pivoting == 1){
-			int max = i+1;
-			for (j=i+2; j<n; j++){
-				if (fabs(A[j][i]) > fabs(A[max][i])){
-					max = j;
-				}
-			}
-			if (max != i+1){
-				double *app;
-				app = A[i+1];
-				A[i+1] = A[max];
-				A[max] = app;
-
-				//ln;
-				//printQMatrix(n, A);
-			}
-		}
-		// Row Cicle
-		for (j=i+1; j<n; j++){
-			// Head Coefficient Calculus
-			mij = A[j][i]/A[i][i];
-			// Row Cicle
-			for (k=i; k<n; k++){
-				A[j][k] = A[j][k] - (mij*A[i][k]);
-			}
-		}
-	}
-	ln;
-	ln;
-	printf("Associated Echelon Matrix is:\n");
-	printQMatrix(n, A);
-
-	return -1;
-}
-
-Matrix parseSource(int *np){
-	int i, n=0;
-	double x;
-	int choice;
-	double **mat;
-	FILE *fileP;
-
-	printf("Do you want to parse Default File:\n");
-	printf("\t`source/GaussElimMatrix.txt`? (1=yes/0=no)");
-	scanf("%d", &choice);
-
-	if (choice == 1) {
-		fileP = fopen("source/GaussElimMatrix.txt", "r");
-		fscanf(fileP, "%d", &n);
-		mat = allocQMatrix(n);
-
-		for (i=0; i<n*n; i++){
-			fscanf(fileP, "%lf", &x);
-			mat[i/n][i%n] = x;
-		}
-	} else {
-		printf("Insert the Matrix Dimension: ");
-		scanf("%d", &n);
-
-		mat = parseQMatrix(n);
-	}
-
-	np[0] = n;                                                                  ////??
-
-	printf("\n======Data Reading Complete======\n\n");
-
-	printf("n = %d\n", *np);
-	printf("Matrix A has been parsed in:\n");
-	printQMatrix(*np, mat);
-	return mat;
 }
 
 

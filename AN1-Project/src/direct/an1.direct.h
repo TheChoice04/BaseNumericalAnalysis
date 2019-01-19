@@ -15,7 +15,7 @@
 //
 
 int directMenu();
-int gaussianElimination();
+int gaussianSolution(Matrix A, Vector b, int m, int n);
 
 
 #endif /* AN1_DIRECT_H_ */

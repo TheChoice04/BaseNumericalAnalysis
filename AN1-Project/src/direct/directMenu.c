@@ -7,6 +7,7 @@
 
 #include "an1.direct.h"
 
+int* parseLinearSystem(Matrix A, Vector b);
 
 /**
  * This function is meant to be a menu to choose between the Direct
@@ -21,10 +22,10 @@
 int directMenu(){
 	int c, m, n;
 	int ans;
-	Matrix A;
-	Vector b;
+	Matrix A = NULL;
+	Vector b = NULL;
 
-	int dim[2];
+	int *dim;
 	dim = parseLinearSystem(A, b);
 	m = dim[0];
 	n = dim[1];
@@ -33,10 +34,8 @@ int directMenu(){
 	printf(" - type `1` to Gaussian Elimination;\n");
 	printf(" * type `2` to LU factorization;\n");
 	printf(" * type `3` to LU factorization;\n");
-	printf(" * type `4` to QR factorization;\n");
+	printf(" * type `4` to QR factorization;\n>> ");
 	printf(" - type `0` to quit.\n\n");
-
-	printf("Make your choice: ");
 	scanf("%d", &c);
 	printf("\n\n");
 
@@ -60,8 +59,67 @@ int directMenu(){
 	return 0;
 }
 
-int parseSource(Matrix A, Vector b){
-	int i, j, m, n, ret[2];
+int* parseLinearSystem(Matrix A, Vector b){
+	int i, j, m, n, *ret;
+	FILE *fileP;
+	int choice;
+	double x, min, y;
+	ret = malloc(sizeof(int)*2);
+
+	printf("You can choose one of the following to parse a matrix:\n");
+	printf(" - type `1` to parse the default system `source/GaussDefaultSystem.txt`;");
+	printf(" - type `2` to parse a `.txt` file;\n");
+	printf(" - type `3` to parse a random system;\n");
+	printf(" - type `4` to parse a system manually (discouraged).\n>> ");
+	scanf("%d", &choice);
+
+	if (choice == 1 || choice ==2){
+		// Default Source
+		if (choice == 1)
+			fileP = fopen("source/GaussElimMatrix.txt", "r");
+		// Particular Source
+		else{
+			char filepath[256];
+			printf("Please specify a file-path.\n>> ");
+			fgets(filepath, 256, stdin);
+			fileP = fopen(filepath, "r");
+		}
+
+		// Scann the Source
+		fscanf(fileP, "%d %d", &m, &n);
+		A = allocMatrix(m, n);
+		b = allocVector(m);
+		int np = n + 1;
+
+		for (i=0; i<m*np; i++){
+			fscanf(fileP, "%lf", &x);
+			if (i%np == n)
+				b[i/np] = x;
+			else
+				A[i/np][i%np] = x;
+		}
+	// Manual Scan
+	} else if (choice == 3 || choice == 4){
+		printf("Insert the number of equations and the number of unknowns:\n>> ");
+		scanf("%d %d", &m, &n);
+
+		A = allocMatrix(m, n);
+		b = allocVector(m);
+
+		// Random Scan
+		if (choice == 3){
+			printf("Insert minimum and maximum values for your system value range:\n>> ");
+			scanf("%lf %lf", &min, &y);
+			for (i = 0; i < m; i++){
+				for (j = 0; j < n; j++){
+					A[i][j] = Random(min, y);
+				}
+			}
+		// Manual Scan
+		} else {
+
+		}
+	}
 
 	return ret;
 }
@@ -100,4 +158,4 @@ int parseSource(Matrix A, Vector b){
 	printf("Matrix A has been parsed in:\n");
 	printQMatrix(*np, mat);
 	return mat;
-*/
+ */
