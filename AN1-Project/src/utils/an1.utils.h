@@ -2,7 +2,7 @@
  * an1.utils.h
  *
  *  Created on: 16 gen 2019
- *      Author: Elia
+ *      Author: Elia Onofri
  */
 
 #ifndef SRC_UTILS_AN1_UTILS_H_
@@ -63,7 +63,6 @@ void printQMatrix(int, Matrix);
 void printSystem(Matrix, Vector, int, int);
 
 void fprintVector(char *dest, Vector arg, int len);
-
 
 //
 //	From utils_utility.c

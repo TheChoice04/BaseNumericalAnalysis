@@ -1,94 +1,74 @@
-//
-//  mainMenu.c
-//  AN410 Project Manager
-//
-//  Created by Elia Onofri on 02/10/18.
-//  Copyright © 2018 Elia Onofri. All rights reserved.
-//
-
-/**
- *  This function is a mere method to choose between the function
- *    prepared during the course of AN410 (A.A.1819).
+/*
+ * MainMenu.c
  *
- *  @return int exit-code:
- *      `0` : correct outcome
- *      `1` : wrong exit from the main menu
- *      `2` : wrong attempts in main menu more than MAX_ATTEMPTs
- *      `9` : manual exit.
+ *  Created on: 02 ott 2018
+ *      Author: Elia Onofri
  */
 
 
 #include "an1.h"
 
-int selectTask();
+int mainMenu();
+
+
+/** mainMenu **************************************************************
+ *
+ *	This function is a mere method to choose between the function
+ *	 prepared during the course of AN410 (A.A.1819).
+ *
+ *	@return int exit-code:
+ *	  `0` : correct outcome
+ *	  `1` : wrong exit from the main menu
+ *	  `2` : wrong attempts in main menu more than MAX_ATTEMPTs
+ *	  `9` : manual exit.
+ *
+ *************************************************************************/
 
 int mainMenu() {
-    const int MENU_MAX_ATTEMPTs = 5;
-    int i = 0, flag = 1;
-    char choice;
-    printf("Hi There!\n");
-    printf("Please choose one of the following:\n");
+	int flag = 1;       // flag that is one till user want to exit.
+	char choice;        // choicer
 
-    while (i <= MENU_MAX_ATTEMPTs && flag == 1) {
-        choice = selectTask();
-        switch (choice) {
-            case 1:
-            	directMenu();
-                i=0;
-                break;
+	while (flag == 1) {
 
-            case 2:
-            	i=0;
-            	break;
+		printf("You can choose one of the following:\n");
+		printf(" - type `1` to solve a linear system via direct method;\n");
+		printf(" - type `2` to solve a linear system via iterative method;\n");
+		printf(" - type `3` to find a zero of a function\n");
+		printf(" - type `4` to approximate a function via interpolation\n");
+		printf(" - type `5` to approximate a function via least squares method.\n");
+		printf(" - type `0` to quit.\n");
 
-            case 3:
-                functionZeroesMenu();
-                i=0;
-                break;
+		choice = scanInt(0, 5);
 
-            case 4:
-            	interpolationMenu();
-            	i=0;
-            	break;
+		printf("\n\n");
 
-            case 5:
+		switch (choice) {
+		case 1:
+			directMenu();
+			break;
 
-            	i=0;
-            	break;
+		case 2:
+			break;
 
-            case 0:
-                flag = 0;
-                break;
+		case 3:
+			functionZeroesMenu();
+			break;
 
-            default:
-                printf("No choices associated to %c.\n", choice);
-                i++;
-                if (i > MENU_MAX_ATTEMPTs){
-                    flag = 2;
-                    printf("==========================\n");
-                    printf("======To Much Errors======\n");
-                    printf("==========================\n");
-                }
-                break;
-        }
-    }
-    return flag;
-}
+		case 4:
+			interpolationMenu();
+			break;
 
+		case 5:
+			break;
 
-int selectTask(){
-    int c;
-    printf("You can choose one of the following:\n");
-    printf(" - type `1` to solve a linear system via direct method;\n");
-    printf(" - type `2` to solve a linear system via iterative method;\n");
-    printf(" - type `3` to find a zero of a function\n");
-    printf(" - type `4` to approximate a function via interpolation\n");
-    printf(" - type `5` to approximate a function via least squares method.\n");
-    // Insert more choices here...
-    printf(" - type `0` to quit.\n");
-    
-    c = scanInt(0, 5);
-    printf("\n\n");
-    
-    return c;
+		case 0:
+			flag = 0;
+			break;
+
+		default:
+			printf("No choices associated to %c.\n", choice);
+			break;
+		}
+	}
+	return flag;
 }

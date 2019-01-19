@@ -179,7 +179,6 @@ void printQMatrix(int n, Matrix mat){
 
 void printSystem(Matrix A, Vector b, int m, int n){
 	int i, j;
-	printf("The system is:\n");
 	for (i = 0; i < m; i++){
 		printf("  [");
 		for (j = 0; j < n; j++)
