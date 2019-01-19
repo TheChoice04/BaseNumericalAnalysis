@@ -34,6 +34,75 @@
 
 int gaussianSolution(Matrix A, Vector b, int m, int n){
 	int i, j, k, max, pivoting;
+	float aij;
+
+	if (m < n) {
+		printf("ERROR: The system is under-determined.");
+		return 1;
+	}
+
+	printf("===Running Gaussian Solution===");
+	printf("Do you want to have pivoting?\n");
+	printf(" - type `0` for no pivoting;\n");
+	printf(" - type `1` for partial pivoting;\n");
+	printf(" * type `2` for total pivoting;\n>> ");
+
+	scanf("%d", &pivoting);
+
+	// Row Cicle (only the first n rows)
+	for (i = 0; i < n; i++){
+		switch (pivoting) {
+		// No Pivoting
+		case 0:
+			break;
+
+			// Partial Pivoting
+		case 1:
+			max = i;
+			for (j = i+1; j < m; j++)
+				if (fabs(A[j][i]) > fabs(A[max][i]))
+					max = j;
+
+			if (max != i){
+				double *app = A[i];
+				A[i] = A[max];
+				A[max] = app;
+				double temp = b[i];
+				b[i] = b[max];
+				b[max] = temp;
+			}
+			break;
+
+			// Total Pivoting
+		case 2:
+			//ToDo
+			break;
+		}
+		// Check for singularity
+		if (A[i][i] == 0.0){
+			printf("ERROR: The coefficient matrix is Singular.");
+			return 1;
+		}
+		// Row Cicle
+		for (j = i+1; j < n; j++){
+			// Head Coefficient Calculus
+			aij = A[j][i]/A[i][i];
+			// Column Cicle
+			for (k = i; k < n; k++){
+				A[j][k] = A[j][k] - (aij * A[i][k]);
+			}
+			b[j] = b[j] - (aij * b[i]);
+		}
+
+
+	}
+
+	return 0;
+}
+
+/*
+int gaussianSolution(Matrix A, Vector b, int m, int n){
+	int i, j, k, max, pivoting;
 	Matrix M;
 	float mij;
 
@@ -82,7 +151,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 
 			// Total Pivoting
 		case 2:
-			//ToDo
+			//To Do
 			break;
 		}
 		// Check for singularity
@@ -102,8 +171,11 @@ int gaussianSolution(Matrix A, Vector b, int m, int n){
 
 
 	}
+	printMatrix(m, n+1, M);
+	A[0][0] = 0.0;
 
 	return 0;
 }
+*/
 
 

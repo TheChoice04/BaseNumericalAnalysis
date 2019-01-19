@@ -32,6 +32,7 @@ Matrix multMM(int, int, Matrix, int, int, Matrix);
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
+void printSystem(Matrix, Vector, int, int);
 
 void fprintVector(char *dest, Vector arg, int len);
 
@@ -175,6 +176,23 @@ void printMatrix(int m, int n, Matrix mat){
 void printQMatrix(int n, Matrix mat){
     printMatrix(n, n, mat);
 }
+
+void printSystem(Matrix A, Vector b, int m, int n){
+	int i, j;
+	printf("The system is:\n");
+	for (i = 0; i < m; i++){
+		printf("  [");
+		for (j = 0; j < n; j++)
+			printf("%lf ", A[i][j]);
+		printf("| %lf]\n", b[i]);
+	}
+	printf("\n");
+}
+
+
+//
+//	File Print Operation
+//
 
 void fprintVector(char *dest, Vector arg, int len){
 	int i;

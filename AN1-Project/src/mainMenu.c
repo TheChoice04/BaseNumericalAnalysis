@@ -87,8 +87,7 @@ int selectTask(){
     // Insert more choices here...
     printf(" - type `0` to quit.\n");
     
-    printf("Make your choice: ");
-    scanf("%d", &c);
+    c = scanInt(0, 5);
     printf("\n\n");
     
     return c;

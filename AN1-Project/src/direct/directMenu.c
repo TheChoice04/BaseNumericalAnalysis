@@ -7,7 +7,7 @@
 
 #include "an1.direct.h"
 
-int* parseLinearSystem(Matrix A, Vector b);
+void parseLinearSystem(Matrix* A, Vector* b, int * mp, int * np);
 
 /**
  * This function is meant to be a menu to choose between the Direct
@@ -25,27 +25,27 @@ int directMenu(){
 	Matrix A = NULL;
 	Vector b = NULL;
 
-	int *dim;
-	dim = parseLinearSystem(A, b);
-	m = dim[0];
-	n = dim[1];
+	//printf("m should be: %d", parseLinearSystem(A, b)[0]);
+	parseLinearSystem(&A, &b, &m, &n);
+
+	printf("%d - %d\n", m, n);
+
+	printSystem(A, b, m, n);
 
 	printf("You can choose one of the following:\n");
 	printf(" - type `1` to Gaussian Elimination;\n");
 	printf(" * type `2` to LU factorization;\n");
 	printf(" * type `3` to LU factorization;\n");
-	printf(" * type `4` to QR factorization;\n>> ");
+	printf(" * type `4` to QR factorization;\n ");
 	printf(" - type `0` to quit.\n\n");
-	scanf("%d", &c);
+	c = scanInt(0, 4);
 	printf("\n\n");
 
 
 	switch (c) {
 	case 1:
 		ans = gaussianSolution(A, b, m, n);
-		int i;
-		for (i = 0; i < m; i++)
-			printf("%lf", b[i]);
+		printSystem(A, b, m, n);
 		break;
 
 	case 0:
@@ -59,24 +59,25 @@ int directMenu(){
 	return 0;
 }
 
-int* parseLinearSystem(Matrix A, Vector b){
-	int i, j, m, n, *ret;
+void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
+	int i, j, m, n;
 	FILE *fileP;
 	int choice;
 	double x, min, y;
-	ret = malloc(sizeof(int)*2);
+	Matrix A;
+	Vector b;
 
 	printf("You can choose one of the following to parse a matrix:\n");
-	printf(" - type `1` to parse the default system `source/GaussDefaultSystem.txt`;");
+	printf(" - type `1` to parse the default system `source/GaussDefaultSystem.txt`;\n");
 	printf(" - type `2` to parse a `.txt` file;\n");
 	printf(" - type `3` to parse a random system;\n");
-	printf(" - type `4` to parse a system manually (discouraged);");
+	printf(" - type `4` to parse a system manually (discouraged).\n");
 	choice = scanInt(1, 4);
 
 	if (choice == 1 || choice == 2){
 		// Default Source
 		if (choice == 1)
-			fileP = fopen("source/GaussElimMatrix.txt", "r");
+			fileP = fopen("source/GaussDefaultSystem.txt", "r");
 		// Particular Source
 		else{
 			char filepath[256];
@@ -129,10 +130,11 @@ int* parseLinearSystem(Matrix A, Vector b){
 		}
 	}
 
-	ret[0] = m;
-	ret[1] = n;
-
-	return ret;
+	*Ap = A;
+	*bp = b;
+	*mp = m;
+	*np = n;
+	return ;
 }
 /*
 	int i, n=0;

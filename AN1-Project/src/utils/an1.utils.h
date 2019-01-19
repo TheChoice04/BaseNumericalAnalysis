@@ -59,6 +59,7 @@ Matrix multMM(int, int, Matrix, int, int, Matrix);
 void printVector(int, Vector);
 void printMatrix(int, int, Matrix);
 void printQMatrix(int, Matrix);
+void printSystem(Matrix, Vector, int, int);
 
 void fprintVector(char *dest, Vector arg, int len);
 
