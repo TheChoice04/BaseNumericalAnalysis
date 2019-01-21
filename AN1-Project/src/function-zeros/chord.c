@@ -44,11 +44,13 @@ int chord(double a, double b, double x, double e, double (*f)(double));
 
 int chord(double a, double b, double x, double e, double (*f)(double)){
 	int counter = 0;    // iteration counter
-	double fx = f(x);   // current point function value
+	double fx;          // current point function value
 	double alpha;       // angular coefficient of the chord.
 	FILE *fileP;        // output file pointer
 
 	fileP = fopen("results/function-zeros/chord.txt", "w");
+
+	fx = f(x);
 
 	if (f(a) - f(b) == 0.0){
 		printf("ERROR: The values of f(a) and f(b) are equals. Chord method not valid.\n");
