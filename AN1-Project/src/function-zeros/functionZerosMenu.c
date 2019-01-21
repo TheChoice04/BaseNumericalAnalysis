@@ -7,8 +7,7 @@
 
 #include "an1.function-zeros.h"
 
-int selectIterativeMethod();
-int selectFunction();
+int functionZerosMenu();
 int exeAll();
 
 /** functionZerosMenu *****************************************************
@@ -51,43 +50,31 @@ int functionZerosMenu(){
 		return 2;
 	}
 
-	c = selectIterativeMethod();
+	printf("You can choose one of the following:\n");
+	printf(" - type `1` to Bisection;\n");
+	printf(" - type `2` to Chord;\n");
+	printf(" * type `3` to Muller;\n");
+	printf(" - type `4` to Newton;\n");
+	printf(" - type `5` to Newton Quotient;\n");
+	printf(" - type `6` to Secantes;\n");
+	printf(" - type `7` to Steffensen;\n");
+	printf(" - type `8` to execute them all and compare the results!;\n");
+	printf(" - type `0` to quit.\n");
 
-	switch (c) {
-	case 2:
-			printf("Type in the initial point:\n>> ");
-			scanf("%lf", &x);
-			/* no break */
-	case 1:
+	c = scanInt(0, 8);
+	printf("\n\n");
+
+	if (c == 1 || c == 2 || c == 8){
 		printf("Type in the left and the right initialization:\n>> ");
 		scanf("%lf %lf", &a, &b);
-		break;
-
-	case 3:
-		//result = exeMuller(f);
-		break;
-
-	case 4:
-		break;
-
-	case 5:
-		break;
-
-	case 6:
-		break;
-
-	case 7:
-		break;
-
-	case 8:
-		break;
-
-	case 0:
-		printf("Aborted\n");
+	}
+	if (c == 2 || c == 4 || c == 8){
+		printf("Type in the initial point:\n>> ");
+		scanf("%lf", &x);
+	}
+	if (c == 0){
+		printf("Correctly aborted\n");
 		return 1;
-
-	default:
-		return 3;
 	}
 
 	printf("Type in the error range:\n>> ");
@@ -99,7 +86,7 @@ int functionZerosMenu(){
 		break;
 
 	case 2:
-		result =  chord(a, b, x, e, f);
+		result = chord(a, b, x, e, f);
 		break;
 
 	case 3:
@@ -107,7 +94,7 @@ int functionZerosMenu(){
 		break;
 
 	case 4:
-		result = exeNewton(f, df);
+		result = newton(x, e, f, df);
 		break;
 
 	case 5:
@@ -136,27 +123,6 @@ int functionZerosMenu(){
 	}
 
 	return 0;
-}
-
-
-int selectIterativeMethod(){
-	int c;
-	printf("You can choose one of the following:\n");
-	printf(" - type `1` to Bisection;\n");
-	printf(" - type `2` to Chord;\n");
-	printf(" * type `3` to Muller;\n");
-	printf(" - type `4` to Newton;\n");
-	printf(" - type `5` to Newton Quotient;\n");
-	printf(" - type `6` to Secantes;\n");
-	printf(" - type `7` to Steffensen;\n");
-	printf(" - type `8` to execute them all and compare!;\n");
-	// Insert more choices here...
-	printf(" - type `0` to quit.\n");
-
-	c = scanInt(0, 8);
-	printf("\n\n");
-
-	return c;
 }
 
 int exeAll(double (*f)(double), double (*df)(double)){

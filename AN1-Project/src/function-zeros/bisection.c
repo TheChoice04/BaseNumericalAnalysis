@@ -3,7 +3,6 @@
  *
  *  Created on: 22 nov 2018
  *      Author: Elia Onofri
- *
  **
  *	Macros used:
  *	 fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx);

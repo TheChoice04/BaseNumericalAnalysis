@@ -20,8 +20,6 @@ int functionZerosMenu();
 //  Execute Function
 //
 
-
-double exeNewton(double (*f)(double), double (*f1)(double));
 double exeNewtonQuotient(double (*f)(double));
 double exeSecantes(double (*f)(double));
 double exeSteffensen(double (*f)(double));
@@ -32,7 +30,7 @@ double exeSteffensen(double (*f)(double));
 
 int bisection(double a, double b, double e, double (*f)(double));
 int chord(double a, double b, double x, double e, double (*f)(double));
-double newton(double x, double e, double (*f)(double), double (*f1)(double));
+int newton(double x, double e, double (*f)(double), double (*f1)(double));
 double newtonQuotient(double x, double h, double e, double (*f)(double));
 double secantes(double xp, double x, double e, double (*f)(double));
 double steffensen(double x, double e, double (*f)(double));

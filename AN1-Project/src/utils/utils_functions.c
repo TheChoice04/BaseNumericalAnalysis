@@ -10,6 +10,10 @@
  *	double *f(double);
  *  f = &samplef1;
  *	```
+ **
+ *	Macros used:
+ *	 fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
+ *	 MAX_ATTEMPTs
  */
 
 
@@ -20,6 +24,7 @@ double samplef2(double x);
 double dsamplef1(double x);
 double dsamplef2(double x);
 int selectFunction();
+void fprintFunction(double (*f)(double), double a, double b);
 
 
 double samplef1(double x){
@@ -60,3 +65,41 @@ int selectFunction(){
 
 	return c;
 }
+
+
+/** fprintFunction ********************************************************
+ *
+ *	This function print on the file
+ *	 `results/function-plot/functionData.txt`
+ *	 the evaluation of `dpts = 1000` points of the function `f` over
+ *	 the range `[a, b]`.
+ *
+ *	@param f duouble *(double): pointer to the function `f`.
+ *	@param a double: left margin of the range.
+ *	@param b double: right margin of the range.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void fprintFunction(double (*f)(double), double a, double b){
+	int i;              // counter
+	int dpts = 1000;    // number of data points
+	double x = 0;       // evaluation point
+	double step;        // increment
+	FILE *fileP;        // output file pointer
+
+	fileP = fopen("results/function-plot/functionData.txt", "w");
+
+	step = (b - a) / (dpts - 1);
+
+	for (i = 0; i < dpts; i++){
+		fprintPoint(fileP, x, f(x));
+	}
+
+}
+
+
+
+
+
