@@ -1,17 +1,17 @@
 /*
- *  functionZeroesMenu.c
+ *  functionZerosMenu.c
  *
  *  Created on: 13 nov 2018
  *      Author: Elia Onofri
  */
 
-#include "an1.function-zeroes.h"
+#include "an1.function-zeros.h"
 
 int selectIterativeMethod();
 int selectFunction();
 int exeAll();
 
-/** functionZeroesMenu ****************************************************
+/** functionZerosMenu *****************************************************
  *
  *	This function is meant to be a menu to choose between the Iterative
  *	 algorithms for the search of a zero of a function.
@@ -24,9 +24,12 @@ int exeAll();
  *
  *************************************************************************/
 
-int functionZeroesMenu(){
+int functionZerosMenu(){
 	int c;              // choicer
-	double result;      // exit-code
+	int result;         // exit-code
+	double a, b;		// left and right margins
+	double e;			// error range
+	double x;           // starting point of the method
 
 	double (*f)(double);     // function pointer
 	double (*df)(double);    // derivative pointer
@@ -51,12 +54,52 @@ int functionZeroesMenu(){
 	c = selectIterativeMethod();
 
 	switch (c) {
+	case 2:
+			printf("Type in the initial point:\n>> ");
+			scanf("%lf", &x);
+			/* no break */
 	case 1:
-		result = exeBisection(f);
+		printf("Type in the left and the right initialization:\n>> ");
+		scanf("%lf %lf", &a, &b);
+		break;
+
+	case 3:
+		//result = exeMuller(f);
+		break;
+
+	case 4:
+		break;
+
+	case 5:
+		break;
+
+	case 6:
+		break;
+
+	case 7:
+		break;
+
+	case 8:
+		break;
+
+	case 0:
+		printf("Aborted\n");
+		return 1;
+
+	default:
+		return 3;
+	}
+
+	printf("Type in the error range:\n>> ");
+	scanf("%lf", &e);
+
+	switch (c) {
+	case 1:
+		result = bisection(a, b, e, f);
 		break;
 
 	case 2:
-		result = exeChord(f);
+		result =  chord(a, b, x, e, f);
 		break;
 
 	case 3:

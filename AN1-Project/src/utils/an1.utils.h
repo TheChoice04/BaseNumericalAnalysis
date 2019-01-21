@@ -19,6 +19,7 @@
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
 #define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
+#define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx);
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 10000

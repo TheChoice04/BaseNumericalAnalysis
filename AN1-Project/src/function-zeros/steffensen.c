@@ -5,7 +5,7 @@
  *      Author: Elia
  */
 
-#include "an1.function-zeroes.h"
+#include "an1.function-zeros.h"
 
 double exeSteffensen(double (*f)(double));
 

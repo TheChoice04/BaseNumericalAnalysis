@@ -51,7 +51,7 @@ int mainMenu() {
 			break;
 
 		case 3:
-			functionZeroesMenu();
+			functionZerosMenu();
 			break;
 
 		case 4:
