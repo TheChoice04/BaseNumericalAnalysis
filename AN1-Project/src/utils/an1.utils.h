@@ -22,9 +22,11 @@
 #define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx);
 
 //  Global Const Declaration
-#define MAX_ATTEMPTs 10000
-#define MAX_ERRs 5
-#define ERR 0.0000000001 //10^-10
+#define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
+#define MAX_ERRs 5           // max number of error during choosings
+#define ERR 0.0000000001     // 10^-10, default max error
+#define MAX_POINTs 1000000   // 10^6, max number of point that could be evaluated
+#define CONST_DATA 1000      // 10^4, number of data points for sample functions evaluation
 
 //  New Type Declaration
 #define Vector double*
@@ -34,12 +36,7 @@
 //	From utils_function.c
 //
 
-double samplef1(double x);
-double samplef2(double x);
-double dsamplef1(double x);
-double dsamplef2(double x);
-
-int selectFunction();
+void selectFunction(double (**f)(double), double (**df)(double));
 
 //
 //  From utils_structures.c

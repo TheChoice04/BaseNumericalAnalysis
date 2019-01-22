@@ -14,6 +14,7 @@
  *	Macros used:
  *	 fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
  *	 MAX_ATTEMPTs
+ *	 CONST_DATA
  */
 
 
@@ -23,7 +24,7 @@ double samplef1(double x);
 double samplef2(double x);
 double dsamplef1(double x);
 double dsamplef2(double x);
-int selectFunction();
+void selectFunction(double (**f)(double), double (**df)(double));
 void fprintFunction(double (*f)(double), double a, double b);
 
 
@@ -46,13 +47,24 @@ double dsamplef2(double x){
 
 /** selectFunction ********************************************************
  *
- * Graphic menu that enumerates the available functions.
+ *	Graphic menu that enumerates the available functions and makes the
+ *	 user choose between them.
+ *	As the derivative pointer is the first to be linked, if needed,
+ *	 only function pointer could be linked via passing to copies of
+ *	 the same pointer reference, like:
+ *	```C
+ *	double (*f)(double);
+ *	selectFunction(&f, &f);
+ *	```
  *
- *	@return int the choice `c` made.
+ *	@param f double **(double): pointer to the function pointer.
+ *	@param df double **(double): pointer to the derivative pointer.
+ *
+ *	@return NULL.
  *
  *************************************************************************/
 
-int selectFunction(){
+void selectFunction(double (**f)(double), double (**df)(double)){
 	int c;              // choicer
 
 	printf("Choose one of the following functions:\n");
@@ -63,7 +75,19 @@ int selectFunction(){
 	c = scanInt(1, 2);
 	printf("\n\n");
 
-	return c;
+	switch (c){
+	case 1 :
+		*df = &dsamplef1;
+		*f = &samplef1;
+		break;
+
+	case 2 :
+		*df = &dsamplef2;
+		*f = &samplef2;
+		break;
+	}
+
+	return ;
 }
 
 
@@ -84,10 +108,13 @@ int selectFunction(){
 
 void fprintFunction(double (*f)(double), double a, double b){
 	int i;              // counter
-	int dpts = 1000;    // number of data points
+	int dpts;           // number of data points
 	double x = 0;       // evaluation point
 	double step;        // increment
 	FILE *fileP;        // output file pointer
+
+	printf("Evaluating reference function...");
+	dpts = CONST_DATA;
 
 	fileP = fopen("results/function-plot/functionData.txt", "w");
 
@@ -97,6 +124,8 @@ void fprintFunction(double (*f)(double), double a, double b){
 		fprintPoint(fileP, x, f(x));
 	}
 
+	printf("...reference function evaluated.");
+	return ;
 }
 
 

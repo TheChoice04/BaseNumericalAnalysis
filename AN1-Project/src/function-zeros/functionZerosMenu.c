@@ -17,7 +17,6 @@ int functionZerosMenu();
  *	@return int exit code:
  *	  `0` : Correct outcome
  *	  `1` : Aborted
- *	  `2` : Wrong Function Choosing
  *	  `3` : Wrong Method Choosing
  *
  *************************************************************************/
@@ -34,22 +33,7 @@ int functionZerosMenu(){
 	double (*f)(double);     // function pointer
 	double (*df)(double);    // derivative pointer
 
-	c = selectFunction();
-
-	switch (c) {
-	case 1:
-		f = &samplef1;
-		df = &dsamplef1;
-		break;
-
-	case 2:
-		f = &samplef2;
-		df = &dsamplef2;
-		break;
-
-	default:
-		return 2;
-	}
+	selectFunction(&f, &df);
 
 	printf("You can choose one of the following:\n");
 	printf(" - type `1` to Bisection;\n");
