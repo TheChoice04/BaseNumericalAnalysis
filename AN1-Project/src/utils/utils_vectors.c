@@ -8,7 +8,6 @@
  *	 allocate(num, type) -> ((type*)malloc(num * sizeof(type)))
  *	 Random(x, y) -> (x + ((double) rand()/RAND_MAX)*(y-x))
  *	 Vector -> double*
- *	 Matrix -> double**
  */
 
 
@@ -19,7 +18,7 @@ Vector allocRandVector(int, double, double);
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
 
-double taxicabanNorm();
+double taxicabNorm();
 double euclideanNorm();
 double infinityNorm();
 
@@ -34,7 +33,7 @@ double infinityNorm();
  *
  *	@param n int: vector length.
  *
- *	@return Vector allocated
+ *	@return Vector: the vector allocated.
  *
  *************************************************************************/
 
@@ -52,7 +51,7 @@ Vector allocVector(int n){
  *	@param x double: min of the random range.
  *	@param y double: max of the random range.
  *
- *	@return Vector allocated
+ *	@return Vector: the vector allocated.
  *
  *************************************************************************/
 
@@ -129,3 +128,70 @@ void fprintVector(char *dest, Vector arg, int len){
 //
 //	Normas
 //
+
+
+/** taxicabNorm ***********************************************************
+ *
+ *	This method evaluate the Taxicab norm (one norm) of the vector `v`.
+ *
+ *	@param `v` Vector: the vector.
+ *	@param `n` int: the vector length.
+ *
+ *	@return double: the vector Taxicab norm.
+ *
+ *************************************************************************/
+
+double taxicabNorm(Vector v, int n){
+	int i;              // counter
+	double norm = 0.0;  // the norm
+
+	for (i = 0; i < n; i++)
+		norm += fabs(v[i]);
+
+	return norm;
+}
+
+
+/** EuclideanNorm *********************************************************
+ *
+ *	This method evaluate the Euclidean norm of the vector `v`.
+ *
+ *	@param `v` Vector: the vector.
+ *	@param `n` int: the vector length.
+ *
+ *	@return double: the vector Taxicab norm.
+ *
+ *************************************************************************/
+
+double euclideanNorm(Vector v, int n){
+	int i;              // counter
+	double norm = 0.0;  // the norm
+
+	for (i = 0; i < n; i++)
+		norm += (v[i] * v[i]);
+
+	return sqrt(norm);
+}
+
+
+/** infinityNorm **********************************************************
+ *
+ *	This method evaluate the infinity norm of the vector `v`.
+ *
+ *	@param `v` Vector: the vector.
+ *	@param `n` int: the vector length.
+ *
+ *	@return double: the vector Taxicab norm.
+ *
+ *************************************************************************/
+
+double infinityNorm(Vector v, int n){
+	int i;              // counter
+	double norm = 0.0;  // the norm
+
+	for (i = 0; i < n; i++)
+		if (fabs(v[i]) > norm)
+			norm = fabs(v[i]);
+
+	return norm;
+}
