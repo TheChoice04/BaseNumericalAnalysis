@@ -106,7 +106,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 		}
 		// Check for singularity
 		if (A[i][i] == 0.0){
-			printMatrix(m, n, A);
+			printMatrix(A, m, n);
 			printf("ERROR: The coefficient matrix is Singular.");
 			return 1;
 		}

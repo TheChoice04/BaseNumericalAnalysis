@@ -52,15 +52,22 @@ Vector allocRandVector(int, double, double);
 Matrix allocRandMatrix(int, int, double, double);
 Matrix allocRandQMatrix(int, double, double);
 
-Vector multMV(int, int, Matrix, int, Vector);
-Matrix multMM(int, int, Matrix, int, int, Matrix);
+void multMV(Matrix A, Vector b, int m, int n, Vector* x);
+void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix* X);
 
-void printVector(int, Vector);
-void printMatrix(int, int, Matrix);
-void printQMatrix(int, Matrix);
-void printSystem(Matrix, Vector, int, int);
+void printVector(Vector v, int n);
+void printMatrix(Matrix M, int m, int n);
+void printQMatrix(Matrix M, int n);
 
 void fprintVector(char *dest, Vector arg, int len);
+
+//
+//	From utils_systems.c
+//
+
+void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+void printSystem(Matrix, Vector, int, int);
+void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 //
 //	From utils_utility.c
