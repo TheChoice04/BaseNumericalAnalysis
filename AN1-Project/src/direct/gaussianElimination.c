@@ -43,7 +43,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x);
  *	@param x Vector: the unknown vector (will be filled up);
  *
  *	@return int exit-code:
- *	  `0` : Success;
+ *	  `0` : Success
  *	  `1` : Under-determined System.
  *	  `2` : Incompatible System.
  *
@@ -115,7 +115,8 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 			// Head Coefficient Calculus
 			aij = A[j][i]/A[i][i];
 			// Column Cicle
-			for (k = i; k < n; k++){
+			A[j][i] = 0.0;
+			for (k = i+1; k < n; k++){
 				A[j][k] = A[j][k] - (aij * A[i][k]);
 			}
 			b[j] = b[j] - (aij * b[i]);

@@ -2,7 +2,12 @@
  * iterativeMenu.c
  *
  *  Created on: 23 gen 2019
- *      Author: Elia
+ *      Author: Elia Onofri
+ **
+ *	Macros used:
+ *	 ln -> printf("\n")
+ *	 Matrix -> double**
+ *	 Vector -> double*
  */
 
 
@@ -27,11 +32,8 @@ int iterativeMenu();
 int iterativeMenu(){
 	int c;              // choicer
 	int m, n;           // dimensions
-	int ans;            // exit-code
+	int ans;            // method exit-code
 	Matrix A = NULL;    // coefficient Matrix
-	Matrix D = NULL;    // inferior triangular matrix
-	Matrix E = NULL;    // diagonal matrix
-	Matrix F = NULL;    // superior triangular matrix
 	Vector b = NULL;    // known terms Vector
 	Vector x;           // unknown vector
 
@@ -45,8 +47,6 @@ int iterativeMenu(){
 	}
 
 	x = allocVector(n);
-
-	//splitMatrix(A, m, n, &D, &E, &F);
 
 	printf("You can choose one of the following:\n");
 	printf(" * type `1` to Jacobi Method;\n");
@@ -62,11 +62,7 @@ int iterativeMenu(){
 	case 1:
 		printf("The original system is described by:\n");
 		printSystem(A, b, m, n);
-		printf("Where the coefficient matrix could be decomposed in:\n");
-		printMatrix(D, m, n);
-		printMatrix(E, m, n);
-		printMatrix(F, m, n);
-		//ans = jacobi(A, b, m, n, x);
+		ans = jacobi(A, b, n, x);
 		printf("The application of Jacobi method has given the following solution:\n");
 		printVector(x, n);
 		break;
@@ -79,6 +75,7 @@ int iterativeMenu(){
 		return 3;
 	}
 
+	if (ans == 0)
 	evalSystemError(A, x, b, m, n);
 
 	return 0;

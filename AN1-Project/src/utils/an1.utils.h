@@ -19,7 +19,9 @@
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
 #define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
-#define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx);
+#define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
+#define isApproxZero(x) fabs(x) < ERR
+#define isApprox(x, y) fabs(x - y) < ERR
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
@@ -39,27 +41,35 @@
 void selectFunction(double (**f)(double), double (**df)(double));
 
 //
-//  From utils_structures.c
+//  From utils_matrices.c
 //
 
-Vector allocVector(int);
 Matrix allocMatrix(int, int);
 Matrix allocQMatrix(int);
-
-Matrix parseQMatrix(int);
-
-Vector allocRandVector(int, double, double);
 Matrix allocRandMatrix(int, int, double, double);
 Matrix allocRandQMatrix(int, double, double);
+Matrix copyMatrix(Matrix M, int m, int n);
 
-void multMV(Matrix A, Vector b, int m, int n, Vector* x);
-void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix* X);
+void multMV(Matrix A, Vector b, int m, int n, Vector x);
+void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
 
-void printVector(Vector v, int n);
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
 
+//
+//	From utils_vector.c
+//
+
+Vector allocVector(int);
+Vector allocRandVector(int, double, double);
+Vector copyVector(Vector v, int n);
+
+void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
+
+double taxicabNorm(Vector v, int n);
+double euclideanNorm(Vector v, int n);
+double infinityNorm(Vector v, int n);
 
 //
 //	From utils_systems.c
@@ -67,6 +77,7 @@ void fprintVector(char *dest, Vector arg, int len);
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void printSystem(Matrix, Vector, int, int);
+void printSolution(Vector x, int n);
 void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 //

@@ -3,7 +3,6 @@
  *
  *  Created on: 16 nov 2018
  *      Author: Elia Onofri
- *
  **
  *	Macros used:
  *	 ln -> printf("\n")
@@ -36,10 +35,15 @@ int directMenu(){
 	int m, n;           // dimensions
 	int ans;            // exit-code
 	Matrix A = NULL;    // coefficient Matrix
+	Matrix oA = NULL;   // original coefficient matrix
 	Vector b = NULL;    // known terms Vector
+	Vector ob = NULL;   // original known terms Vector
 	Vector x;           // unknown vector
 
 	parseLinearSystem(&A, &b, &m, &n);
+
+	oA = copyMatrix(A, m, n);
+	ob = copyVector(b, m);
 
 	x = allocVector(n);
 
@@ -63,7 +67,7 @@ int directMenu(){
 		printf("The application of Gaussian Elimination has given the following triangular system:\n");
 		printSystem(A, b, m, n);
 		printf("And the solution evaluated is:\n");
-		printVector(x, n);
+		printSolution(x, n);
 		ln;ln;
 		break;
 
@@ -75,6 +79,8 @@ int directMenu(){
 		return 3;
 	}
 
+	if (ans == 0)
+		evalSystemError(oA, x, ob, m, n);
 
 	return 0;
 }

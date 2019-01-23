@@ -17,10 +17,11 @@ Vector allocVector(int);
 Vector allocRandVector(int, double, double);
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
+Vector copyVector(Vector v, int n);
 
-double taxicabNorm();
-double euclideanNorm();
-double infinityNorm();
+double taxicabNorm(Vector v, int n);
+double euclideanNorm(Vector v, int n);
+double infinityNorm(Vector v, int n);
 
 
 //
@@ -31,7 +32,7 @@ double infinityNorm();
  *
  *	This method simply allocate a `n` length vector.
  *
- *	@param n int: vector length.
+ *	@param n int: the vector length.
  *
  *	@return Vector: the vector allocated.
  *
@@ -47,9 +48,9 @@ Vector allocVector(int n){
  *	This method allocate a `n` length vector with random values in
  *	 the range `[x, y]`.
  *
- *	@param n int: vector length.
- *	@param x double: min of the random range.
- *	@param y double: max of the random range.
+ *	@param n int: the vector length.
+ *	@param x double: the minimum of the random range.
+ *	@param y double: the maximum of the random range.
  *
  *	@return Vector: the vector allocated.
  *
@@ -64,6 +65,30 @@ Vector allocRandVector(int n, double x, double y){
 		v[i] = Random(x, y);
 
 	return v;
+}
+
+
+/** copyVector ************************************************************
+ *
+ *	This method copies the Vector `v` in a new vector.
+ *
+ *	@param V Matrix: the vector to be copied.
+ *	@param n int: the vector length.
+ *
+ *	@return Vector: the copy of the input vector.
+ *
+ *************************************************************************/
+
+Vector copyVector(Vector v, int n){
+	int i;              // counter
+	Vector c;           // the copied vector
+
+	v = allocVector(n);
+
+	for (i = 0; i < n; i++)
+		c[i] = v[i];
+
+	return c;
 }
 
 
@@ -111,7 +136,7 @@ void fprintVector(char *dest, Vector arg, int len){
 	int i;              // counter
 	FILE *fileP;        // output file pointer
 
-	*fileP = fopen(dest, "w");
+	fileP = fopen(dest, "w");
 
 	if (fileP == NULL) {
 		printf("ERROR: can't open %s in writing mode.\n", dest);

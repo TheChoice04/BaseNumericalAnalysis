@@ -17,7 +17,7 @@
 int functionZerosMenu();
 
 //
-//  Direct Function
+//  Functions
 //
 
 int bisection(double a, double b, double e, double (*f)(double));

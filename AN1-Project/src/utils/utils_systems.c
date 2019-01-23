@@ -6,6 +6,7 @@
  **
  *	Macros used:
  *	 Random(x, y) -> (x + ((double) rand()/RAND_MAX)*(y-x))
+ *	 isApproxZero(x) -> fabs(x) < ERR
  *	 ln -> printf("\n")
  *	 Vector -> double*
  *	 Matrix -> double**
@@ -16,6 +17,7 @@
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void printSystem(Matrix, Vector, int, int);
+void printSolution(Vector x, int n);
 void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 /** parseLinearSystem *****************************************************
@@ -65,7 +67,7 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	if (choice == 1 || choice == 2){
 		// Default Source
 		if (choice == 1)
-			fileP = fopen("source/GaussDefaultSystem.txt", "r");
+			fileP = fopen("source/DefaultSystem.txt", "r");
 		// Particular Source
 		else{
 			char filepath[256];
@@ -131,27 +133,51 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 
 /** printSystem ***********************************************************
  *
- *	This method prints the complete matrix associated to a system
- *	 in the form `Ax = b`.
+ *	This method prints the system described by the coefficient matrix `A`
+ *	 and the known terms `b` in the unknown `x_0 ... x_{n-1}`.
  *
  *	@param A Matrix: The coefficient matrix.
  *	@param b Vector: The known terms vector.
  *	@param m int: The number of equations (row) the system is made of.
+ *	               Must be equal to the number of known terms in `b`.
  *	@param n int: The number of unknowns (column) the system is made of.
- *	               must be equal to the number of known terms in `b`.
  *
  *	@return NULL.
  *
  *************************************************************************/
 
 void printSystem(Matrix A, Vector b, int m, int n){
-	int i, j;
+	int i, j;           // counters
 	for (i = 0; i < m; i++){
-		printf("  [");
-		for (j = 0; j < n; j++)
+		printf("  | ");
+		for (j = 0; j < n; j++){
+			if ( !(isApproxZero(A[i][j])) ){
 			printf("%lf x_%d", A[i][j], j);
-		printf("| %lf]\n", b[i]);
+			if (j < n-1)
+				printf(" + ");
+			}
+		}
+		printf(" = %lf\n", b[i]);
 	}
+	printf("\n");
+}
+
+
+/** printSolution *********************************************************
+ *
+ *	This method prints the unknown vector `x_0 ... x_{n-1}`.
+ *
+ *	@param x Vector: The unknown terms vector.
+ *	@param n int: The number of unknowns.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void printSolution(Vector x, int n){
+	int i;              // counter
+	for (i = 0; i < n; i++)
+		printf("  x_%d = %lf\n", i, x[i]);
 	printf("\n");
 }
 
@@ -181,22 +207,23 @@ void evalSystemError(Matrix A, Vector x, Vector b, int m, int n){
 	Vector b1;          // effective result of `Ax`
 	Vector err;         // error vector
 
-	b1 = allocVector(n);
+	b1 = allocVector(m);
+	err = allocVector(m);
 
-	multMV(A, x, m, n, &b1);
+	multMV(A, x, m, n, b1);
 
-	for (i = 0; i < n; i++){
+	for (i = 0; i < m; i++){
 		err[i] = fabs(b1[i] - b[i]);
 	}
 
 	printf("The error norm is:\n");
-	norm = taxicabNorm(err);
+	norm = taxicabNorm(err, m);
 	printf(" - Taxicaban norm : %lf.\n", norm);
 
-	norm = euclideanNorm(err);
+	norm = euclideanNorm(err, m);
 	printf(" - Euclidean norm : %lf.\n", norm);
 
-	norm = infinityNorm(err);
+	norm = infinityNorm(err, m);
 	printf(" - infinity norm : %lf.\n", norm);
 
 
