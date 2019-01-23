@@ -83,7 +83,7 @@ Vector copyVector(Vector v, int n){
 	int i;              // counter
 	Vector c;           // the copied vector
 
-	v = allocVector(n);
+	c = allocVector(n);
 
 	for (i = 0; i < n; i++)
 		c[i] = v[i];
