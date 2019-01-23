@@ -2,7 +2,10 @@
  * least-squares.c
  *
  *  Created on: 18 dic 2018
- *      Author: Elia
+ *      Author: Elia Onofri
+ **
+ *	Macros used:
+ *	 Vector -> double*
  */
 
 

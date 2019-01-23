@@ -10,7 +10,7 @@ This `C` repository, developed during the course of [**AN410** _Numerical Analys
       - [ ] Cholesky Factorization
       - [ ] Doolittle Factorization
     - [ ] QR factorization
-  - Iterattives methods for solving linear systems
+  - Iteratives methods for solving linear systems
     - [ ] Jacobi method
     - [ ] Gauss-Seidel method
     - [ ] Sor method
@@ -43,4 +43,4 @@ This `C` repository, developed during the course of [**AN410** _Numerical Analys
  
 ## Bibliography Link
  - [AN410 lecture notes](http://www.mat.uniroma3.it/users/ferretti/corso.pdf) by R. Ferretti;
- - [Quarteroni-Saleri]();
+ - **Matematica Numerica ed.3** by _A. Quarteroni - R. Sacco - F. Saleri_ [QSS08](https://www.researchgate.net/publication/45627395_Matematica_Numerica);
