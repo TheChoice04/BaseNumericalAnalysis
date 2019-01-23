@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  **
  *	Macros used:
- *	 fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx);
+ *	 fprintPoint(p, x, fx) -> fprintf(p, "%lf %lf\n", x, fx);
  *	 MAX_ATTEMPTs
  */
 

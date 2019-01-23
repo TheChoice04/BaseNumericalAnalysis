@@ -3,6 +3,12 @@
  *
  *  Created on: 16 gen 2019
  *      Author: Elia Onofri
+ **
+ *	Macros used:
+ *	 allocate(num, type) -> ((type*)malloc(num * sizeof(type)))
+ *	 Random(x, y) -> (x + ((double) rand()/RAND_MAX)*(y-x))
+ *	 Vector -> double*
+ *	 Matrix -> double**
  */
 
 

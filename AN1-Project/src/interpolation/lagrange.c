@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  **
  *	Macros used:
- *	 Vector double*
+ *	 Vector -> double*
  */
 
 

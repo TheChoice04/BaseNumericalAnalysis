@@ -3,6 +3,10 @@
  *
  *  Created on: 6 dic 2018
  *      Author: Elia Onofri
+ **
+ *	Macros used:
+ *	 fprintPoint(p, x, fx) -> fprintf(p, "%lf %lf\n", x, fx);
+ *	 MAX_ATTEMPTs
  */
 
 #include "an1.function-zeros.h"

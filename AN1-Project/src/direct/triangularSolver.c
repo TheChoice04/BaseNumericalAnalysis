@@ -6,9 +6,9 @@
  *
  **
  *	Macros used:
- *	 ERR 0.0000000001 //10^-10
  *	 Matrix -> double**
  *	 Vector -> double*
+ *	 ERR
  */
 
 
