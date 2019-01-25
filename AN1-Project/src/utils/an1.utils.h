@@ -22,6 +22,7 @@
 #define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
 #define isApproxZero(x) fabs(x) < ERR
 #define isApprox(x, y) fabs(x - y) < ERR
+#define gnuplot(x) system("/usr/local/Cellar/gnuplot/5.2.5/bin/gnuplot "" -p 'gnuplot-scripts/"x"'")
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
@@ -52,6 +53,7 @@ Matrix copyMatrix(Matrix M, int m, int n);
 
 void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
+void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
@@ -70,6 +72,7 @@ void fprintVector(char *dest, Vector arg, int len);
 double taxicabNorm(Vector v, int n);
 double euclideanNorm(Vector v, int n);
 double infinityNorm(Vector v, int n);
+double pNorm(Vector v, int n, int p);
 
 //
 //	From utils_systems.c
@@ -78,6 +81,7 @@ double infinityNorm(Vector v, int n);
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
+double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
 void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 //

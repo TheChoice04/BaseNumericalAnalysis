@@ -22,6 +22,7 @@ Vector copyVector(Vector v, int n);
 double taxicabNorm(Vector v, int n);
 double euclideanNorm(Vector v, int n);
 double infinityNorm(Vector v, int n);
+double pNorm(Vector v, int n, int p);
 
 
 //
@@ -159,8 +160,8 @@ void fprintVector(char *dest, Vector arg, int len){
  *
  *	This method evaluate the Taxicab norm (one norm) of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -181,8 +182,8 @@ double taxicabNorm(Vector v, int n){
  *
  *	This method evaluate the Euclidean norm of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -203,8 +204,8 @@ double euclideanNorm(Vector v, int n){
  *
  *	This method evaluate the infinity norm of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -220,3 +221,37 @@ double infinityNorm(Vector v, int n){
 
 	return norm;
 }
+
+
+/** pNorm *****************************************************************
+ *
+ *	This method evaluate the infinity norm of the vector `v`.
+ *
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
+ *	@param p int: the norm counter.
+ *
+ *	@return double: the vector `p`-norm.
+ *
+ *************************************************************************/
+
+double pNorm(Vector v, int n, int p){
+	int i;              // counter
+	double norm = 0.0;  // the norm
+
+	if (p == 0)
+		norm = infinityNorm(v, n);
+	else if (p == 1)
+		norm = taxicabNorm(v, n);
+	else if (p == 2)
+		norm = euclideanNorm(v, n);
+	else {
+		for (i = 0; i < n; i++)
+			norm += (pow(v[i], p));
+		norm = pow(norm, 1/p);
+	}
+
+	return norm;
+}
+
+

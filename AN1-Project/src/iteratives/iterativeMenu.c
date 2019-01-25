@@ -32,7 +32,9 @@ int iterativeMenu();
 int iterativeMenu(){
 	int c;              // choicer
 	int m, n;           // dimensions
+	int p;              // norm value
 	int ans;            // method exit-code
+	double err;         // error range
 	Matrix A = NULL;    // coefficient Matrix
 	Vector b = NULL;    // known terms Vector
 	Vector x;           // unknown vector
@@ -48,6 +50,15 @@ int iterativeMenu(){
 
 	x = allocVector(n);
 
+	printf("Choose a norm for the evaluation:\n");
+	printf(" - type `1` for taxicab norm.\n");
+	printf(" - type `2` for euclidean norm.\n");
+	printf(" - type `0` for infinite norm.\n");
+	p = scanInt(0, 2);
+
+	printf("Type in an error range:\n>> ");
+	scanf("%lf", err);
+
 	printf("You can choose one of the following:\n");
 	printf(" * type `1` to Jacobi Method;\n");
 	printf(" * type `2` to Gauss-Seidel method;\n");
@@ -62,7 +73,7 @@ int iterativeMenu(){
 	case 1:
 		printf("The original system is described by:\n");
 		printSystem(A, b, m, n);
-		ans = jacobi(A, b, n, x);
+		ans = jacobi(A, b, n, x, err, p);
 		printf("The application of Jacobi method has given the following solution:\n");
 		printVector(x, n);
 		break;

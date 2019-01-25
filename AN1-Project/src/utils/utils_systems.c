@@ -18,6 +18,7 @@
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
+double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
 void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 /** parseLinearSystem *****************************************************
@@ -196,12 +197,52 @@ void printSolution(Vector x, int n){
  *	@param b Vector: The known terms vector.
  *	@param m int: The number of equations (row) the system is made of.
  *	@param n int: The number of unknowns (column) the system is made of.
+ *	@param p int: Norm value.
+ *
+ *	@return double: the norm evaluated.
+ *
+ *************************************************************************/
+
+double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p){
+	int i;              // counter
+	double norm;        // error norm
+	Vector b1;          // effective result of `Ax`
+	Vector err;         // error vector
+
+	b1 = allocVector(m);
+	err = allocVector(m);
+
+	multMV(A, x, m, n, b1);
+
+	for (i = 0; i < m; i++){
+		err[i] = fabs(b1[i] - b[i]);
+	}
+
+	norm = pNorm(err, m, p);
+
+	return norm;
+}
+
+/** printSystemError *******************************************************
+ *
+ *	This method evaluate the approximation error made during the calculus
+ *	 of a system in the form `Ax = b` by performing the norm of `Ax - b`.
+ *	Then it is displayed in the three normas:
+ *	 - Taxicab norm.
+ *	 - Euclidean norm.
+ *	 - Infinity norm.
+ *
+ *	@param A Matrix: The coefficient matrix.
+ *	@param x Vector: The solution that needs to be evaluated.
+ *	@param b Vector: The known terms vector.
+ *	@param m int: The number of equations (row) the system is made of.
+ *	@param n int: The number of unknowns (column) the system is made of.
  *
  *	@return NULL.
  *
  *************************************************************************/
 
-void evalSystemError(Matrix A, Vector x, Vector b, int m, int n){
+void printSystemError(Matrix A, Vector x, Vector b, int m, int n){
 	int i;              // counter
 	double norm;        // error norm
 	Vector b1;          // effective result of `Ax`
