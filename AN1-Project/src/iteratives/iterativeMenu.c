@@ -34,7 +34,9 @@ int iterativeMenu(){
 	int m, n;           // dimensions
 	int p;              // norm value
 	int ans;            // method exit-code
+	int dd;             // diagonally dominance
 	double err;         // error range
+	double norm;        // the norm evaluated
 	Matrix A = NULL;    // coefficient Matrix
 	Vector b = NULL;    // known terms Vector
 	Vector x;           // unknown vector
@@ -48,7 +50,14 @@ int iterativeMenu(){
 		return 2;
 	}
 
-	x = allocVector(n);
+	dd = isDiagonallyDominant(A, n, n);
+
+	printf("Do you want to choose a starting vector\n for the partial solution? (1 = Yes/0 = No)\n");
+	c = scanInt(0, 1);
+	if (c == 1)
+		x = scanVector(n);
+	else
+		x = allocVector(n);
 
 	printf("Choose a norm for the evaluation:\n");
 	printf(" - type `1` for taxicab norm.\n");
@@ -57,7 +66,7 @@ int iterativeMenu(){
 	p = scanInt(0, 2);
 
 	printf("Type in an error range:\n>> ");
-	scanf("%lf", err);
+	scanf("%lf", &err);
 
 	printf("You can choose one of the following:\n");
 	printf(" * type `1` to Jacobi Method;\n");
@@ -69,15 +78,28 @@ int iterativeMenu(){
 	ln;ln;
 
 
+	printf("The system is described by:\n");
+	printSystem(A, b, m, n);
+
 	switch (c) {
 	case 1:
-		printf("The original system is described by:\n");
-		printSystem(A, b, m, n);
+		if (dd == 0)
+			printf("WARNING: the coefficient matrix is not Diagonally Dominant.\n");
 		ans = jacobi(A, b, n, x, err, p);
-		printf("The application of Jacobi method has given the following solution:\n");
-		printVector(x, n);
+		break;
+/*
+	case 2:
+		ans = gaussSeidel(A, b, n, x, err, p);
 		break;
 
+	case 3:
+		ans = sor(A, b, n, x, err, p);
+		break;
+
+	case 4:
+		ans = richardson(A, b, n, x, err, p);
+		break;
+*/
 	case 0:
 		printf("Aborted\n");
 		return 1;
@@ -86,8 +108,21 @@ int iterativeMenu(){
 		return 3;
 	}
 
-	if (ans == 0)
-	evalSystemError(A, x, b, m, n);
+	norm = evalSystemError(A, x, b, n, n, p);
+
+	if (ans == 0){
+		printf("The application of the method has given the following solution:\n");
+		printSolution(x, n);
+		printf("Its error norm is %lf", norm);
+	} else if (ans == 1){
+		printf("ERROR: The matrix must have non-zero value on its diagonal.");
+	} else if (ans == 2){
+		printf("No solutions were found within the first %d iterations with the required precision.\n", MAX_ATTEMPTs);
+		printf("The partial solution found is:\n");
+		printSolution(x, n);
+		printf("Its error norm is %lf.\n\n", norm);
+	} else
+		return 4;
 
 	return 0;
 }

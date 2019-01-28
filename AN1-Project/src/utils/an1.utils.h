@@ -54,6 +54,7 @@ Matrix copyMatrix(Matrix M, int m, int n);
 void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
 void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
+int isDiagonallyDominant(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
@@ -64,7 +65,10 @@ void printQMatrix(Matrix M, int n);
 
 Vector allocVector(int);
 Vector allocRandVector(int, double, double);
+Vector scanVector(int);
+
 Vector copyVector(Vector v, int n);
+void sumVV(Vector u, Vector v, int n, Vector x);
 
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
@@ -79,10 +83,11 @@ double pNorm(Vector v, int n, int p);
 //
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
 double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
-void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
+void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 //
 //	From utils_utility.c

@@ -27,6 +27,8 @@ void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
 void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
 
+int isDiagonallyDominant(Matrix M, int m, int n);
+
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
 
@@ -251,6 +253,44 @@ void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F){
 
 	return ;
 
+}
+
+
+/** isDiagonallyDominant **************************************************
+ *
+ *	This method checks if the matrix `M` given in input is (strictly)
+ *	 diagonally dominant, ie:
+ *	```math
+ *	|a_{i,i}| \geq \sum_{j \ne i} |a_{i, j}|    \qquad (<)
+ *	```
+ *
+ *	@param M Matrix: the matrix.
+ *	@param m int: the number of rows of `M`.
+ *	@param n int: the number of columns of `M`.
+ *
+ *	@return int: exit-code
+ *	  `0` : `M` is not diagonally dominant.
+ *	  `1` : `M` is diagonally dominant.
+ *	  `2` : `M` is strictly diagonally dominant.
+ *
+ *************************************************************************/
+
+int isDiagonallyDominant(Matrix M, int m, int n){
+	int ans = 2;        // is strictly diagonally
+	int i, j;           // counters
+	double acc;         // sum accumulator
+
+	for (i = 0; i < m; i++){
+		acc = - (2 * fabs(M[i][i]));
+		for (j = 0; j < n; j++)
+			acc += fabs(M[i][j]);
+		if (acc > 0)
+			return 0;
+		if (acc == 0)
+			ans = 1;
+	}
+
+	return ans;
 }
 
 

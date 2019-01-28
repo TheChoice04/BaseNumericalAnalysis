@@ -30,28 +30,24 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
  *
  *	@return int: exit-code:
  *	  `0` : success.
+ *	  `1` : zero values on the matrix diagonal.
+ *	  `2` : iteration number have overflow (no solution found).
  *
  *************************************************************************/
 
 int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
-	/*
-	Matrix D = NULL;    // inferior triangular matrix
-	Matrix E = NULL;    // diagonal matrix
-	Matrix F = NULL;    // superior triangular matrix
-	Matrix Bj = NULL;   // updating matrix
-	Vector cj = NULL;   // updating vector
-
-	D = allocQMatrix(n);
-	E = allocQMatrix(n);
-	F = allocQMatrix(n);
-
-	splitMatrix(A, n, D, E, F);
-	*/
-
 	int i, j, counter;  // counters
 	Matrix Bj = NULL;   // updating matrix
 	Vector cj = NULL;   // updating vector
 	double norm;        // error norm
+	FILE *fileP;        // output file pointer
+
+	fileP = fopen("results/systems/jacobi.txt", "w");
+
+	if (fileP == NULL) {
+		printf("ERROR: can't open `results/systems/jacobi.txt` in writing mode.\n");
+		exit(1);
+	}
 
 	Bj = allocQMatrix(n);
 	cj = allocVector(n);
@@ -59,7 +55,7 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	// Basis Construction
 	for (i = 0; i < n; i++){
 		if (A[i][i] == 0.0){
-			printf("ERROR: The matrix must have non-zero value on its diagonal.");
+			return 1;
 		}
 		for (j = 0; j < n; j++)
 			if (i == j)
@@ -70,14 +66,35 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	}
 
 	counter = 0;
-	norm = evalSystemError();
-	while (norm < err && counter < MAX_ATTEMPTs){
-		//ToDo
+	norm = evalSystemError(A, x, b, n, n, p);
+	while (norm > err && counter < MAX_ATTEMPTs){
+		fprintPoint(fileP, (double) counter, norm);
+		updateSolution(Bj, cj, x, n);
+		norm = evalSystemError(A, x, b, n, n, p);
 		counter++;
 	}
 
+	fprintPoint(fileP, (double) counter, norm);
 
+	fclose(fileP);
 
+	if (counter >= MAX_ATTEMPTs){
+		return 2;
+	}
 
 	return 0;
+
+	/*
+		Matrix D = NULL;    // inferior triangular matrix
+		Matrix E = NULL;    // diagonal matrix
+		Matrix F = NULL;    // superior triangular matrix
+		Matrix Bj = NULL;   // updating matrix
+		Vector cj = NULL;   // updating vector
+
+		D = allocQMatrix(n);
+		E = allocQMatrix(n);
+		F = allocQMatrix(n);
+
+		splitMatrix(A, n, D, E, F);
+	 */
 }

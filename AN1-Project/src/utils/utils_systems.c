@@ -16,10 +16,11 @@
 #include "an1.utils.h"
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
 double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
-void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
+void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 /** parseLinearSystem *****************************************************
  *
@@ -132,16 +133,46 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 }
 
 
+/** updateSolution ********************************************************
+ *
+ *	This method updates a vector `x` with a matrix multiplication by `B`
+ *	 and a vector sum by `c`. In other worlds it is evaluating the assign:
+ *	```C
+ *	x = (x * B) + c;
+ *	```
+ *
+ *	@param B Matrix: updating Matrix.
+ *	@param c Vector: updating Vector.
+ *	@param x Vector: vector to be updated (will be filled).
+ *	@param n int: dimension of the vector.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void updateSolution(Matrix B, Vector c, Vector x, int n){
+	Vector x0;          // copy of the original vector `x`
+
+	x0 = copyVector(x, n);
+
+	multMV(B, x0, n, n, x);
+
+	sumVV(x, c, n, x);
+
+	free(x0);
+}
+
+
 /** printSystem ***********************************************************
  *
  *	This method prints the system described by the coefficient matrix `A`
  *	 and the known terms `b` in the unknown `x_0 ... x_{n-1}`.
  *
- *	@param A Matrix: The coefficient matrix.
- *	@param b Vector: The known terms vector.
- *	@param m int: The number of equations (row) the system is made of.
+ *	@param A Matrix: the coefficient matrix.
+ *	@param b Vector: the known terms vector.
+ *	@param m int: the number of equations (row) the system is made of.
  *	               Must be equal to the number of known terms in `b`.
- *	@param n int: The number of unknowns (column) the system is made of.
+ *	@param n int: the number of unknowns (column) the system is made of.
  *
  *	@return NULL.
  *
@@ -192,12 +223,12 @@ void printSolution(Vector x, int n){
  *	This method evaluate the approximation error made during the calculus
  *	 of a system in the form `Ax = b` by performing the norm of `Ax - b`.
  *
- *	@param A Matrix: The coefficient matrix.
- *	@param x Vector: The solution that needs to be evaluated.
- *	@param b Vector: The known terms vector.
- *	@param m int: The number of equations (row) the system is made of.
- *	@param n int: The number of unknowns (column) the system is made of.
- *	@param p int: Norm value.
+ *	@param A Matrix: the coefficient matrix.
+ *	@param x Vector: the solution that needs to be evaluated.
+ *	@param b Vector: the known terms vector.
+ *	@param m int: the number of equations (row) the system is made of.
+ *	@param n int: the number of unknowns (column) the system is made of.
+ *	@param p int: norm value.
  *
  *	@return double: the norm evaluated.
  *
@@ -232,11 +263,11 @@ double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p){
  *	 - Euclidean norm.
  *	 - Infinity norm.
  *
- *	@param A Matrix: The coefficient matrix.
- *	@param x Vector: The solution that needs to be evaluated.
- *	@param b Vector: The known terms vector.
- *	@param m int: The number of equations (row) the system is made of.
- *	@param n int: The number of unknowns (column) the system is made of.
+ *	@param A Matrix: the coefficient matrix.
+ *	@param x Vector: the solution that needs to be evaluated.
+ *	@param b Vector: the known terms vector.
+ *	@param m int: the number of equations (row) the system is made of.
+ *	@param n int: the number of unknowns (column) the system is made of.
  *
  *	@return NULL.
  *

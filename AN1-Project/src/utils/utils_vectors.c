@@ -15,9 +15,13 @@
 
 Vector allocVector(int);
 Vector allocRandVector(int, double, double);
+Vector scanVector(int);
+
+Vector copyVector(Vector v, int n);
+void sumVV(Vector u, Vector v, int n, Vector x);
+
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
-Vector copyVector(Vector v, int n);
 
 double taxicabNorm(Vector v, int n);
 double euclideanNorm(Vector v, int n);
@@ -69,11 +73,42 @@ Vector allocRandVector(int n, double x, double y){
 }
 
 
+/** allocRandVector *******************************************************
+ *
+ *	This method allocate a `n` length vector with value chosen by
+ *	 the user.
+ *
+ *	@param n int: the vector length.
+ *
+ *	@return Vector: the vector allocated.
+ *
+ *************************************************************************/
+
+Vector scanVector(int n){
+	int i;              // counter
+	Vector v;           // the vector
+
+	v = allocate(n, double);
+	for (i=0; i<n; i++){
+		printf("Type in the %d-th value.\n>> ", i+1);
+		scanf("%lf", &v[i]);
+		ln;
+	}
+
+	return v;
+}
+
+
+//
+// Vector Operations
+//
+
+
 /** copyVector ************************************************************
  *
  *	This method copies the Vector `v` in a new vector.
  *
- *	@param V Matrix: the vector to be copied.
+ *	@param v Vector: the vector to be copied.
  *	@param n int: the vector length.
  *
  *	@return Vector: the copy of the input vector.
@@ -90,6 +125,29 @@ Vector copyVector(Vector v, int n){
 		c[i] = v[i];
 
 	return c;
+}
+
+
+/** SumVV *****************************************************************
+ *
+ *	This method sum the vectors `u` and `v` in a vector `x`.
+ *
+ *	@param u vector: the first vector.
+ *	@param v vector: the second vector.
+ *	@param n int: the vectors length.
+ *	@param x vector: the destination vector (will be filled).
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void sumVV(Vector u, Vector v, int n, Vector x){
+	int i;              // counter
+
+	for (i = 0; i < n; i++)
+		x[i] = u[i] + v[i];
+
+	return ;
 }
 
 

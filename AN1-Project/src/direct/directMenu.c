@@ -80,7 +80,7 @@ int directMenu(){
 	}
 
 	if (ans == 0)
-		evalSystemError(oA, x, ob, m, n);
+		printSystemError(oA, x, ob, m, n);
 
 	return 0;
 }
