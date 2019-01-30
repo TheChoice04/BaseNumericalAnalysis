@@ -6,7 +6,8 @@
  *
  **
  *	Macros used:
- *	 MAX_ERRs -> 5
+ *	 ln -> printf("\n")
+ *	 MAX_ERRs
  */
 
 
@@ -34,10 +35,12 @@ int scanInt(int min, int max){
 	for (i = 1; i <= MAX_ERRs; i++){
 		printf(">> ");
 		scanf("%d", &c);
+		ln;
 		if (c < min || c > max){
 			printf("WARNING: The value is not in the current range [%d, %d].\n", min, max);
 			printf("         Please insert a valid value.               (%d)\n", MAX_ERRs-i);
 		} else
+			ln;
 			return c;
 	}
 	exit(9);

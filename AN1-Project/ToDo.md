@@ -1,6 +1,7 @@
 # ToDo
+#### To do list for the project.
 
-to do list for the project.
+## Methods
 
 	- Direct methods for solving linear systems
 		- [Display] Gauss Elimination
@@ -9,7 +10,7 @@ to do list for the project.
 			- [todo] Doolittle Factorization
 		- [todo] QR factorization
 	- Iteratives methods for solving linear systems
-		- [Display] Jacobi method
+		- [X] Jacobi method
 		- [todo] Gauss-Seidel method
 		- [todo] SOR method
 		- [todo] Richardson
@@ -27,3 +28,12 @@ to do list for the project.
 		- [todo] Hermite interpolate
 	- Least-square method for function approximation
 		- [todo] Least-square systems
+		
+## Tasks
+
+add `fclose()` and `free` in:
+ - [ ] `src/direct/*.c`
+ - [ ] `src/function-zeros/*.c`
+ - [ ] `src/interpolation/*.c`
+ - [X] `src/iteratives/*.c`
+ - [X] `src/utils/*.c`

@@ -63,7 +63,6 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	printf(" - type `3` to parse a random system;\n");
 	printf(" - type `4` to parse a system manually (discouraged).\n");
 	choice = scanInt(1, 4);
-	ln;ln;
 
 	if (choice == 1 || choice == 2){
 		// Default Source
@@ -90,13 +89,14 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 			else
 				A[i/np][i%np] = x;
 		}
+
+		fclose(fileP);
+
 		// Manual Scan
 	} else {
 		printf("Insert the number of equations:\n");
 		m = scanInt(1, 100);
-		ln;
 		printf("Insert the number of unknowns:\n");
-		ln;
 		n = scanInt(1, 100);
 
 		A = allocMatrix(m, n);
@@ -125,7 +125,9 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	}
 
 	*Ap = A;
+	free(A);
 	*bp = b;
+	free(b);
 	*mp = m;
 	*np = n;
 	return ;
@@ -220,6 +222,9 @@ double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p){
 
 	norm = pNorm(err, m, p);
 
+	free(b1);
+	free(err);
+
 	return norm;
 }
 
@@ -266,6 +271,9 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n){
 
 	norm = infinityNorm(err, m);
 	printf(" - infinity norm : %lf.\n", norm);
+
+	free(b1);
+	free(err);
 
 
 }

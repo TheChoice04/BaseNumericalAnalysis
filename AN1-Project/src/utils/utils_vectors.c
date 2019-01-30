@@ -205,6 +205,8 @@ void fprintVector(char *dest, Vector arg, int len){
 	for (i=0; i<len; i++)
 		fprintf(fileP, "%lf\n", arg[i]);
 
+	fclose(fileP);
+
 	return ;
 }
 

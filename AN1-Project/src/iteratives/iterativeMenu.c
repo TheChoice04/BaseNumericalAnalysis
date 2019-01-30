@@ -26,6 +26,7 @@ int iterativeMenu();
  *	  `1` : Aborted.
  *	  `2` : Parsed matrix is not square.
  *	  `3` : Wrong Method Choosing.
+ *	  `4` : Unespected ans return.
  *
  *************************************************************************/
 
@@ -35,6 +36,7 @@ int iterativeMenu(){
 	int p;              // norm value
 	int ans;            // method exit-code
 	int dd;             // diagonally dominance
+	int ret = 0;        // exit-code
 	double err;         // error range
 	double norm;        // the norm evaluated
 	Matrix A = NULL;    // coefficient Matrix
@@ -47,6 +49,8 @@ int iterativeMenu(){
 		printf("ERROR: Coefficient matrix must be a square matrix!.\n");
 		printf("       You have instead parsed a %d by %d matrix.\n", m, n);
 		printf("       Maybe you could try using Gaussian Method.\n");
+		free(A);
+		free(b);
 		return 2;
 	}
 
@@ -88,7 +92,7 @@ int iterativeMenu(){
 		ans = jacobi(A, b, n, x, err, p);
 		gnuplot("jacobi.gp");
 		break;
-/*
+		/*
 	case 2:
 		ans = gaussSeidel(A, b, n, x, err, p);
 		break;
@@ -100,13 +104,17 @@ int iterativeMenu(){
 	case 4:
 		ans = richardson(A, b, n, x, err, p);
 		break;
-*/
+		 */
 	case 0:
 		printf("Aborted\n");
-		return 1;
+		ans = -1;
+		ret = 1;
+		break;
 
 	default:
-		return 3;
+		printf("WARNING: the method has not been encoded yet.\n");
+		ans = -1;
+		ret = 3;
 	}
 
 	norm = evalSystemError(A, x, b, n, n, p);
@@ -122,8 +130,12 @@ int iterativeMenu(){
 		printf("The partial solution found is:\n");
 		printSolution(x, n);
 		printf("Its error norm is %lf.\n\n", norm);
-	} else
-		return 4;
+	} else if (ans != -1)
+		ret = 4;
 
-	return 0;
+	free(A);
+	free(b);
+	free(x);
+
+	return ret;
 }
