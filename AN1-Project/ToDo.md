@@ -1,5 +1,7 @@
 # ToDo
 
+to do list for the project.
+
 	- Direct methods for solving linear systems
 		- [Display] Gauss Elimination
 		- [todo] LU Factorization

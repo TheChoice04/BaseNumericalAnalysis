@@ -16,7 +16,6 @@
 #include "an1.utils.h"
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
-void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
 double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
@@ -130,36 +129,6 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	*mp = m;
 	*np = n;
 	return ;
-}
-
-
-/** updateSolution ********************************************************
- *
- *	This method updates a vector `x` with a matrix multiplication by `B`
- *	 and a vector sum by `c`. In other worlds it is evaluating the assign:
- *	```C
- *	x = (x * B) + c;
- *	```
- *
- *	@param B Matrix: updating Matrix.
- *	@param c Vector: updating Vector.
- *	@param x Vector: vector to be updated (will be filled).
- *	@param n int: dimension of the vector.
- *
- *	@return NULL.
- *
- *************************************************************************/
-
-void updateSolution(Matrix B, Vector c, Vector x, int n){
-	Vector x0;          // copy of the original vector `x`
-
-	x0 = copyVector(x, n);
-
-	multMV(B, x0, n, n, x);
-
-	sumVV(x, c, n, x);
-
-	free(x0);
 }
 
 

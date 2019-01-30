@@ -86,6 +86,7 @@ int iterativeMenu(){
 		if (dd == 0)
 			printf("WARNING: the coefficient matrix is not Diagonally Dominant.\n");
 		ans = jacobi(A, b, n, x, err, p);
+		gnuplot("jacobi.gp");
 		break;
 /*
 	case 2:

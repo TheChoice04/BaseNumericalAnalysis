@@ -15,6 +15,7 @@
 #include "an1.iteratives.h"
 
 int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
+void jacobiUpdate(Matrix B, Vector c, Vector x, int n);
 
 
 /** jacobi ****************************************************************
@@ -42,7 +43,7 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	double norm;        // error norm
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/systems/jacobi.txt", "w");
+	fileP = fopen("results/iteratives/jacobi.txt", "w");
 
 	if (fileP == NULL) {
 		printf("ERROR: can't open `results/systems/jacobi.txt` in writing mode.\n");
@@ -55,6 +56,8 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	// Basis Construction
 	for (i = 0; i < n; i++){
 		if (A[i][i] == 0.0){
+			free(Bj);
+			free(cj);
 			return 1;
 		}
 		for (j = 0; j < n; j++)
@@ -69,7 +72,7 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	norm = evalSystemError(A, x, b, n, n, p);
 	while (norm > err && counter < MAX_ATTEMPTs){
 		fprintPoint(fileP, (double) counter, norm);
-		updateSolution(Bj, cj, x, n);
+		jacobiUpdate(Bj, cj, x, n);
 		norm = evalSystemError(A, x, b, n, n, p);
 		counter++;
 	}
@@ -77,24 +80,42 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	fprintPoint(fileP, (double) counter, norm);
 
 	fclose(fileP);
+	free(Bj);
+	free(cj);
 
 	if (counter >= MAX_ATTEMPTs){
 		return 2;
 	}
 
 	return 0;
+}
 
-	/*
-		Matrix D = NULL;    // inferior triangular matrix
-		Matrix E = NULL;    // diagonal matrix
-		Matrix F = NULL;    // superior triangular matrix
-		Matrix Bj = NULL;   // updating matrix
-		Vector cj = NULL;   // updating vector
 
-		D = allocQMatrix(n);
-		E = allocQMatrix(n);
-		F = allocQMatrix(n);
+/** jacobiUpdate **********************************************************
+ *
+ *	This method updates a vector `x` with a matrix multiplication by `B`
+ *	 and a vector sum by `c`. In other worlds it is evaluating the assign:
+ *	```C
+ *	x = (x * B) + c;
+ *	```
+ *
+ *	@param B Matrix: updating Matrix.
+ *	@param c Vector: updating Vector.
+ *	@param x Vector: vector to be updated (will be filled).
+ *	@param n int: dimension of the vector.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
 
-		splitMatrix(A, n, D, E, F);
-	 */
+void jacobiUpdate(Matrix B, Vector c, Vector x, int n){
+	Vector x0;          // copy of the original vector `x`
+
+	x0 = copyVector(x, n);
+
+	multMV(B, x0, n, n, x);
+
+	sumVV(x, c, n, x);
+
+	free(x0);
 }
