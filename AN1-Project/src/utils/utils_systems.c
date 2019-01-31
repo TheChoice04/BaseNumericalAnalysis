@@ -76,7 +76,12 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 			fileP = fopen(filepath, "r");
 		}
 
-		// Scann the Source
+		if (fileP == NULL){
+			printf("ERROR: can't open the source file in reading mode.\n");
+			exit(1);
+		}
+
+		// Scan the Source
 		fscanf(fileP, "%d %d", &m, &n);
 		A = allocMatrix(m, n);
 		b = allocVector(m);
@@ -125,9 +130,7 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	}
 
 	*Ap = A;
-	free(A);
 	*bp = b;
-	free(b);
 	*mp = m;
 	*np = n;
 	return ;
@@ -155,9 +158,9 @@ void printSystem(Matrix A, Vector b, int m, int n){
 		printf("  | ");
 		for (j = 0; j < n; j++){
 			if ( !(isApproxZero(A[i][j])) ){
-			printf("%lf x_%d", A[i][j], j);
-			if (j < n-1)
-				printf(" + ");
+				printf("%lf x_%d", A[i][j], j);
+				if (j < n-1)
+					printf(" + ");
 			}
 		}
 		printf(" = %lf\n", b[i]);

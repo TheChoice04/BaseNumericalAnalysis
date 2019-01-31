@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Macros Declaration
+#define DEBUG(x) printf("DEBUG %d", x);
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")

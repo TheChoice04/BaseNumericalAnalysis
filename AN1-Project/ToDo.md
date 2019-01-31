@@ -11,7 +11,7 @@
 		- [todo] QR factorization
 	- Iteratives methods for solving linear systems
 		- [X] Jacobi method
-		- [todo] Gauss-Seidel method
+		- [X] Gauss-Seidel method
 		- [todo] SOR method
 		- [todo] Richardson
 	- Recursive methods for function zeros

@@ -39,9 +39,10 @@ int scanInt(int min, int max){
 		if (c < min || c > max){
 			printf("WARNING: The value is not in the current range [%d, %d].\n", min, max);
 			printf("         Please insert a valid value.               (%d)\n", MAX_ERRs-i);
-		} else
+		} else {
 			ln;
 			return c;
+		}
 	}
 	exit(9);
 }

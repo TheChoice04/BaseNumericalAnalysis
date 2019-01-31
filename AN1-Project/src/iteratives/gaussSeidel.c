@@ -1,7 +1,7 @@
 /*
- * jacobi.c
+ * gaussSeidel.c
  *
- *  Created on: 23 gen 2019
+ *  Created on: 30 gen 2019
  *      Author: Elia Onofri
  **
  *	Macros used:
@@ -14,16 +14,15 @@
 
 #include "an1.iteratives.h"
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
-void jacobiUpdate(Matrix B, Vector c, Vector x, int n);
+int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p);
 
 
-/** jacobi ****************************************************************
+/** gaussSeidel ***********************************************************
  *
  *	This method evaluates the solution of a linear system updating the
  *	 solution `x^{(k)}` in:
  *	```math
- *	x^{(k+1)} = c - B * x^{(k)}
+ *	x^{(k+1)}[i] = c[i] - B[i] * x^{(k)}
  *	```
  *	where
  *	```math
@@ -42,7 +41,7 @@ void jacobiUpdate(Matrix B, Vector c, Vector x, int n);
  *	 is smaller than `err`.
  *
  *	The method also print the sequence of normas found on a file called:
- *	 `results/iteratives/jacobi.txt`
+ *	 `results/iteratives/gaussSeidel.txt`
  *
  *	@param A Matrix: the coefficient matrix.
  *	@param b Vector: the known term vector.
@@ -58,43 +57,53 @@ void jacobiUpdate(Matrix B, Vector c, Vector x, int n);
  *
  *************************************************************************/
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
+int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p){
 	int i, j, counter;  // counters
-	Matrix Bj = NULL;   // updating matrix
-	Vector cj = NULL;   // updating vector
+	double k;           // iteration
+	double temp;        // temp / accumulator
+	Matrix Bgs = NULL;  // updating matrix
+	Vector cgs = NULL;  // updating vector
 	double norm;        // error norm
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/iteratives/jacobi.txt", "w");
+	fileP = fopen("results/iteratives/gaussSeidel.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/systems/jacobi.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/systems/gaussSeidel.txt` in writing mode.\n");
 		exit(1);
 	}
 
-	Bj = allocQMatrix(n);
-	cj = allocVector(n);
+
+	cgs = allocVector(n);
+	Bgs = copyMatrix(A, n, n);
 
 	// Basis Construction
 	for (i = 0; i < n; i++){
 		if (A[i][i] == 0.0){
-			free(Bj);
-			free(cj);
+			free(cgs);
 			return 1;
 		}
+		temp = A[i][i];
 		for (j = 0; j < n; j++)
-			if (i == j)
-				Bj[i][j] = 0.0;
-			else
-				Bj[i][j] = - A[i][j]/A[i][i];
-		cj[i] = b[i] / A[i][i];
+			Bgs[i][j] = A[i][j] / temp;
+		cgs[i] = b[i] / temp;
 	}
 
 	counter = 0;
 	norm = evalSystemError(A, x, b, n, n, p);
 	while (norm > err && counter < MAX_ATTEMPTs){
-		fprintPoint(fileP, (double) counter, norm);
-		jacobiUpdate(Bj, cj, x, n);
+		k = counter / n;
+		j = counter % n;
+		fprintPoint(fileP, k, norm);
+
+		// updating
+		temp = cgs[j];
+		for (i = 0; i < j; i++)
+			temp = temp - Bgs[j][i] * x[i];
+		for (i = j+1; i < n; i++)
+			temp = temp - Bgs[j][i] * x[i];
+		x[j] = temp;
+
 		norm = evalSystemError(A, x, b, n, n, p);
 		counter++;
 	}
@@ -102,42 +111,12 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	fprintPoint(fileP, (double) counter, norm);
 
 	fclose(fileP);
-	free(Bj);
-	free(cj);
+	free(Bgs);
+	free(cgs);
 
 	if (counter >= MAX_ATTEMPTs){
 		return 2;
 	}
 
 	return 0;
-}
-
-
-/** jacobiUpdate **********************************************************
- *
- *	This method updates a vector `x` with a matrix multiplication by `B`
- *	 and a vector sum by `c`. In other worlds it is evaluating the assign:
- *	```C
- *	x = (x * B) + c;
- *	```
- *
- *	@param B Matrix: updating Matrix.
- *	@param c Vector: updating Vector.
- *	@param x Vector: vector to be updated (will be filled).
- *	@param n int: dimension of the vector.
- *
- *	@return NULL.
- *
- *************************************************************************/
-
-void jacobiUpdate(Matrix B, Vector c, Vector x, int n){
-	Vector x0;          // copy of the original vector `x`
-
-	x0 = copyVector(x, n);
-
-	multMV(B, x0, n, n, x);
-
-	sumVV(x, c, n, x);
-
-	free(x0);
 }

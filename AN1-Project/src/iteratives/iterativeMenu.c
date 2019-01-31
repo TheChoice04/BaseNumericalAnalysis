@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  **
  *	Macros used:
- *	 ln -> printf("\n")
+ *	 gnuplot(x) -> system("/usr/local/Cellar/gnuplot/5.2.5/bin/gnuplot "" -p 'gnuplot-scripts/"x"'")
  *	 Matrix -> double**
  *	 Vector -> double*
  */
@@ -79,7 +79,6 @@ int iterativeMenu(){
 	printf(" * type `4` to Richardson method;\n");
 	printf(" - type `0` to abort.\n");
 	c = scanInt(0, 4);
-	ln;ln;
 
 
 	printf("The system is described by:\n");
@@ -92,11 +91,14 @@ int iterativeMenu(){
 		ans = jacobi(A, b, n, x, err, p);
 		gnuplot("jacobi.gp");
 		break;
-		/*
-	case 2:
-		ans = gaussSeidel(A, b, n, x, err, p);
-		break;
 
+	case 2:
+		if (dd != 2)
+			printf("WARNING: the coefficient matrix is not strictly Diagonally Dominant.\n");
+		ans = gaussSeidel(A, b, n, x, err, p);
+		gnuplot("gaussSeidel.gp");
+		break;
+		/*
 	case 3:
 		ans = sor(A, b, n, x, err, p);
 		break;
