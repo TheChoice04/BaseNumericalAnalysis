@@ -95,5 +95,6 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
 //
 
 int scanInt(int min, int max);
+double scanDouble(double min, double max);
 
 #endif /* SRC_UTILS_AN1_UTILS_H_ */

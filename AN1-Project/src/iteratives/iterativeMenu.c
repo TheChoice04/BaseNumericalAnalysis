@@ -36,9 +36,11 @@ int iterativeMenu(){
 	int p;              // norm value
 	int ans;            // method exit-code
 	int dd;             // diagonally dominance
+	int pd;             // definiteness of the matrix
 	int ret = 0;        // exit-code
 	double err;         // error range
 	double norm;        // the norm evaluated
+	double omega;       // SOR parameter
 	Matrix A = NULL;    // coefficient Matrix
 	Vector b = NULL;    // known terms Vector
 	Vector x;           // unknown vector
@@ -55,6 +57,8 @@ int iterativeMenu(){
 	}
 
 	dd = isDiagonallyDominant(A, n, n);
+	//pd = isPositiveDefinite(A, n, n);
+	pd = 0;
 
 	printf("Do you want to choose a starting vector\n for the partial solution? (1 = Yes/0 = No)\n");
 	c = scanInt(0, 1);
@@ -69,13 +73,13 @@ int iterativeMenu(){
 	printf(" - type `0` for infinite norm.\n");
 	p = scanInt(0, 2);
 
-	printf("Type in an error range:\n>> ");
+	printf("Type in an error range:\n");
 	scanf("%lf", &err);
 
 	printf("You can choose one of the following:\n");
-	printf(" * type `1` to Jacobi Method;\n");
-	printf(" * type `2` to Gauss-Seidel method;\n");
-	printf(" * type `2` to SOR method;\n");
+	printf(" - type `1` to Jacobi Method;\n");
+	printf(" - type `2` to Gauss-Seidel method;\n");
+	printf(" - type `3` to Successive Over Relaxation method;\n");
 	printf(" * type `4` to Richardson method;\n");
 	printf(" - type `0` to abort.\n");
 	c = scanInt(0, 4);
@@ -93,22 +97,41 @@ int iterativeMenu(){
 		break;
 
 	case 2:
-		if (dd != 2)
-			printf("WARNING: the coefficient matrix is not strictly Diagonally Dominant.\n");
+		if (dd != 2 && pd != 1)
+			printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Defined Positive.\n");
 		ans = gaussSeidel(A, b, n, x, err, p);
 		gnuplot("gaussSeidel.gp");
 		break;
-		/*
+
 	case 3:
-		ans = sor(A, b, n, x, err, p);
+		if (pd != 1)
+			printf("WARNING: the coefficient matrix is not Defined Positive.\n");
+		printf("Type in the relaxation parameter omega (range is `[0, 1]`).\n>> ");
+		omega = scanDouble(0, 1);
+
+		if (isApprox(omega, 1.0)){
+			printf("Executing Gauss-Seidel method instead.\n");
+			if (dd != 2 && pd != 1)
+				printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Defined Positive.\n");
+			ans = gaussSeidel(A, b, n, x, err, p);
+			gnuplot("gaussSeidel.gp");
+			c = 2;
+		} else {
+			if (isApprox(omega, 0.0))
+				printf("WARNING: the solution would not be incremented!\n");
+			ans = successiveOverRelaxation(A, b, n, x, omega, err, p);
+			gnuplot("successiveOverRelaxation.gp");
+		}
+
 		break;
 
+		/*
 	case 4:
 		ans = richardson(A, b, n, x, err, p);
 		break;
 		 */
 	case 0:
-		printf("Aborted\n");
+		printf("Aborted.\n");
 		ans = -1;
 		ret = 1;
 		break;
@@ -124,9 +147,9 @@ int iterativeMenu(){
 	if (ans == 0){
 		printf("The application of the method has given the following solution:\n");
 		printSolution(x, n);
-		printf("Its error norm is %lf", norm);
+		printf("Its error norm is %lf.\n\n", norm);
 	} else if (ans == 1){
-		printf("ERROR: The matrix must have non-zero value on its diagonal.");
+		printf("ERROR: The matrix must have non-zero value on its diagonal.\n");
 	} else if (ans == 2){
 		printf("No solutions were found within the first %d iterations with the required precision.\n", MAX_ATTEMPTs);
 		printf("The partial solution found is:\n");

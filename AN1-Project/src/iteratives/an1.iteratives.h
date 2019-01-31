@@ -15,5 +15,7 @@ int iterativeMenu();
 
 // functions
 int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
+int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p);
+int successiveOverRelaxation(Matrix A, Vector b, int n, Vector x, double omega, double err, int p);
 
 #endif /* SRC_ITERATIVES_AN1_ITERATIVES_H_ */

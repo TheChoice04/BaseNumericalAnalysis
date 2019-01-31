@@ -12,7 +12,7 @@
 	- Iteratives methods for solving linear systems
 		- [X] Jacobi method
 		- [X] Gauss-Seidel method
-		- [todo] SOR method
+		- [X] SOR method
 		- [todo] Richardson
 	- Recursive methods for function zeros
 		- [Display] Bisection
