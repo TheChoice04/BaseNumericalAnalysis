@@ -48,6 +48,7 @@ int mainMenu() {
 			break;
 
 		case 2:
+			iterativeMenu();
 			break;
 
 		case 3:

@@ -15,13 +15,18 @@
 
 Vector allocVector(int);
 Vector allocRandVector(int, double, double);
+Vector scanVector(int);
+
+Vector copyVector(Vector v, int n);
+void sumVV(Vector u, Vector v, int n, Vector x);
+
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
-Vector copyVector(Vector v, int n);
 
 double taxicabNorm(Vector v, int n);
 double euclideanNorm(Vector v, int n);
 double infinityNorm(Vector v, int n);
+double pNorm(Vector v, int n, int p);
 
 
 //
@@ -68,11 +73,42 @@ Vector allocRandVector(int n, double x, double y){
 }
 
 
+/** allocRandVector *******************************************************
+ *
+ *	This method allocate a `n` length vector with value chosen by
+ *	 the user.
+ *
+ *	@param n int: the vector length.
+ *
+ *	@return Vector: the vector allocated.
+ *
+ *************************************************************************/
+
+Vector scanVector(int n){
+	int i;              // counter
+	Vector v;           // the vector
+
+	v = allocate(n, double);
+	for (i=0; i<n; i++){
+		printf("Type in the %d-th value.\n>> ", i+1);
+		scanf("%lf", &v[i]);
+		ln;
+	}
+
+	return v;
+}
+
+
+//
+// Vector Operations
+//
+
+
 /** copyVector ************************************************************
  *
  *	This method copies the Vector `v` in a new vector.
  *
- *	@param V Matrix: the vector to be copied.
+ *	@param v Vector: the vector to be copied.
  *	@param n int: the vector length.
  *
  *	@return Vector: the copy of the input vector.
@@ -89,6 +125,29 @@ Vector copyVector(Vector v, int n){
 		c[i] = v[i];
 
 	return c;
+}
+
+
+/** SumVV *****************************************************************
+ *
+ *	This method sum the vectors `u` and `v` in a vector `x`.
+ *
+ *	@param u vector: the first vector.
+ *	@param v vector: the second vector.
+ *	@param n int: the vectors length.
+ *	@param x vector: the destination vector (will be filled).
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void sumVV(Vector u, Vector v, int n, Vector x){
+	int i;              // counter
+
+	for (i = 0; i < n; i++)
+		x[i] = u[i] + v[i];
+
+	return ;
 }
 
 
@@ -146,6 +205,8 @@ void fprintVector(char *dest, Vector arg, int len){
 	for (i=0; i<len; i++)
 		fprintf(fileP, "%lf\n", arg[i]);
 
+	fclose(fileP);
+
 	return ;
 }
 
@@ -159,8 +220,8 @@ void fprintVector(char *dest, Vector arg, int len){
  *
  *	This method evaluate the Taxicab norm (one norm) of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -181,8 +242,8 @@ double taxicabNorm(Vector v, int n){
  *
  *	This method evaluate the Euclidean norm of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -203,8 +264,8 @@ double euclideanNorm(Vector v, int n){
  *
  *	This method evaluate the infinity norm of the vector `v`.
  *
- *	@param `v` Vector: the vector.
- *	@param `n` int: the vector length.
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
  *
  *	@return double: the vector Taxicab norm.
  *
@@ -220,3 +281,37 @@ double infinityNorm(Vector v, int n){
 
 	return norm;
 }
+
+
+/** pNorm *****************************************************************
+ *
+ *	This method evaluate the infinity norm of the vector `v`.
+ *
+ *	@param v Vector: the vector.
+ *	@param n int: the vector length.
+ *	@param p int: the norm counter.
+ *
+ *	@return double: the vector `p`-norm.
+ *
+ *************************************************************************/
+
+double pNorm(Vector v, int n, int p){
+	int i;              // counter
+	double norm = 0.0;  // the norm
+
+	if (p == 0)
+		norm = infinityNorm(v, n);
+	else if (p == 1)
+		norm = taxicabNorm(v, n);
+	else if (p == 2)
+		norm = euclideanNorm(v, n);
+	else {
+		for (i = 0; i < n; i++)
+			norm += (pow(v[i], p));
+		norm = pow(norm, 1/p);
+	}
+
+	return norm;
+}
+
+

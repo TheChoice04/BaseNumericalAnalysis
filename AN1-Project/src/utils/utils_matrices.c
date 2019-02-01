@@ -17,13 +17,6 @@
 
 #include "an1.utils.h"
 
-/**
- *
- *
- *
- *
- */
-
 Matrix allocMatrix(int, int);
 Matrix allocQMatrix(int);
 Matrix allocRandMatrix(int, int, double, double);
@@ -32,6 +25,10 @@ Matrix copyMatrix(Matrix M, int m, int n);
 
 void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
+void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
+
+int isDiagonallyDominant(Matrix M, int m, int n);
+int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
@@ -178,9 +175,7 @@ void multMV(Matrix A, Vector b, int m, int n, Vector x){
 		sum = 0.0;
 		for (j = 0; j < n; j++)
 			sum += (A[i][j] * b[j]);
-		printf("i = %d, sum = %lf,\n", i, sum);
 		x[i] = sum;
-		printf("i = %d, x[i] = %lf,\n", i, x[i]);
 	}
 
 	return ;
@@ -198,7 +193,7 @@ void multMV(Matrix A, Vector b, int m, int n, Vector x){
  *	@param n int: the number of columns of the first matrix. It must be
  *	               equal to the number of rows of the second matrix.
  *	@param l int: the number of columns of the second matrix.
- *	@param x Matrix: the answer matrix (will be filled).
+ *	@param X Matrix: the answer matrix (will be filled).
  *
  *	@return NULL.
  *
@@ -218,6 +213,111 @@ void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X){
 	}
 
 	return ;
+}
+
+/** splitMatrix ***********************************************************
+ *
+ *	This method splits a square matrix `A` in three matrices respectively:
+ *	 - `D` the inferior triangular part.
+ *	 - `E` the diagonal part.
+ *	 - `F` the superior triangular part.
+ *
+ *	@param A Matrix: the matrix to be splitted.
+ *	@param n int: the order of the matrix.
+ *	@param D Matrix: the inferior matrix (will be filled).
+ *	@param E Matrix: the diagonal matrix (will be filled).
+ *	@param F Matrix: the superior matrix (will be filled).
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F){
+	int i, j;           // counters
+
+	for (i = 0; i < n; i++)
+		for (j = 0; j < n; j++){
+			if (i > j) {
+				D[i][j] = A[i][j];
+				E[i][j] = 0.0;
+				F[i][j] = 0.0;
+			} else if (i < j) {
+				D[i][j] = 0.0;
+				E[i][j] = 0.0;
+				F[i][j] = A[i][j];
+			} else {
+				D[i][j] = 0.0;
+				E[i][j] = A[i][j];
+				F[i][j] = 0.0;
+			}
+		}
+
+	return ;
+
+}
+
+
+/** isDiagonallyDominant **************************************************
+ *
+ *	This method checks if the matrix `M` given in input is (strictly)
+ *	 diagonally dominant, ie:
+ *	```math
+ *	|a_{i,i}| \geq \sum_{j \ne i} |a_{i, j}|    \qquad (<)
+ *	```
+ *
+ *	@param M Matrix: the matrix.
+ *	@param m int: the number of rows of `M`.
+ *	@param n int: the number of columns of `M`.
+ *
+ *	@return int: exit-code
+ *	  `0` : `M` is not diagonally dominant.
+ *	  `1` : `M` is diagonally dominant.
+ *	  `2` : `M` is strictly diagonally dominant.
+ *
+ *************************************************************************/
+
+int isDiagonallyDominant(Matrix M, int m, int n){
+	int ans = 2;        // is strictly diagonally
+	int i, j;           // counters
+	double acc;         // sum accumulator
+
+	for (i = 0; i < m; i++){
+		acc = - (2 * fabs(M[i][i]));
+		for (j = 0; j < n; j++)
+			acc += fabs(M[i][j]);
+		if (acc > 0)
+			return 0;
+		if (acc == 0)
+			ans = 1;
+	}
+
+	return ans;
+}
+
+
+/** matrixDefiniteness ****************************************************
+ *
+ *	This method evaluates the matrix `M` definiteness, i.e. if:
+ *	```math
+ *	x^T * M * x (\geq, >, <, \leq) 0
+ *	```
+ *
+ *	@param M Matrix: the matrix.
+ *	@param m int: the number of rows of `M`.
+ *	@param n int: the number of columns of `M`.
+ *
+ *	@return int: exit-code
+ *	  `-2` : `M` is negative definite.
+ *	  `-1` : `M` is negative semi-definite.
+ *	  ` 0` : `M` is not definite.
+ *	  `+1` : `M` is positive semi-definite.
+ *	  `+2` : `M` is positive definite.
+ *
+ *************************************************************************/
+
+int matrixDefiniteness(Matrix M, int m, int n){
+
+	return 0;
 }
 
 

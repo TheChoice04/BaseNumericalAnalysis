@@ -124,6 +124,8 @@ void fprintFunction(double (*f)(double), double a, double b){
 		fprintPoint(fileP, x, f(x));
 	}
 
+	fclose(fileP);
+
 	printf("...reference function evaluated.");
 	return ;
 }

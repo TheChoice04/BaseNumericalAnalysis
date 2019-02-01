@@ -1,7 +1,7 @@
 /*
- * jacobi.c
+ * successiveOverRelaxtion.c
  *
- *  Created on: 23 gen 2019
+ *  Created on: 31 gen 2019
  *      Author: Elia Onofri
  **
  *	Macros used:
@@ -14,15 +14,17 @@
 
 #include "an1.iteratives.h"
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
+int successiveOverRelaxation(Matrix A, Vector b, int n, Vector x, double omega, double err, int p);
 
 
-/** jacobi ****************************************************************
+/** successiveOverRelaxation **********************************************
  *
  *	This method evaluates the solution of a linear system updating the
- *	 solution `x^{(k)}` in:
+ *	 solution `x^{(k)}` using a relaxation `omega` of Gauss-Seidel update:
  *	```math
- *	x^{(k+1)} = c - B * x^{(k)}
+ *	x^{(k+1)}[i] =
+ *	   (1 - omega) * x^{(k)}[i] +
+ *	   omega * (c[i] - B[i] * x^{(k)})
  *	```
  *	where
  *	```math
@@ -37,16 +39,21 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
  *	\end{cases}
  *	```
  *
+ *	Note that `omega`'s range is `[0, 1]` even if with:
+ *	 - `omega = 0` there is no update of the solution.
+ *	 - `omega = 1` the method is Gauss-Seidel's.
+ *
  *	The method continues until the error (evaluated in `p`-norm)
  *	 is smaller than `err`.
  *
  *	The method also print the sequence of normas found on a file called:
- *	 `results/iteratives/jacobi.txt`
+ *	 `results/iteratives/SOR.txt`
  *
  *	@param A Matrix: the coefficient matrix.
  *	@param b Vector: the known term vector.
  *	@param n int: the dimension of the matrix and of the vector.
  *	@param x Vector: the unknown terms vector.
+ *	@param omega double: the relaxation parameter.
  *	@param err double: max error range.
  *	@param p int: norm counter.
  *
@@ -57,43 +64,54 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
  *
  *************************************************************************/
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
+int successiveOverRelaxation(Matrix A, Vector b, int n, Vector x, double omega, double err, int p){
 	int i, j, counter;  // counters
-	Matrix Bj = NULL;   // updating matrix
-	Vector cj = NULL;   // updating vector
+	double k;           // iteration
+	double temp;        // temp / accumulator
+	Matrix Bgs = NULL;  // updating matrix
+	Vector cgs = NULL;  // updating vector
 	double norm;        // error norm
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/iteratives/jacobi.txt", "w");
+	fileP = fopen("results/iteratives/SOR.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/systems/jacobi.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/systems/SOR.txt` in writing mode.\n");
 		exit(1);
 	}
 
-	Bj = allocQMatrix(n);
-	cj = allocVector(n);
+
+	cgs = allocVector(n);
+	Bgs = allocQMatrix(n);
 
 	// Basis Construction
 	for (i = 0; i < n; i++){
 		if (A[i][i] == 0.0){
-			free(Bj);
-			free(cj);
+			free(cgs);
+			free(Bgs);
 			return 1;
 		}
+		temp = A[i][i];
 		for (j = 0; j < n; j++)
-			if (i == j)
-				Bj[i][j] = 0.0;
-			else
-				Bj[i][j] = - A[i][j]/A[i][i];
-		cj[i] = b[i] / A[i][i];
+			Bgs[i][j] = A[i][j] / temp;
+		cgs[i] = b[i] / temp;
 	}
 
 	counter = 0;
 	norm = evalSystemError(A, x, b, n, n, p);
 	while (norm > err && counter < MAX_ATTEMPTs){
-		fprintPoint(fileP, (double) counter, norm);
-		updateSolution(Bj, cj, x, n);
+		k = counter / n;
+		j = counter % n;
+		fprintPoint(fileP, k, norm);
+
+		// updating
+		temp = cgs[j];
+		for (i = 0; i < j; i++)
+			temp = temp - Bgs[j][i] * x[i];
+		for (i = j+1; i < n; i++)
+			temp = temp - Bgs[j][i] * x[i];
+		x[j] = (1 - omega) * x[j] + omega * temp;
+
 		norm = evalSystemError(A, x, b, n, n, p);
 		counter++;
 	}
@@ -101,8 +119,8 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	fprintPoint(fileP, (double) counter, norm);
 
 	fclose(fileP);
-	free(Bj);
-	free(cj);
+	free(Bgs);
+	free(cgs);
 
 	if (counter >= MAX_ATTEMPTs){
 		return 2;

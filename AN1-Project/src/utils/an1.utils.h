@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Macros Declaration
+#define DEBUG(x) printf("DEBUG %d", x);
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
@@ -22,6 +23,7 @@
 #define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
 #define isApproxZero(x) fabs(x) < ERR
 #define isApprox(x, y) fabs(x - y) < ERR
+#define gnuplot(x) system("/usr/local/Cellar/gnuplot/5.2.5/bin/gnuplot "" -p 'gnuplot-scripts/"x"'")
 
 //  Global Const Declaration
 #define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
@@ -52,6 +54,10 @@ Matrix copyMatrix(Matrix M, int m, int n);
 
 void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
+void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
+
+int isDiagonallyDominant(Matrix M, int m, int n);
+int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
@@ -62,7 +68,10 @@ void printQMatrix(Matrix M, int n);
 
 Vector allocVector(int);
 Vector allocRandVector(int, double, double);
+Vector scanVector(int);
+
 Vector copyVector(Vector v, int n);
+void sumVV(Vector u, Vector v, int n, Vector x);
 
 void printVector(Vector v, int n);
 void fprintVector(char *dest, Vector arg, int len);
@@ -70,20 +79,24 @@ void fprintVector(char *dest, Vector arg, int len);
 double taxicabNorm(Vector v, int n);
 double euclideanNorm(Vector v, int n);
 double infinityNorm(Vector v, int n);
+double pNorm(Vector v, int n, int p);
 
 //
 //	From utils_systems.c
 //
 
 void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
-void evalSystemError(Matrix A, Vector x, Vector b, int m, int n);
+double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p);
+void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
 
 //
 //	From utils_utility.c
 //
 
 int scanInt(int min, int max);
+double scanDouble(double min, double max);
 
 #endif /* SRC_UTILS_AN1_UTILS_H_ */
