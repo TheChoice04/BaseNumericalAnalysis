@@ -41,6 +41,7 @@ int iterativeMenu(){
 	double err;         // error range
 	double norm;        // the norm evaluated
 	double omega;       // SOR parameter
+	double beta;        // Richardson parameter
 	Matrix A = NULL;    // coefficient Matrix
 	Vector b = NULL;    // known terms Vector
 	Vector x;           // unknown vector
@@ -105,7 +106,7 @@ int iterativeMenu(){
 
 	case 3:
 		if (pd != 1)
-			printf("WARNING: the coefficient matrix is not Defined Positive.\n");
+			printf("WARNING: the coefficient matrix is not Positive Defined.\n");
 		printf("Type in the relaxation parameter omega (range is `[0, 1]`).\n>> ");
 		omega = scanDouble(0, 1);
 
@@ -125,11 +126,15 @@ int iterativeMenu(){
 
 		break;
 
-		/*
 	case 4:
-		ans = richardson(A, b, n, x, err, p);
+		if (pd != 1)
+			printf("WARNING: the coefficient matrix is not Positive Defined.\n");
+		printf("Type in the Richardson multiply parameter beta (range is `[0, 1]`).\n");
+		beta = scanDouble(0, 1);
+		ans = richardson(A, b, n, x, beta, err, p);
+		gnuplot("richardson.gp");
 		break;
-		 */
+
 	case 0:
 		printf("Aborted.\n");
 		ans = -1;

@@ -82,12 +82,13 @@ int successiveOverRelaxation(Matrix A, Vector b, int n, Vector x, double omega, 
 
 
 	cgs = allocVector(n);
-	Bgs = copyMatrix(A, n, n);
+	Bgs = allocQMatrix(n);
 
 	// Basis Construction
 	for (i = 0; i < n; i++){
 		if (A[i][i] == 0.0){
 			free(cgs);
+			free(Bgs);
 			return 1;
 		}
 		temp = A[i][i];

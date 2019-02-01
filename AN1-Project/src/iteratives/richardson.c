@@ -1,7 +1,7 @@
 /*
- * jacobi.c
+ * richardson.c
  *
- *  Created on: 23 gen 2019
+ *  Created on: 1 feb 2019
  *      Author: Elia Onofri
  **
  *	Macros used:
@@ -14,86 +14,82 @@
 
 #include "an1.iteratives.h"
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p);
+int richardson(Matrix A, Vector b, int n, Vector x, double beta, double err, int p);
 
 
-/** jacobi ****************************************************************
+/** richardson ************************************************************
  *
  *	This method evaluates the solution of a linear system updating the
- *	 solution `x^{(k)}` in:
+ *	 solution `x^{(k)}` by adding to it a multiply of the remainder vector
+ *	 `Ax^{(k)} - b`, in formulas:
  *	```math
- *	x^{(k+1)} = c - B * x^{(k)}
+ *	x^{(k+1)} = x^{(k)} - \beta(A * x^{(k)} - b), \qquad\beta\in\mathbb R
+ *	```
+ *	in other worlds making the following upgrade:
+ *	```math
+ *	x^{(k+1)} = B_R * x^{(k)} + c_R
  *	```
  *	where
  *	```math
- *	c[i] = b[i]/A[i][i]
- *	```
- *	and
- *	```math
- *	C[i][j] =
- *	\begin{cases}
- *		B[i][j] / B[i][i]	&	\mbox{if } i \ne j\\
- *		0					&	\mbox{otherwise}
- *	\end{cases}
+ *	B_r = I - \beta * A \qquad c_R = \beta * b
  *	```
  *
  *	The method continues until the error (evaluated in `p`-norm)
  *	 is smaller than `err`.
  *
  *	The method also print the sequence of normas found on a file called:
- *	 `results/iteratives/jacobi.txt`
+ *	 `results/iteratives/richardson.txt`
  *
  *	@param A Matrix: the coefficient matrix.
  *	@param b Vector: the known term vector.
  *	@param n int: the dimension of the matrix and of the vector.
  *	@param x Vector: the unknown terms vector.
+ *	@param beta double: the Richardson constant.
  *	@param err double: max error range.
  *	@param p int: norm counter.
  *
  *	@return int: exit-code:
  *	  `0` : success.
- *	  `1` : zero values on the matrix diagonal.
  *	  `2` : iteration number have overflow (no solution found).
  *
  *************************************************************************/
 
-int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
+int richardson(Matrix A, Vector b, int n, Vector x, double beta, double err, int p){
 	int i, j, counter;  // counters
-	Matrix Bj = NULL;   // updating matrix
-	Vector cj = NULL;   // updating vector
+	Matrix Br = NULL;   // updating matrix
+	Vector cr = NULL;   // updating vector
 	double norm;        // error norm
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/iteratives/jacobi.txt", "w");
+	fileP = fopen("results/iteratives/richardson.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/systems/jacobi.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/systems/richardson.txt` in writing mode.\n");
 		exit(1);
 	}
 
-	Bj = allocQMatrix(n);
-	cj = allocVector(n);
+
+	cr = allocVector(n);
+	Br = allocQMatrix(n);
 
 	// Basis Construction
 	for (i = 0; i < n; i++){
-		if (A[i][i] == 0.0){
-			free(Bj);
-			free(cj);
-			return 1;
-		}
 		for (j = 0; j < n; j++)
-			if (i == j)
-				Bj[i][j] = 0.0;
+			if(i == j)
+				Br[i][i] = 1.0 - beta * A[i][i];
 			else
-				Bj[i][j] = - A[i][j]/A[i][i];
-		cj[i] = b[i] / A[i][i];
+				Br[i][j] = - beta * A[i][j];
+		cr[i] = beta * b[i];
 	}
 
 	counter = 0;
 	norm = evalSystemError(A, x, b, n, n, p);
 	while (norm > err && counter < MAX_ATTEMPTs){
 		fprintPoint(fileP, (double) counter, norm);
-		updateSolution(Bj, cj, x, n);
+
+		// updating
+		updateSolution(Br, cr, x, n);
+
 		norm = evalSystemError(A, x, b, n, n, p);
 		counter++;
 	}
@@ -101,8 +97,8 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 	fprintPoint(fileP, (double) counter, norm);
 
 	fclose(fileP);
-	free(Bj);
-	free(cj);
+	free(Br);
+	free(cr);
 
 	if (counter >= MAX_ATTEMPTs){
 		return 2;
