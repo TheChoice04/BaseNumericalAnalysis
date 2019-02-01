@@ -13,7 +13,7 @@
 		- [X] Jacobi method
 		- [X] Gauss-Seidel method
 		- [X] SOR method
-		- [todo] Richardson
+		- [ToCheck] Richardson
 	- Recursive methods for function zeros
 		- [Display] Bisection
 		- [Display] Chord
@@ -37,3 +37,5 @@ add `fclose()` and `free` in:
  - [ ] `src/interpolation/*.c`
  - [X] `src/iteratives/*.c`
  - [X] `src/utils/*.c`
+
+write a simple evaluation if a matrix is positive defined.

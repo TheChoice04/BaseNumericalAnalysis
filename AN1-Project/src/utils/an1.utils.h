@@ -55,7 +55,9 @@ Matrix copyMatrix(Matrix M, int m, int n);
 void multMV(Matrix A, Vector b, int m, int n, Vector x);
 void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
 void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
+
 int isDiagonallyDominant(Matrix M, int m, int n);
+int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);

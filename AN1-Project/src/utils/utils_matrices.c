@@ -28,6 +28,7 @@ void multMM(Matrix A, Matrix B, int m, int n, int l, Matrix X);
 void splitMatrix(Matrix A, int n, Matrix D, Matrix E, Matrix F);
 
 int isDiagonallyDominant(Matrix M, int m, int n);
+int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
@@ -291,6 +292,32 @@ int isDiagonallyDominant(Matrix M, int m, int n){
 	}
 
 	return ans;
+}
+
+
+/** matrixDefiniteness ****************************************************
+ *
+ *	This method evaluates the matrix `M` definiteness, i.e. if:
+ *	```math
+ *	x^T * M * x (\geq, >, <, \leq) 0
+ *	```
+ *
+ *	@param M Matrix: the matrix.
+ *	@param m int: the number of rows of `M`.
+ *	@param n int: the number of columns of `M`.
+ *
+ *	@return int: exit-code
+ *	  `-2` : `M` is negative definite.
+ *	  `-1` : `M` is negative semi-definite.
+ *	  ` 0` : `M` is not definite.
+ *	  `+1` : `M` is positive semi-definite.
+ *	  `+2` : `M` is positive definite.
+ *
+ *************************************************************************/
+
+int matrixDefiniteness(Matrix M, int m, int n){
+
+	return 0;
 }
 
 

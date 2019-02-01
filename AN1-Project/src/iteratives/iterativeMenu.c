@@ -58,8 +58,7 @@ int iterativeMenu(){
 	}
 
 	dd = isDiagonallyDominant(A, n, n);
-	//pd = isPositiveDefinite(A, n, n);
-	pd = 0;
+	pd = matrixDefiniteness(A, n, n);
 
 	printf("Do you want to choose a starting vector\n for the partial solution? (1 = Yes/0 = No)\n");
 	c = scanInt(0, 1);
@@ -99,7 +98,7 @@ int iterativeMenu(){
 
 	case 2:
 		if (dd != 2 && pd != 1)
-			printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Defined Positive.\n");
+			printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Positive Defined.\n");
 		ans = gaussSeidel(A, b, n, x, err, p);
 		gnuplot("gaussSeidel.gp");
 		break;
@@ -113,7 +112,7 @@ int iterativeMenu(){
 		if (isApprox(omega, 1.0)){
 			printf("Executing Gauss-Seidel method instead.\n");
 			if (dd != 2 && pd != 1)
-				printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Defined Positive.\n");
+				printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Positive Defined.\n");
 			ans = gaussSeidel(A, b, n, x, err, p);
 			gnuplot("gaussSeidel.gp");
 			c = 2;
