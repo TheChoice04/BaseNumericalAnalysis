@@ -27,6 +27,8 @@ int newtonQuotient(double x, double h, double e, double (*f)(double));
  *
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/newtonQuotient.txt`
+ *	and evaluates a scheme for the function `f` in a file called:
+ *	 `results/function-plot/functionData.txt`
  *
  *	@param x double: initial point.
  *	@param h double: increment value.
@@ -43,23 +45,36 @@ int newtonQuotient(double x, double h, double e, double (*f)(double));
 int newtonQuotient(double x, double h, double e, double (*f)(double)){
 	int counter = 0;    // counter
 	double fx;          // current point function value
-	float fxh;          // current point derivative value
+	double fxh;         // current point derivative value
+	double min, max;    // minimum and maximum points for the representation
 	FILE *fileP;        // output file pointer
 
 	fileP = fopen("results/function-zeros/newtonQuotient.txt", "w");
 
 	fx = f(x);
 	fxh = f(x + h);
+	min = x - 2;
+	max = x + 2;
 
+	fprintPoint(fileP, x, 0.0);
 	fprintPoint(fileP, x, fx);
 
 	while (fabs(fx) > e && fx != fxh && counter < MAX_ATTEMPTs) {
 		x = x - fx * h / (fxh - fx);
 		fxh = f(x + h);
 		fx = f(x);
+
+		fprintPoint(fileP, x, 0.0);
 		fprintPoint(fileP, x, fx);
+		if (x < min)
+			min = x - 1;
+		else if (x > max)
+			max = x + 1;
 		counter++;
 	}
+
+	fclose(fileP);
+	fprintFunction(f, min, max);
 
 	if (fxh == fx){
 		printf("The method failed (at step %d, x = %lf) as the quotient was zero.", counter, x);

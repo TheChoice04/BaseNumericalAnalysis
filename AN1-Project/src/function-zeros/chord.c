@@ -28,6 +28,8 @@ int chord(double a, double b, double x, double e, double (*f)(double));
  *
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/chord.txt`
+ *	and evaluates a scheme for the function `f` in a file called:
+ *	 `results/function-plot/functionData.txt`
  *
  *	@param a double: left margin.
  *	@param b double: right margin.
@@ -46,11 +48,14 @@ int chord(double a, double b, double x, double e, double (*f)(double)){
 	int counter = 0;    // iteration counter
 	double fx;          // current point function value
 	double alpha;       // angular coefficient of the chord.
+	double min, max;    // minimum and maximum points for the representation
 	FILE *fileP;        // output file pointer
 
 	fileP = fopen("results/function-zeros/chord.txt", "w");
 
 	fx = f(x);
+	min = x-2;
+	max = x+2;
 
 	if (f(a) - f(b) == 0.0){
 		printf("ERROR: The values of f(a) and f(b) are equals. Chord method not valid.\n");
@@ -64,9 +69,17 @@ int chord(double a, double b, double x, double e, double (*f)(double)){
 	while (fabs(fx) > e && counter < MAX_ATTEMPTs) {
 		x = x - (alpha * fx);
 		fx = f(x);
+
 		fprintPoint(fileP, x, fx);
+		if (x < min)
+			min = x - 1;
+		else if (x > max)
+			max = x + 1;
 		counter++;
 	}
+
+	fclose(fileP);
+	fprintFunction(f, min, max);
 
 	if (counter >= MAX_ATTEMPTs){
 		printf("No zeros were found within the first %d iterations with the required precision.\n", counter);

@@ -95,8 +95,8 @@ void selectFunction(double (**f)(double), double (**df)(double)){
  *
  *	This function print on the file
  *	 `results/function-plot/functionData.txt`
- *	 the evaluation of `dpts = 1000` points of the function `f` over
- *	 the range `[a, b]`.
+ *	 the evaluation of `dpts = CONST_DATA` points of the function `f`
+ *	 over the range `[a, b]`.
  *
  *	@param f duouble *(double): pointer to the function `f`.
  *	@param a double: left margin of the range.
@@ -109,11 +109,10 @@ void selectFunction(double (**f)(double), double (**df)(double)){
 void fprintFunction(double (*f)(double), double a, double b){
 	int i;              // counter
 	int dpts;           // number of data points
-	double x = 0;       // evaluation point
+	double x = a;       // evaluation point
 	double step;        // increment
 	FILE *fileP;        // output file pointer
 
-	printf("Evaluating reference function...");
 	dpts = CONST_DATA;
 
 	fileP = fopen("results/function-plot/functionData.txt", "w");
@@ -122,11 +121,11 @@ void fprintFunction(double (*f)(double), double a, double b){
 
 	for (i = 0; i < dpts; i++){
 		fprintPoint(fileP, x, f(x));
+		x += step;
 	}
 
 	fclose(fileP);
 
-	printf("...reference function evaluated.");
 	return ;
 }
 

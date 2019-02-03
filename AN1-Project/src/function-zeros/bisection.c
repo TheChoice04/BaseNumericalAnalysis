@@ -25,6 +25,8 @@ int bisection(double a, double b, double e, double (*f)(double));
  *
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/bisection.txt`
+ *	and evaluates a scheme for the function `f` in a file called:
+ *	 `results/function-plot/functionData.txt`
  *
  *	@param a double: left margin.
  *	@param b double: right margin.
@@ -40,6 +42,7 @@ int bisection(double a, double b, double e, double (*f)(double));
 
 int bisection(double a, double b, double e, double (*f)(double)){
 	double c = a;       // mid point
+	double min, max;    // minimum and maximum points for the representation
 	int counter = 0;    // iteration counter
 	FILE *fileP;        // output file pointer
 
@@ -49,15 +52,23 @@ int bisection(double a, double b, double e, double (*f)(double)){
 		if (f(a) == 0){
 			printf("The function has a `0` in %lf", a);
 			fprintPoint(fileP, a, 0.0);
-			return a;
+			return 0;
 		}
 		if (f(b) == 0){
 			printf("The function has a `0` in %lf", b);
 			fprintPoint(fileP, b, 0.0);
-			return b;
+			return 0;
 		}
 		printf("ERROR: f(a)*f(b) > 0!\n\n");
-		return 0;
+		return 1;
+	}
+
+	if (a > b){
+		max = a;
+		min = b;
+	} else {
+		max = b;
+		min = a;
 	}
 
 	while (fabs(b-a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
@@ -67,6 +78,10 @@ int bisection(double a, double b, double e, double (*f)(double)){
 		else b = c;
 		counter++;
 	}
+
+	fclose(fileP);
+	fprintFunction(f, min, max);
+
 	if (counter >= MAX_ATTEMPTs){
 		printf("No zeros were found within the first %d iterations with the required precision.\n", counter);
 		printf("The partial zero found is located at `%lf`.\n", c);
