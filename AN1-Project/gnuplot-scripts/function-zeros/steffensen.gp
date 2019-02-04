@@ -5,4 +5,4 @@ set yzeroaxis
 set title "Steffensen method"
 
 plot "results/function-zeros/steffensen.txt" title "successive iterations",\
-"results/function-plot/functionData.txt" w l title "f(x)"
+     "results/function-plot/functionData.txt" w l title "f(x)"

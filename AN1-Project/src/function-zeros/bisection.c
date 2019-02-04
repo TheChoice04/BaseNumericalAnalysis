@@ -50,13 +50,15 @@ int bisection(double a, double b, double e, double (*f)(double)){
 
 	if (f(a) * f(b)>=0) {
 		if (f(a) == 0){
-			printf("The function has a `0` in %lf", a);
+			printf("The function has a `0` in %lf.\n", a);
 			fprintPoint(fileP, a, 0.0);
+			fclose(fileP);
 			return 0;
 		}
 		if (f(b) == 0){
-			printf("The function has a `0` in %lf", b);
+			printf("The function has a `0` in %lf.\n", b);
 			fprintPoint(fileP, b, 0.0);
+			fclose(fileP);
 			return 0;
 		}
 		printf("ERROR: f(a)*f(b) > 0!\n\n");
@@ -70,6 +72,9 @@ int bisection(double a, double b, double e, double (*f)(double)){
 		max = b + 1;
 		min = a - 1;
 	}
+
+	fprintPoint(fileP, a, f(a));
+	fprintPoint(fileP, b, f(b));
 
 	while (fabs(b - a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
 		c = (a+b)/2;

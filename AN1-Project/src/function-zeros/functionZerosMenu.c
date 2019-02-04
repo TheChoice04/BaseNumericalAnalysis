@@ -47,7 +47,6 @@ int functionZerosMenu(){
 	printf(" - type `0` to quit.\n");
 
 	c = scanInt(0, 8);
-	printf("\n\n");
 
 	if (c == 1 || c == 2 || c == 8){
 		printf("Type in the left and the right initialization:\n>> ");
@@ -124,25 +123,25 @@ int functionZerosMenu(){
 		break;
 
 	case 8:
-		printf("\n\n\nExecuting Bisection method...\n\n");
+		printf("\n\n\nExecuting Bisection method...\n");
 		bisection(a, b, e, f);
 
-		printf("\n\n\nExecuting Chord method...\n\n");
+		printf("\n\n\nExecuting Chord method...\n");
 		chord(a, b, x0, e, f);
 
 		//printf("\nExecuting  method...\n\n");
 		//ans = exeMuller(f);
 
-		printf("\n\n\nExecuting Newton method...\n\n");
+		printf("\n\n\nExecuting Newton method...\n");
 		newton(x0, e, f, df);
 
-		printf("\n\n\nExecuting Newton Quotient method...\n\n");
+		printf("\n\n\nExecuting Newton Quotient method...\n");
 		newtonQuotient(x0, h, e, f);
 
-		printf("\n\n\nExecuting Secantes method...\n\n");
+		printf("\n\n\nExecuting Secantes method...\n");
 		secantes(x0, x1, e, f);
 
-		printf("\n\n\nExecuting Steffensen method...\n\n");
+		printf("\n\n\nExecuting Steffensen method...\n");
 		steffensen(x0, e, f);
 
 		gnuplot("function-zeros/allMethods.gp");

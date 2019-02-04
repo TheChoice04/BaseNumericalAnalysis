@@ -4,5 +4,5 @@ set xzeroaxis
 set yzeroaxis
 set title "Newton Quotient method"
 
-plot "results/function-zeros/newtonQuotient.txt" w l title "successive iterations",\
-"results/function-plot/functionData.txt" w l title "f(x)"
+plot "results/function-zeros/newtonQuotient_display.txt" w l title "successive iterations",\
+     "results/function-plot/functionData.txt" w l title "f(x)"

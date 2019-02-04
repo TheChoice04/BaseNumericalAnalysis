@@ -29,6 +29,9 @@ int secantes(double xp, double x, double e, double (*f)(double));
  *
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/secantes.txt`
+ *
+ *	Moreover the function builds a file to display the points called:
+ *	 `results/function-zeros/secantes_display.txt`
  *	and evaluates a scheme for the function `f` in a file called:
  *	 `results/function-plot/functionData.txt`
  *
