@@ -25,6 +25,8 @@ int bisection(double a, double b, double e, double (*f)(double));
  *
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/bisection.txt`
+ *	and evaluates a scheme for the function `f` in a file called:
+ *	 `results/function-plot/functionData.txt`
  *
  *	@param a double: left margin.
  *	@param b double: right margin.
@@ -40,6 +42,7 @@ int bisection(double a, double b, double e, double (*f)(double));
 
 int bisection(double a, double b, double e, double (*f)(double)){
 	double c = a;       // mid point
+	double min, max;    // minimum and maximum points for the representation
 	int counter = 0;    // iteration counter
 	FILE *fileP;        // output file pointer
 
@@ -47,26 +50,43 @@ int bisection(double a, double b, double e, double (*f)(double)){
 
 	if (f(a) * f(b)>=0) {
 		if (f(a) == 0){
-			printf("The function has a `0` in %lf", a);
+			printf("The function has a `0` in %lf.\n", a);
 			fprintPoint(fileP, a, 0.0);
-			return a;
+			fclose(fileP);
+			return 0;
 		}
 		if (f(b) == 0){
-			printf("The function has a `0` in %lf", b);
+			printf("The function has a `0` in %lf.\n", b);
 			fprintPoint(fileP, b, 0.0);
-			return b;
+			fclose(fileP);
+			return 0;
 		}
 		printf("ERROR: f(a)*f(b) > 0!\n\n");
-		return 0;
+		return 1;
 	}
 
-	while (fabs(b-a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
+	if (a > b){
+		max = a + 1;
+		min = b - 1;
+	} else {
+		max = b + 1;
+		min = a - 1;
+	}
+
+	fprintPoint(fileP, a, f(a));
+	fprintPoint(fileP, b, f(b));
+
+	while (fabs(b - a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
 		c = (a+b)/2;
 		fprintPoint(fileP, c, f(c));
 		if (f(a)*f(c) > 0) a = c;
 		else b = c;
 		counter++;
 	}
+
+	fclose(fileP);
+	fprintFunction(f, min, max);
+
 	if (counter >= MAX_ATTEMPTs){
 		printf("No zeros were found within the first %d iterations with the required precision.\n", counter);
 		printf("The partial zero found is located at `%lf`.\n", c);

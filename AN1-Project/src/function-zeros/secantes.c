@@ -30,6 +30,11 @@ int secantes(double xp, double x, double e, double (*f)(double));
  *	The method also print the sequence of points found on a file called:
  *	 `results/function-zeros/secantes.txt`
  *
+ *	Moreover the function builds a file to display the points called:
+ *	 `results/function-zeros/secantes_display.txt`
+ *	and evaluates a scheme for the function `f` in a file called:
+ *	 `results/function-plot/functionData.txt`
+ *
  *	@param x double: first point;
  *	@param xp double: second point;
  *	@param e double: max error range;
@@ -46,25 +51,58 @@ int secantes(double xp, double x, double e, double (*f)(double)){
 	int counter = 0;    // counter
 	double fx;          // current point function value
 	double fxp;         // last point function value
+	double xt;          // temp x value during upgrade
+	double min, max;    // minimum and maximum points for the representation
 	FILE *fileP;        // output file pointer
+	FILE *filePd;       // diplay file pointer
 
 	fileP = fopen("results/function-zeros/secantes.txt", "w");
+	filePd = fopen("results/function-zeros/secantes_display.txt", "w");
 
 	fx = f(x);
 	fxp = f(xp);
+	if (x < xp){
+		min = x - 1;
+		max = xp + 1;
+	} else {
+		min = xp - 2;
+		max = x + 2;
+	}
 
+	fprintPoint(fileP, xp, fxp);
 	fprintPoint(fileP, x, fx);
 
+	fprintPoint(filePd, xp, 0.0);
+	fprintPoint(filePd, xp, fxp);
+	fprintPoint(filePd, x, fx);
+	fprintPoint(filePd, x, 0.0);
+	fprintPoint(filePd, x, fx);
+
+
 	while (fabs(fx) > e && fx != fxp && counter < MAX_ATTEMPTs) {
-		x = x - fx * (x - xp) / (fx - fxp);
+		xt = x - fx * (x - xp) / (fx - fxp);
+		xp = x;
 		fxp = fx;
+		x = xt;
 		fx = f(x);
+
 		fprintPoint(fileP, x, fx);
+		fprintPoint(filePd, x, 0.0);
+		fprintPoint(filePd, x, fx);
+		fprintPoint(filePd, xp, fxp);
+		if (x < min)
+			min = x - 1;
+		else if (x > max)
+			max = x + 1;
 		counter++;
 	}
 
+	fclose(fileP);
+	fclose(filePd);
+	fprintFunction(f, min, max);
+
 	if (fxp == fx){
-		printf("The method failed (at step %d, x = %lf, xp = %lf) as f(x) - f(xp) = 0", counter, x, xp);
+		printf("The method failed (at step %d, x = %lf, xp = %lf) as f(x) - f(xp) = 0.\n", counter, x, xp);
 		return 1;
 	}
 

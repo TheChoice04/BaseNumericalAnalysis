@@ -41,6 +41,7 @@
 //
 
 void selectFunction(double (**f)(double), double (**df)(double));
+void fprintFunction(double (*f)(double), double a, double b);
 
 //
 //  From utils_matrices.c

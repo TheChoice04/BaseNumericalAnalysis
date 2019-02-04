@@ -23,7 +23,7 @@ int functionZerosMenu();
 
 int functionZerosMenu(){
 	int c;              // choicer
-	int result;         // exit-code
+	int ans;            // exit-code
 	double a, b;		// left and right margins (Bisection, Chord)
 	double e;			// error range
 	double x0;          // starting point of the method (Newton, Newton Quotient, Secantes)
@@ -43,17 +43,16 @@ int functionZerosMenu(){
 	printf(" - type `5` to Newton Quotient;\n");
 	printf(" - type `6` to Secantes;\n");
 	printf(" - type `7` to Steffensen;\n");
-	printf(" - type `8` to execute them all and compare the results!;\n");
+	printf(" - type `8` to execute them all and compare the answers!;\n");
 	printf(" - type `0` to quit.\n");
 
 	c = scanInt(0, 8);
-	printf("\n\n");
 
 	if (c == 1 || c == 2 || c == 8){
 		printf("Type in the left and the right initialization:\n>> ");
 		scanf("%lf %lf", &a, &b);
 	}
-	if (c == 2 || c == 4 || c == 5 || c == 8){
+	if (c == 2 || c == 4 || c == 5 || c == 6 || c == 7 || c == 8){
 		printf("Type in the initial point:\n>> ");
 		scanf("%lf", &x0);
 	}
@@ -75,54 +74,78 @@ int functionZerosMenu(){
 
 	switch (c) {
 	case 1:
-		result = bisection(a, b, e, f);
+		ans = bisection(a, b, e, f);
+		if (ans == 0 || ans == 2){
+			gnuplot("function-zeros/bisection.gp");
+		}
 		break;
 
 	case 2:
-		result = chord(a, b, x0, e, f);
+		ans = chord(a, b, x0, e, f);
+		if (ans == 0 || ans == 2){
+			gnuplot("function-zeros/chord.gp");
+		}
 		break;
 
-	case 3:
-		//result = exeMuller(f);
+		/*	case 3:
+		ans = muller(f);
+		if (ans == 0 || ans == 2){
+			gnuplot("function-zeros/muller.gp");
+		}
 		break;
-
+		 */
 	case 4:
-		result = newton(x0, e, f, df);
+		ans = newton(x0, e, f, df);
+		if (ans == 0 || ans == 1 || ans == 2){
+			gnuplot("function-zeros/newton.gp");
+		}
 		break;
 
 	case 5:
-		result = newtonQuotient(x0, h, e, f);
+		ans = newtonQuotient(x0, h, e, f);
+		if (ans == 0 || ans == 1 || ans == 2){
+			gnuplot("function-zeros/newtonQuotient.gp");
+		}
 		break;
 
 	case 6:
-		result = secantes(x0, x1, e, f);
+		ans = secantes(x0, x1, e, f);
+		if (ans == 0 || ans == 1 || ans == 2){
+			gnuplot("function-zeros/secantes.gp");
+		}
 		break;
 
 	case 7:
-		result = steffensen(x0, e, f);
+		ans = steffensen(x0, e, f);
+		if (ans == 0 || ans == 1 || ans == 2){
+			gnuplot("function-zeros/steffensen.gp");
+		}
 		break;
 
 	case 8:
-		printf("\n\n\nExecuting Bisection method...\n\n");
+		printf("\n\n\nExecuting Bisection method...\n");
 		bisection(a, b, e, f);
 
-		printf("\n\n\nExecuting Chord method...\n\n");
+		printf("\n\n\nExecuting Chord method...\n");
 		chord(a, b, x0, e, f);
 
 		//printf("\nExecuting  method...\n\n");
-		//result = exeMuller(f);
+		//ans = exeMuller(f);
 
-		printf("\n\n\nExecuting Newton method...\n\n");
+		printf("\n\n\nExecuting Newton method...\n");
 		newton(x0, e, f, df);
 
-		printf("\n\n\nExecuting Newton Quotient method...\n\n");
+		printf("\n\n\nExecuting Newton Quotient method...\n");
 		newtonQuotient(x0, h, e, f);
 
-		printf("\n\n\nExecuting Secantes method...\n\n");
+		printf("\n\n\nExecuting Secantes method...\n");
 		secantes(x0, x1, e, f);
 
-		printf("\n\n\nExecuting Steffensen method...\n\n");
+		printf("\n\n\nExecuting Steffensen method...\n");
 		steffensen(x0, e, f);
+
+		gnuplot("function-zeros/allMethods.gp");
+
 		break;
 
 	case 0:
@@ -130,7 +153,7 @@ int functionZerosMenu(){
 		return 1;
 
 	default:
-		printf("ERROR: no function for the choice made.");
+		printf("ERROR: the method has not been encoded yet.\n");
 		return 3;
 	}
 

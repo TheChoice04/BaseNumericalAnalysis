@@ -93,14 +93,16 @@ int iterativeMenu(){
 		if (dd == 0)
 			printf("WARNING: the coefficient matrix is not Diagonally Dominant.\n");
 		ans = jacobi(A, b, n, x, err, p);
-		gnuplot("jacobi.gp");
+		if (ans == 0 || ans == 2)
+			gnuplot("iteratives/jacobi.gp");
 		break;
 
 	case 2:
 		if (dd != 2 && pd != 1)
 			printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Positive Defined.\n");
 		ans = gaussSeidel(A, b, n, x, err, p);
-		gnuplot("gaussSeidel.gp");
+		if (ans == 0 || ans == 2)
+			gnuplot("iteratives/gaussSeidel.gp");
 		break;
 
 	case 3:
@@ -114,13 +116,15 @@ int iterativeMenu(){
 			if (dd != 2 && pd != 1)
 				printf("WARNING: the coefficient matrix is neither strictly Diagonally Dominant nor Positive Defined.\n");
 			ans = gaussSeidel(A, b, n, x, err, p);
-			gnuplot("gaussSeidel.gp");
+			if (ans == 0 || ans == 2)
+				gnuplot("iteratives/gaussSeidel.gp");
 			c = 2;
 		} else {
 			if (isApprox(omega, 0.0))
 				printf("WARNING: the solution would not be incremented!\n");
 			ans = successiveOverRelaxation(A, b, n, x, omega, err, p);
-			gnuplot("successiveOverRelaxation.gp");
+			if (ans == 0 || ans == 2)
+				gnuplot("iteratives/successiveOverRelaxation.gp");
 		}
 
 		break;
@@ -131,7 +135,8 @@ int iterativeMenu(){
 		printf("Type in the Richardson multiply parameter beta (range is `[0, 1]`).\n");
 		beta = scanDouble(0, 1);
 		ans = richardson(A, b, n, x, beta, err, p);
-		gnuplot("richardson.gp");
+		if (ans == 0 || ans == 2)
+			gnuplot("iteratives/richardson.gp");
 		break;
 
 	case 0:

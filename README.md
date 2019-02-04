@@ -2,6 +2,12 @@
 
 This `C` repository, developed during the course of [**AN410** _Numerical Analysis_ - A.A.2019/19](http://www.mat.uniroma3.it/users/ferretti/bacheca.html), is a collection of programs for scientific calculus application.
 
+## Dependecies
+
+Even if it is not necessary, an useful tool called by the program is [`GnuPlot`](http://www.gnuplot.info).
+To change the path to the executable of `GnuPlot` it is necessary to change the macro defined in
+`src/utils/an1.utils.h`.
+
 ## Programs Implemented
   
   - Direct methods for solving linear systems
@@ -11,10 +17,10 @@ This `C` repository, developed during the course of [**AN410** _Numerical Analys
       - [ ] Doolittle Factorization
     - [ ] QR factorization
   - Iteratives methods for solving linear systems
-    - [ ] Jacobi method
-    - [ ] Gauss-Seidel method
-    - [ ] Sor method
-    - [ ] Richardson
+    - [X] Jacobi method
+    - [X] Gauss-Seidel method
+    - [X] Sor method
+    - [X] Richardson
   - Recursive methods for function zeros
     - [X] Bisection
     - [X] Chord
@@ -33,9 +39,20 @@ This `C` repository, developed during the course of [**AN410** _Numerical Analys
 
 ## Structure of the Repository
 
- - data: Contains the computation output of the default files.
+ - gnuplot-scripts: Contains the `GnuPlot` scripts called from inside the C code.
+ - results: Contains the computation output of the program.
  - source: Contains all the default parsing `.txt` files.
- - src: Source folder of the `.c` and `.h` files.
+ - src: Source folder of the `.c` and `.h` files:
+   - direct: direct methods implementation
+   - function-zeros: function zeros evaluation methods implementation
+   - interpolation: interpolation methods implementation
+   - iteratives: iteratives methods implementation
+   - utils: all the utilities usefull for the program
+     - utils_functions.c
+     - utils_matrices.c
+     - utils_systems.c
+     - utils_utility.c
+     - utils_vectors.c
 
 
 ## Author
