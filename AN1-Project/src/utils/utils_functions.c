@@ -22,14 +22,16 @@
 
 double samplef1(double x);
 double samplef2(double x);
+double samplef3(double x);
 double dsamplef1(double x);
 double dsamplef2(double x);
+double dsamplef3(double x);
 void selectFunction(double (**f)(double), double (**df)(double));
 void fprintFunction(double (*f)(double), double a, double b);
 
 
 double samplef1(double x){
-	return exp(x)-1;
+	return (exp(x) - 1);
 }
 
 double dsamplef1(double x){
@@ -37,11 +39,19 @@ double dsamplef1(double x){
 }
 
 double samplef2(double x){
-	return x/2-sin(x);
+	return (x/2 - sin(x));
 }
 
 double dsamplef2(double x){
-	return 1/2-cos(x);
+	return (0.5 - cos(x));
+}
+
+double samplef3(double x){
+	return (2 * x * x);
+}
+
+double dsamplef3(double x){
+	return (4 * x);
 }
 
 
@@ -68,11 +78,12 @@ void selectFunction(double (**f)(double), double (**df)(double)){
 	int c;              // choicer
 
 	printf("Choose one of the following functions:\n");
-	printf(" - type '1' to choose: (e^x)-1\n");
-	printf(" - type '2' to choose: x/2-sin(x)\n");
+	printf(" - type `1` to choose: (e^x)-1\n");
+	printf(" - type `2` to choose: x/2-sin(x)\n");
+	printf(" - type `3` to choose: 2x^2\n");
 	// Insert more choices here...
 
-	c = scanInt(1, 2);
+	c = scanInt(1, 3);
 	printf("\n\n");
 
 	switch (c){
@@ -85,7 +96,14 @@ void selectFunction(double (**f)(double), double (**df)(double)){
 		*df = &dsamplef2;
 		*f = &samplef2;
 		break;
+
+
+	case 3 :
+		*df = &dsamplef3;
+		*f = &samplef3;
+		break;
 	}
+
 
 	return ;
 }
