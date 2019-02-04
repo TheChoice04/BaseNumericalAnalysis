@@ -60,8 +60,8 @@ int newton(double x, double e, double (*f)(double), double (*f1)(double)){
 
 	fx = f(x);
 	f1x = f1(x);
-	min = x - 2;
-	max = x + 2;
+	min = x - 1;
+	max = x + 1;
 
 	fprintPoint(fileP, x, 0.0);
 	fprintPoint(fileP, x, fx);

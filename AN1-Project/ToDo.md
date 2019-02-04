@@ -20,8 +20,8 @@
 		- [ToDo] Muller
 		- [X] Newton
 		- [X] Newton Quotient
-		- [ToCheck] Secantes
-		- [ToCheck] Steffensen
+		- [X] Secantes
+		- [X] Steffensen
 	- Interpolation methods for function approximation over equidistant/chebyshev knots
 		- [Display, change knot value acquisition] Lagrange interpolate
 		- [ToDo] Newton interpolate

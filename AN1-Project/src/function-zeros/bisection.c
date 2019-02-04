@@ -64,14 +64,14 @@ int bisection(double a, double b, double e, double (*f)(double)){
 	}
 
 	if (a > b){
-		max = a;
-		min = b;
+		max = a + 1;
+		min = b - 1;
 	} else {
-		max = b;
-		min = a;
+		max = b + 1;
+		min = a - 1;
 	}
 
-	while (fabs(b-a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
+	while (fabs(b - a) > e && fabs(f(c)) > e && counter < MAX_ATTEMPTs) {
 		c = (a+b)/2;
 		fprintPoint(fileP, c, f(c));
 		if (f(a)*f(c) > 0) a = c;

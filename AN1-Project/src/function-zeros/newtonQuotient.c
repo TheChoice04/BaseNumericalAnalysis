@@ -53,8 +53,8 @@ int newtonQuotient(double x, double h, double e, double (*f)(double)){
 
 	fx = f(x);
 	fxh = f(x + h);
-	min = x - 2;
-	max = x + 2;
+	min = x - 1;
+	max = x + 1;
 
 	fprintPoint(fileP, x, 0.0);
 	fprintPoint(fileP, x, fx);

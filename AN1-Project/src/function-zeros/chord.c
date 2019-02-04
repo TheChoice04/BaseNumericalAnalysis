@@ -54,8 +54,8 @@ int chord(double a, double b, double x, double e, double (*f)(double)){
 	fileP = fopen("results/function-zeros/chord.txt", "w");
 
 	fx = f(x);
-	min = x-2;
-	max = x+2;
+	min = x - 1;
+	max = x + 1;
 
 	if (f(a) - f(b) == 0.0){
 		printf("ERROR: The values of f(a) and f(b) are equals. Chord method not valid.\n");

@@ -59,8 +59,8 @@ int secantes(double xp, double x, double e, double (*f)(double)){
 	fx = f(x);
 	fxp = f(xp);
 	if (x < xp){
-		min = x - 2;
-		max = xp + 2;
+		min = x - 1;
+		max = xp + 1;
 	} else {
 		min = xp - 2;
 		max = x + 2;
