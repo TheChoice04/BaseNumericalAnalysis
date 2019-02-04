@@ -52,15 +52,15 @@ int steffensen(double x, double e, double (*f)(double)){
 
 	fx = f(x);
 	ffx = f(x + fx);
-	min = x - 2;
-	max = x + 2;
+	min = x - 1;
+	max = x + 1;
 
 	fprintPoint(fileP, x, fx);
 
 	while (fabs(fx) > e && ffx != fx && counter < MAX_ATTEMPTs) {
-		x = x - fx * fx / (fx - ffx);
+		x = x - ((fx * fx) / (ffx - fx));
 		fx = f(x);
-		ffx = f(x - fx);
+		ffx = f(x + fx);
 		fprintPoint(fileP, x, fx);
 		if (x < min)
 			min = x - 1;
