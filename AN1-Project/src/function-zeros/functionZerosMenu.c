@@ -97,28 +97,28 @@ int functionZerosMenu(){
 		 */
 	case 4:
 		ans = newton(x0, e, f, df);
-		if (ans == 0 || ans == 2){
+		if (ans == 0 || ans == 1 || ans == 2){
 			gnuplot("function-zeros/newton.gp");
 		}
 		break;
 
 	case 5:
 		ans = newtonQuotient(x0, h, e, f);
-		if (ans == 0 || ans == 2){
+		if (ans == 0 || ans == 1 || ans == 2){
 			gnuplot("function-zeros/newtonQuotient.gp");
 		}
 		break;
 
 	case 6:
 		ans = secantes(x0, x1, e, f);
-		if (ans == 0 || ans == 2){
+		if (ans == 0 || ans == 1 || ans == 2){
 			gnuplot("function-zeros/secantes.gp");
 		}
 		break;
 
 	case 7:
 		ans = steffensen(x0, e, f);
-		if (ans == 0 || ans == 2){
+		if (ans == 0 || ans == 1 || ans == 2){
 			gnuplot("function-zeros/steffensen.gp");
 		}
 		break;
