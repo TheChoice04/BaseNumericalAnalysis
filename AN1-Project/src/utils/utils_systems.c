@@ -60,7 +60,7 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 
 	printf("You can choose one of the following to parse a matrix:\n");
 	printf(" - type `1` to parse the default system `source/DefaultSystem.txt`;\n");
-	printf(" - type `2` to parse a `.txt` file;\n");
+	printf(" * type `2` to parse a `.txt` file;\n");
 	printf(" - type `3` to parse a random system;\n");
 	printf(" - type `4` to parse a system manually (discouraged).\n");
 	choice = scanInt(1, 4);
@@ -215,7 +215,7 @@ void printSolution(Vector x, int n){
 	int i;              // counter
 	for (i = 0; i < n; i++)
 		printf("  x_%d = %lf\n", i, x[i]);
-	printf("\n");
+	return ;
 }
 
 

@@ -4,7 +4,7 @@
 ## Methods
 
 	- Direct methods for solving linear systems
-		- [Display] Gauss Elimination
+		- [Total Pivoting] Gauss Elimination
 		- [ToDo] LU Factorization
 			- [ToDo] Cholesky Factorization
 			- [ToDo] Doolittle Factorization
@@ -32,7 +32,7 @@
 ## Tasks
 
 add `fclose()` and `free` in:
- - [ ] `src/direct/*.c`
+ - [X] `src/direct/*.c`
  - [X] `src/function-zeros/*.c`
  - [ ] `src/interpolation/*.c`
  - [X] `src/iteratives/*.c`

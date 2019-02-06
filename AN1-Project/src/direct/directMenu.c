@@ -33,7 +33,8 @@ void parseLinearSystem(Matrix* A, Vector* b, int * mp, int * np);
 int directMenu(){
 	int c;              // choicer
 	int m, n;           // dimensions
-	int ans;            // exit-code
+	int ret = 0;        // exit-code
+	int ans;            // solver exit-code
 	Matrix A = NULL;    // coefficient Matrix
 	Matrix oA = NULL;   // original coefficient matrix
 	Vector b = NULL;    // known terms Vector
@@ -68,21 +69,31 @@ int directMenu(){
 		printSystem(A, b, m, n);
 		printf("And the solution evaluated is:\n");
 		printSolution(x, n);
-		ln;ln;
+		ln;
 		break;
 
 	case 0:
 		printf("Aborted\n");
-		return 0;
+		ans = -1;
+		ret = 0;
+		break;
 
 	default:
-		return 3;
+		ans = -1;
+		ret = 3;
+		break;
 	}
 
 	if (ans == 0)
 		printSystemError(oA, x, ob, m, n);
 
-	return 0;
+	free(A);
+	free(b);
+	free(oA);
+	free(ob);
+	free(x);
+
+	return ret;
 }
 
 

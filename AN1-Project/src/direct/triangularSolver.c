@@ -48,7 +48,7 @@ int triSupSolver(Matrix A, Vector b, int m, int n, Vector x){
 	// if m > n
 	for (i = n; i < m; i++){
 		if (b[i] >= ERR){
-			printf("The system is not compatible.\n\n");
+			printf("The system is not compatible.\n");
 			return 1;
 		}
 
