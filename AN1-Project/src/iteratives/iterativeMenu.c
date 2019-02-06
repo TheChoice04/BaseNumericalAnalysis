@@ -25,7 +25,7 @@ int iterativeMenu();
  *	  `0` : Correct outcome.
  *	  `1` : Aborted.
  *	  `2` : Parsed matrix is not square.
- *	  `3` : Wrong Method Choosing.
+ *	  `3` : Method not encoded yet.
  *	  `4` : Unespected ans return.
  *
  *************************************************************************/
@@ -146,7 +146,7 @@ int iterativeMenu(){
 		break;
 
 	default:
-		printf("WARNING: the method has not been encoded yet.\n");
+		printf("WARNING: the chosen method has not been encoded yet.\n");
 		ans = -1;
 		ret = 3;
 	}

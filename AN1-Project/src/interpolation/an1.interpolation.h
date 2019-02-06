@@ -21,8 +21,7 @@ int interpolationMenu();
 //	lagrange.c
 //
 
-void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
-void diplayLagrange(int dpts);
+void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
 //
 //	knot.c
@@ -30,5 +29,9 @@ void diplayLagrange(int dpts);
 
 Vector buildEquidistantKnots(int npts, float a, float b, int isClose);
 Vector buildChebyshevKnots(int npts, float a, float b, int isClose);
+Vector buildUserKnots(int npts, float a, float b, int isClose);
+
+Vector knotFunctionValues(double (*f)(double), Vector knot, int npts);
+Vector knotUserValues(Vector knot, int npts);
 
 #endif /* SRC_INTERPOLATION_AN1_INTERPOLATION_H_ */

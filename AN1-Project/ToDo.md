@@ -1,6 +1,10 @@
 # ToDo
 #### To do list for the project.
 
+## Important
+
+Knots functions to do.
+
 ## Methods
 
 	- Direct methods for solving linear systems
@@ -23,7 +27,7 @@
 		- [X] Secantes
 		- [X] Steffensen
 	- Interpolation methods for function approximation over equidistant/chebyshev knots
-		- [Display, change knot value acquisition] Lagrange interpolate
+		- [Display] Lagrange interpolate
 		- [ToDo] Newton interpolate
 		- [ToDo] Hermite interpolate
 	- Least-square method for function approximation

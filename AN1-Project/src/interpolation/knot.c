@@ -14,6 +14,10 @@
 
 Vector buildEquidistantKnots(int npts, float a, float b, int isClose);
 Vector buildChebyshevKnots(int npts, float a, float b, int isClose);
+Vector buildUserKnots(int npts, float a, float b, int isClose);
+
+Vector knotFunctionValues(double (*f)(double), Vector knot, int npts);
+Vector knotUserValues(Vector knot, int npts);
 
 
 /** buildEquidistantKnots *************************************************

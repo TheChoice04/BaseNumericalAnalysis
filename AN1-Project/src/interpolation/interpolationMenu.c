@@ -21,10 +21,9 @@ int interpolationMenu();
  *  algorithms to approximate a given function.
  *
  * @return int exit code:
- *      `0` : Correct outcome
- *      `1` : Aborted
- *      `3` : Wrong Method Choosing
- *      `4` : Wrong
+ *      `0` : Correct outcome.
+ *      `1` : Aborted.
+ *      `3` : Method not encoded yet.
  *
  *************************************************************************/
 
@@ -34,7 +33,8 @@ int interpolationMenu(){
 	int dpts;           // number of data points
 	int isClose;        // boolean value fir closure
 	double a, b;        // left and right margin of the
-	Vector knot;        // Knot vector
+	Vector knot;        // knot vector
+	Vector knotVal;     // knot values
 	double (*f)(double);     // function pointer
 
 	selectFunction(&f, &f);
@@ -50,15 +50,16 @@ int interpolationMenu(){
 	printf("How many knots do you want to build?\n");
 	npts = scanInt(1, MAX_POINTs);
 
-	printf(" - type `0` for open knots\n");
-	printf(" - type `1` for close knots\n");
-	isClose = scanInt(0, 1);
+	printf(" - type `1` for open knots;\n");
+	printf(" - type `2` for close knots;\n");
+	isClose = scanInt(1, 2);
 
 	printf("What kind of Knot Construction do you want?\n");
 	printf(" - type `1` to build %d equidistant knots;\n", npts);
 	printf(" - type `2` to build %d Chebyshev knots;\n", npts);
+	printf(" - type `3` to manually insert the %d knots;\n", npts);
 	printf(" - type `0` to abort.\n");
-	c = scanInt(0, 2);
+	c = scanInt(0, 3);
 
 	switch (c) {
 	case 1:
@@ -68,14 +69,40 @@ int interpolationMenu(){
 	case 2:
 		knot = buildChebyshevKnots(npts, a, b, isClose);
 		break;
+
+	case 3:
+		knot = buildUserKnots(npts, a, b, isClose);
+		break;
+
 	case 0:
 		printf("Aborted\n");
 		return 1;
 
 	default:
-		printf("ERROR: no methods for the choice made.");
-		return 5;
+		printf("WARNING: the chosen method has not been encoded yet.\n");
+		return 3;
 	}
+
+	printf("Where do you want to take the knot value from?\n");
+	printf(" - type `1` to get the values from the function;\n");
+	printf(" - type `2` to get the values from the keyboard;\n");
+	c = scanInt(1, 2);
+
+	switch (c) {
+	case 1:
+		knotVal = knotFunctionValues(f, knot, npts);
+		break;
+
+	case 2:
+		knotVal = knotUserValues(knot, npts);
+		break;
+
+	default:
+		printf("WARNING: the chosen method has not been encoded yet.\n");
+		free(knot);
+		return 3;
+	}
+
 
 	//==========INTERPOLATION CHOOSING
 
@@ -89,23 +116,23 @@ int interpolationMenu(){
 
 	switch (c) {
 	case 1:
-		lagrange(f, npts, knot, dpts, a, b);
+		lagrange(f, npts, knot, knotVal, dpts, a, b);
 		break;
 
-/*	case 2:
+		/*	case 2:
 		ans = exeNewton(f);
 		break;
 
 	case 3:
 		ans = exeHermite(f);
 		break;
-*/
+		 */
 	case 0:
 		printf("Aborted\n");
 		return 1;
 
 	default:
-		printf("ERROR: no method for the choice made.");
+		printf("WARNING: the chosen method has not been encoded yet.\n");
 		return 3;
 	}
 

@@ -11,8 +11,7 @@
 
 #include "an1.interpolation.h"
 
-void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
-void diplayLagrange(int dpts);
+void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
 
 /** lagrange **************************************************************
@@ -35,6 +34,7 @@ void diplayLagrange(int dpts);
  *	@param f double *(double): The real function.
  *	@param npts int: number of knots.
  *	@param knot Vector: vector of the knots.
+ *	@param knotVal Vector: vector of the knot values.
  *	@param dpts int: number of data points.
  *	@param a float: left margin of the range.
  *	@param b float: right margin of the range.
@@ -43,7 +43,7 @@ void diplayLagrange(int dpts);
  *
  *************************************************************************/
 
-void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b){
+void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b){
 	int i, j, k;        // counters
 	int n = npts-1;     // order of the interpolate
 	float step;         // step between data points
@@ -53,7 +53,6 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 	float err;          // data point distance
 	float fx;           // real value on x
 	FILE *fileP;        // output file pointer
-	Vector knotVal;     // knot values vector
 
 	knotVal = allocVector(npts);
 	step = (b-a)/(dpts-1);
@@ -68,10 +67,6 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 	if (dpts <= 0) {
 		printf("ERROR: no data points selected.\n");
 		exit(1);
-	}
-
-	for (i = 0; i <= n; i++){
-		knotVal[i] = f(knot[i]);
 	}
 
 	for (k = 0; k <= dpts-1; k++){
@@ -94,20 +89,4 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 	fclose(fileP);
 
 	return ;
-}
-
-
-/** displayLagrange *******************************************************
- *
- *	This method is used to display the data saved in the file:
- *	`results/interpolation/lagrange_interpolate.txt`
- *
- *	@param dpts int: number of data points to be displayed.
- *
- *	@return NULL.
- *
- *************************************************************************/
-
-void diplayLagrange(int dpts){
-
 }
