@@ -11,7 +11,7 @@
 
 #include "an1.interpolation.h"
 
-void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
+int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
 
 /** lagrange **************************************************************
@@ -39,11 +39,13 @@ void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dp
  *	@param a float: left margin of the range.
  *	@param b float: right margin of the range.
  *
- *	@return NULL.
+ *	@return int exit-code:
+ *      `0` : Correct outcome.
+ *      `1` : No data points selected.
  *
  *************************************************************************/
 
-void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b){
+int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b){
 	int i, j, k;        // counters
 	int n = npts-1;     // order of the interpolate
 	float step;         // step between data points
@@ -54,8 +56,7 @@ void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dp
 	float fx;           // real value on x
 	FILE *fileP;        // output file pointer
 
-	knotVal = allocVector(npts);
-	step = (b-a)/(dpts-1);
+	step = (b - a)/(dpts - 1);
 
 	fileP = fopen("results/interpolation/lagrange_interpolate.txt", "w");
 
@@ -66,10 +67,10 @@ void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dp
 
 	if (dpts <= 0) {
 		printf("ERROR: no data points selected.\n");
-		exit(1);
+		return 1;
 	}
 
-	for (k = 0; k <= dpts-1; k++){
+	for (k = 0; k < dpts; k++){
 		acc = 0;
 		for (i = 0; i <= n; i++){
 			L = 1;
@@ -78,7 +79,7 @@ void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dp
 					L = L * (x - knot[j])/(knot[i] - knot[j]);
 				}
 			}
-			acc += (L * knotVal[i]);
+			acc = acc + (L * knotVal[i]);
 		}
 		fx = f(x);
 		err = fabs(fx-acc);
@@ -88,5 +89,5 @@ void lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dp
 
 	fclose(fileP);
 
-	return ;
+	return 0;
 }

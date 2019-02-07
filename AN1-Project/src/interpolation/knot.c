@@ -157,7 +157,7 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
 				i++;
 			} else if (err < MAX_ERRs){
 				printf("WARNING: The value is not within the range `[%lf, %lf]`.\n", a, b);
-				printf("         Please choose another value.");
+				printf("         Please choose another value.               (%d)\n", MAX_ERRs-err);
 				err++;
 			} else {
 				exit(8);
@@ -174,7 +174,7 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
 				i++;
 			} else if (err < MAX_ERRs){
 				printf("WARNING: The value is not within the range `(%lf, %lf)`.\n", a, b);
-				printf("         Please choose another value.");
+				printf("         Please choose another value.               (%d)\n", MAX_ERRs-err);
 				err++;
 			} else {
 				exit(8);

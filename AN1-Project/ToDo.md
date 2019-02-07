@@ -3,7 +3,7 @@
 
 ## Important
 
-Knots functions to do.
+
 
 ## Methods
 
@@ -27,7 +27,7 @@ Knots functions to do.
 		- [X] Secantes
 		- [X] Steffensen
 	- Interpolation methods for function approximation over equidistant/chebyshev knots
-		- [Display] Lagrange interpolate
+		- [X] Lagrange interpolate
 		- [ToDo] Newton interpolate
 		- [ToDo] Hermite interpolate
 	- Least-square method for function approximation
@@ -38,7 +38,7 @@ Knots functions to do.
 add `fclose()` and `free` in:
  - [X] `src/direct/*.c`
  - [X] `src/function-zeros/*.c`
- - [ ] `src/interpolation/*.c`
+ - [X] `src/interpolation/*.c`
  - [X] `src/iteratives/*.c`
  - [X] `src/utils/*.c`
 
