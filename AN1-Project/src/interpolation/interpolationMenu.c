@@ -50,6 +50,7 @@ int interpolationMenu(){
 	printf("How many knots do you want to build?\n");
 	npts = scanInt(1, MAX_POINTs);
 
+	printf("What kind of knot do you want to build?\n");
 	printf(" - type `1` for open knots;\n");
 	printf(" - type `2` for close knots;\n");
 	isClose = scanInt(1, 2);
