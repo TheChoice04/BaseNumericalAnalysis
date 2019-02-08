@@ -42,4 +42,6 @@ add `fclose()` and `free` in:
  - [X] `src/iteratives/*.c`
  - [X] `src/utils/*.c`
 
-write a simple evaluation if a matrix is positive defined.
+Write a simple evaluation if a matrix is positive defined.
+
+Build Vandermonde and Hilber Matrix.
