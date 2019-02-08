@@ -62,6 +62,8 @@ int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
+void fprintMatrix(char *dest, Matrix arg, int m, int n);
+void fprintQMatrix(char *dest, Matrix arg, int n);
 
 //
 //	From utils_vector.c

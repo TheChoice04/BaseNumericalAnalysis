@@ -58,16 +58,16 @@ int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpt
 
 	step = (b - a)/(dpts - 1);
 
-	fileP = fopen("results/interpolation/lagrange_interpolate.txt", "w");
-
-	if (fileP == NULL) {
-	    printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
-	    exit(1);
-	}
-
 	if (dpts <= 0) {
 		printf("ERROR: no data points selected.\n");
 		return 1;
+	}
+
+	fileP = fopen("results/interpolation/lagrange_interpolate.txt", "w");
+
+	if (fileP == NULL) {
+		printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
+		exit(1);
 	}
 
 	for (k = 0; k < dpts; k++){

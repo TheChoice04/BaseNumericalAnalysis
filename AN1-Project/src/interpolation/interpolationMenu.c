@@ -118,7 +118,7 @@ int interpolationMenu(){
 
 	printf("You can choose one of the following Interpolation Methods:\n");
 	printf(" - type `1` to Lagrange Interpolation;\n");
-	printf(" * type `2` to Newton Interpolation;\n");
+	printf(" - type `2` to Newton Interpolation;\n");
 	printf(" * type `3` to Hermite Interpolation.\n");
 	c = scanInt(1, 3);
 
@@ -145,11 +145,27 @@ int interpolationMenu(){
 		fclose(fileP);
 		break;
 
-		/*	case 2:
-		ans = exeNewton(f);
+	case 2:
+		ans = newtonInterpolate(f, npts, knot, knotVal, dpts, a, b);
+		if (ans == 0)
+			gnuplot("interpolation/newton_interpolate.gp");
+
+		fileP = fopen("results/interpolation/newton_interpolate.txt", "r");
+
+		if (fileP == NULL) {
+			printf("ERROR: can't open `results/interpolation/newton_interpolate.txt` in reading mode.\n");
+			exit(1);
+		}
+
+		for (i = 0; i < dpts; i++){
+			fscanf(fileP, "%lf %lf %lf %lf", &delta, &delta, &delta, &delta);
+			err[i] = delta;
+		}
+
+		fclose(fileP);
 		break;
 
-	case 3:
+		/*	case 3:
 		ans = exeHermite(f);
 		break;
 		 */

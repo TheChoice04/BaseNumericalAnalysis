@@ -28,7 +28,7 @@
 		- [X] Steffensen
 	- Interpolation methods for function approximation over equidistant/chebyshev knots
 		- [X] Lagrange interpolate
-		- [ToDo] Newton interpolate
+		- [X] Newton interpolate
 		- [ToDo] Hermite interpolate
 	- Least-square method for function approximation
 		- [ToDo] Least-square systems

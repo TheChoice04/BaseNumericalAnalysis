@@ -18,10 +18,11 @@
 int interpolationMenu();
 
 //
-//	lagrange.c
+//	Interpolation Functions
 //
 
 int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
+int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
 //
 //	knot.c
