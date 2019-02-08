@@ -27,6 +27,8 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
  *	This method parse a linear system:
  *	  - from the default file;
  *	  - a particular file;
+ *	  - a Vandermonde matrix coefficient matrix;
+ *	  - an Hilbert coefficient matrix;
  *	  - with random values;
  *	  - from keyboard input.
  *
@@ -101,9 +103,9 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	case 4:
 	case 5:
 	case 6:
-		printf("Insert the number of equations:\n");
+		printf("Type in the number of equations:\n");
 		m = scanInt(1, 100);
-		printf("Insert the number of unknowns:\n");
+		printf("Type in the number of unknowns:\n");
 		n = scanInt(1, 100);
 		break;
 
@@ -143,10 +145,16 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 		break;
 
 	case 4:	// Hilbert
+		for (i = 0; i < m; i++)
+			for (j = 0; j < n; j++)
+				A[i][j] = 1.0/(i + j + 1);
+		printf("Type in the %d known terms:\n>> ", m);
+		for (i = 0; i < m; i++)
+			scanf("%lf", &b[i]);
 
 		break;
 	case 5:	// Random
-		printf("Insert minimum and maximum values for your system value range:\n>> ");
+		printf("Type in minimum and maximum values for your system value range:\n>> ");
 		scanf("%lf %lf", &min, &max);
 		ln;ln;
 		for (i = 0; i < m; i++){
@@ -159,7 +167,7 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 
 	case 6:	// Manual
 		for (i = 0; i < m; i++){
-			printf("Insert the coefficient list for the %d-th equation and its known term:\n>> ", (i+1));
+			printf("Type in the coefficient list for the %d-th equation and its known term:\n>> ", (i+1));
 			for (j = 0; j < m; j++)
 				scanf("%lf", &A[i][j]);
 			scanf("%lf", &b[i]);
