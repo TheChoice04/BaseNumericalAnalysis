@@ -32,6 +32,8 @@ int matrixDefiniteness(Matrix M, int m, int n);
 
 void printMatrix(Matrix M, int m, int n);
 void printQMatrix(Matrix M, int n);
+void fprintMatrix(char *dest, Matrix arg, int m, int n);
+void fprintQMatrix(char *dest, Matrix arg, int n);
 
 
 //
@@ -361,4 +363,59 @@ void printMatrix(Matrix M, int m, int n){
 
 void printQMatrix(Matrix M, int n){
 	printMatrix(M, n, n);
+}
+
+
+/** fprintMatrix **********************************************************
+ *
+ *	This method prints a Matrix `arg` of dimnesions `m \times n` over
+ *	 the specified file `dest`.
+ *
+ *	@param dest char*: the destination file `.txt` (string path).
+ *	@param arg Matrix: the matrix to be printed.
+ *	@param m int: the number of rows.
+ *	@param n int: the number of columns.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void fprintMatrix(char *dest, Matrix arg, int m, int n){
+	int i, j;           // counter
+	FILE *fileP;        // output file pointer
+
+	fileP = fopen(dest, "w");
+
+	if (fileP == NULL) {
+		printf("ERROR: can't open %s in writing mode.\n", dest);
+		exit(1);
+	}
+
+	for (i = 0; i < m; i++){
+		for (j = 0; j < n; j++)
+			fprintf(fileP, "  %lf", arg[i][j]);
+		fprintf(fileP, "\n");
+	}
+
+	fclose(fileP);
+
+	return ;
+}
+
+
+/** fprintQMatrix *********************************************************
+ *
+ *	This method prints a square Matrix `arg` of dimension `n` over
+ *	 the specified file `dest`.
+ *
+ *	@param dest char*: the destination file `.txt` (string path).
+ *	@param arg Matrix: the matrix to be printed.
+ *	@param n int: the dimension of the matrix.
+ *
+ *	@return NULL.
+ *
+ *************************************************************************/
+
+void fprintQMatrix(char *dest, Matrix arg, int n){
+	return fprintMatrix(dest, arg, n, n);
 }

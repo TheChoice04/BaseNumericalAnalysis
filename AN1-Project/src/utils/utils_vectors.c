@@ -183,9 +183,9 @@ void printVector(Vector v, int n){
  *	This method prints a Vector `arg` of length `len` over the specified
  *	 file `dest`.
  *
- *	@param dest char*: The destination file `.txt` (string path).
- *	@param arg Vector: The vector to be printed.
- *	@param len int: The vector length.
+ *	@param dest char*: the destination file `.txt` (string path).
+ *	@param arg Vector: the vector to be printed.
+ *	@param len int: the vector length.
  *
  *	@return NULL.
  *
@@ -202,7 +202,7 @@ void fprintVector(char *dest, Vector arg, int len){
 		exit(1);
 	}
 
-	for (i=0; i<len; i++)
+	for (i = 0; i < len; i++)
 		fprintf(fileP, "%lf\n", arg[i]);
 
 	fclose(fileP);

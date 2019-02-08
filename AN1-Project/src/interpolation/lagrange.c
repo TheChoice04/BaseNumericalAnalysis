@@ -11,8 +11,7 @@
 
 #include "an1.interpolation.h"
 
-void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b);
-void diplayLagrange(int dpts);
+int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
 
 /** lagrange **************************************************************
@@ -35,15 +34,18 @@ void diplayLagrange(int dpts);
  *	@param f double *(double): The real function.
  *	@param npts int: number of knots.
  *	@param knot Vector: vector of the knots.
+ *	@param knotVal Vector: vector of the knot values.
  *	@param dpts int: number of data points.
  *	@param a float: left margin of the range.
  *	@param b float: right margin of the range.
  *
- *	@return NULL.
+ *	@return int exit-code:
+ *      `0` : Correct outcome.
+ *      `1` : No data points selected.
  *
  *************************************************************************/
 
-void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, float b){
+int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b){
 	int i, j, k;        // counters
 	int n = npts-1;     // order of the interpolate
 	float step;         // step between data points
@@ -53,28 +55,22 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 	float err;          // data point distance
 	float fx;           // real value on x
 	FILE *fileP;        // output file pointer
-	Vector knotVal;     // knot values vector
 
-	knotVal = allocVector(npts);
-	step = (b-a)/(dpts-1);
+	step = (b - a)/(dpts - 1);
+
+	if (dpts <= 0) {
+		printf("ERROR: no data points selected.\n");
+		return 1;
+	}
 
 	fileP = fopen("results/interpolation/lagrange_interpolate.txt", "w");
 
 	if (fileP == NULL) {
-	    printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
-	    exit(1);
-	}
-
-	if (dpts <= 0) {
-		printf("ERROR: no data points selected.\n");
+		printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
 		exit(1);
 	}
 
-	for (i = 0; i <= n; i++){
-		knotVal[i] = f(knot[i]);
-	}
-
-	for (k = 0; k <= dpts-1; k++){
+	for (k = 0; k < dpts; k++){
 		acc = 0;
 		for (i = 0; i <= n; i++){
 			L = 1;
@@ -83,7 +79,7 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 					L = L * (x - knot[j])/(knot[i] - knot[j]);
 				}
 			}
-			acc += (L * knotVal[i]);
+			acc = acc + (L * knotVal[i]);
 		}
 		fx = f(x);
 		err = fabs(fx-acc);
@@ -93,21 +89,5 @@ void lagrange(double (*f)(double), int npts, Vector knot, int dpts, float a, flo
 
 	fclose(fileP);
 
-	return ;
-}
-
-
-/** displayLagrange *******************************************************
- *
- *	This method is used to display the data saved in the file:
- *	`results/interpolation/lagrange_interpolate.txt`
- *
- *	@param dpts int: number of data points to be displayed.
- *
- *	@return NULL.
- *
- *************************************************************************/
-
-void diplayLagrange(int dpts){
-
+	return 0;
 }
