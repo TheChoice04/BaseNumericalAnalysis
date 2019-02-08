@@ -64,11 +64,19 @@ int directMenu(){
 		printSystem(A, b, m, n);
 		ans = gaussianSolution(A, b, m, n, x);
 		ln;
-		printf("The application of Gaussian Elimination has given the following triangular system:\n");
-		printSystem(A, b, m, n);
-		printf("And the solution evaluated is:\n");
-		printSolution(x, n);
-		ln;
+		if (ans == 2){
+			printf("The system is under determined.\n");
+		} else {
+			printf("The application of Gaussian Elimination has given the following triangular system:\n");
+			printSystem(A, b, m, n);
+			if (ans == 0){
+				printf("And the solution evaluated is:\n");
+				printSolution(x, n);
+			} else if (ans == 1){
+				printf("The system is so not compatible.\n");
+			}
+			ln;
+		}
 		break;
 
 	case 0:

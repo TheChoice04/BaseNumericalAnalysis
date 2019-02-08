@@ -44,23 +44,40 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x);
  *
  *	@return int exit-code:
  *	  `0` : Success
- *	  `1` : Under-determined System.
- *	  `2` : Incompatible System.
+ *	  `1` : Incompatible System.
+ *	  `2` : Under-determined System.
  *
  *************************************************************************/
 
 int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 	int i, j, k;        // counters
+	int p, q;           // printer counters
+	int ans;            // compatibility
 	int max;            // max value (index) in the column
 	int pivoting;       // kind of pivoting
 	float aij;          // factor
 	int *piv =          // pivoting vector (for total pivoting)
 			allocate(n, int);
+	FILE *fileP;        // output file pointer
 
 	if (m < n) {
 		printf("ERROR: The system is under-determined.");
-		return 1;
+		return 2;
 	}
+
+	fileP = fopen("results/direct/gaussian_elimination.txt", "w");
+
+	if (fileP == NULL) {
+		printf("ERROR: can't open `results/direct/gaussian_elimination.txt` in writing mode.\n");
+		exit(1);
+	}
+
+	for (p = 0; p < m; p++){
+		for (q = 0; q < n; q++)
+			fprintf(fileP, "%lf  ", A[p][q]);
+		fprintf(fileP, "|  %lf\n", b[p]);
+	}
+	fprintf(fileP, "\n\n");
 
 	for (i = 0; i < n; i++)
 		piv[i] = i;
@@ -122,12 +139,30 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 			b[j] = b[j] - (aij * b[i]);
 		}
 
+		for (p = 0; p < m; p++){
+			for (q = 0; q < n; q++)
+				fprintf(fileP, "%lf  ", A[p][q]);
+			fprintf(fileP, "|  %lf\n", b[p]);
+		}
+		fprintf(fileP, "\n\n");
+
 
 	}
 
-	triSupSolver(A, b, m, n, x);
+	ans = triSupSolver(A, b, m, n, x);
 
-	return 0;
+	if (ans == 0){
+		for (i = 0; i < n; i++)
+			fprintf(fileP, "x[%d] = %lf\n", i, x[i]);
+	} else if (ans == 1) {
+		fprintf(fileP, "The system is not compatible.");
+	} else {
+		fprintf(fileP, "ERROR: Something unexpected happened.");
+	}
+
+	fclose(fileP);
+
+	return ans;
 }
 
 
