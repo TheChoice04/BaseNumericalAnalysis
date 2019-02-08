@@ -15,7 +15,6 @@
 #include "an1.direct.h"
 
 int directMenu();
-void parseLinearSystem(Matrix* A, Vector* b, int * mp, int * np);
 
 
 /** directMenu ************************************************************
