@@ -350,13 +350,13 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n){
 
 	printf("The error norm is:\n");
 	norm = taxicabNorm(err, m);
-	printf(" - Taxicaban norm : %lf.\n", norm);
+	printf(" - Taxicaban norm : %10e.\n", norm);
 
 	norm = euclideanNorm(err, m);
-	printf(" - Euclidean norm : %lf.\n", norm);
+	printf(" - Euclidean norm : %10e.\n", norm);
 
 	norm = infinityNorm(err, m);
-	printf(" - infinity norm : %lf.\n", norm);
+	printf(" - infinity norm : %10e.\n", norm);
 
 	free(b1);
 	free(err);

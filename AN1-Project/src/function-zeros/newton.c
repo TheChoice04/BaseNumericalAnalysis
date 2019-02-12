@@ -101,7 +101,7 @@ int newton(double x, double e, double (*f)(double), double (*f1)(double)){
 		printf("The partial zero found is located at `%lf`.\n", x);
 		return 2;
 	}
-	printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", x, counter, e);
+	printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%10le`.\n", x, counter, e);
 
 	return 0;
 }

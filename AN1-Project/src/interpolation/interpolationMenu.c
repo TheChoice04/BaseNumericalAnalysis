@@ -138,7 +138,7 @@ int interpolationMenu(){
 		}
 
 		for (i = 0; i < dpts; i++){
-			fscanf(fileP, "%lf %lf %lf %lf", &delta, &delta, &delta, &delta);
+			fscanf(fileP, "%lf %lf %lf %10le", &delta, &delta, &delta, &delta);
 			err[i] = delta;
 		}
 
@@ -158,7 +158,7 @@ int interpolationMenu(){
 		}
 
 		for (i = 0; i < dpts; i++){
-			fscanf(fileP, "%lf %lf %lf %lf", &delta, &delta, &delta, &delta);
+			fscanf(fileP, "%lf %lf %lf %10le", &delta, &delta, &delta, &delta);
 			err[i] = delta;
 		}
 
@@ -180,7 +180,7 @@ int interpolationMenu(){
 
 	if (ans == 0){
 		norm = pNorm(err, dpts, p);
-		printf("The Norm error over the %d data points is %lf.\n", dpts, norm);
+		printf("The Norm error over the %d data points is %10le.\n", dpts, norm);
 	}
 
 
