@@ -94,7 +94,7 @@ int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p){
 	while (norm > err && counter < MAX_ATTEMPTs){
 		k = counter / n;
 		j = counter % n;
-		fprintPoint(fileP, k, norm);
+		fprintPoint(fileP, (double)counter / n, norm);
 
 		// updating
 		temp = cgs[j];
@@ -108,7 +108,7 @@ int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p){
 		counter++;
 	}
 
-	fprintPoint(fileP, (double) counter, norm);
+	fprintPoint(fileP, (double)counter / n, norm);
 
 	fclose(fileP);
 	free(Bgs);
@@ -117,6 +117,8 @@ int gaussSeidel(Matrix A, Vector b, int n, Vector x, double err, int p){
 	if (counter >= MAX_ATTEMPTs){
 		return 2;
 	}
+
+	printf("The solution was found in %d iterations.\n", counter);
 
 	return 0;
 }

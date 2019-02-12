@@ -126,5 +126,7 @@ int successiveOverRelaxation(Matrix A, Vector b, int n, Vector x, double omega, 
 		return 2;
 	}
 
+	printf("The solution was found in %d iterations.\n", counter--);
+
 	return 0;
 }
