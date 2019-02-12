@@ -156,14 +156,14 @@ int iterativeMenu(){
 	if (ans == 0){
 		printf("The application of the method has given the following solution:\n");
 		printSolution(x, n);
-		printf("Its error norm is %lf.\n\n", norm);
+		printf("Its error norm is %10le.\n\n", norm);
 	} else if (ans == 1){
 		printf("ERROR: The matrix must have non-zero value on its diagonal.\n");
 	} else if (ans == 2){
 		printf("No solutions were found within the first %d iterations with the required precision.\n", MAX_ATTEMPTs);
 		printf("The partial solution found is:\n");
 		printSolution(x, n);
-		printf("Its error norm is %lf.\n\n", norm);
+		printf("Its error norm is %10le.\n\n", norm);
 	} else if (ans != -1)
 		ret = 4;
 

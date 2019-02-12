@@ -104,5 +104,7 @@ int richardson(Matrix A, Vector b, int n, Vector x, double beta, double err, int
 		return 2;
 	}
 
+	printf("The solution was found in %d iterations.\n", counter--);
+
 	return 0;
 }

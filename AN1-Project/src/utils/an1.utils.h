@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Macros Declaration
+#define lfpf "%.15lf"
 #define DEBUG(x) printf("DEBUG %d", x);
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
@@ -88,7 +89,7 @@ double pNorm(Vector v, int n, int p);
 //	From utils_systems.c
 //
 
-void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);

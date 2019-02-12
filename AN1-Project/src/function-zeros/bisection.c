@@ -89,10 +89,10 @@ int bisection(double a, double b, double e, double (*f)(double)){
 
 	if (counter >= MAX_ATTEMPTs){
 		printf("No zeros were found within the first %d iterations with the required precision.\n", counter);
-		printf("The partial zero found is located at `%lf`.\n", c);
+		printf("The partial zero found is located at `%.15lf`.\n", c);
 		return 2;
 	}
 	else
-		printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%lf`.\n", c, counter, e);
+		printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%10le`.\n", c, counter, e);
 	return 0;
 }

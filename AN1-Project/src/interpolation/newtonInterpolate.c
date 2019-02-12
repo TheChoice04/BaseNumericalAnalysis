@@ -111,7 +111,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 		}
 		fx = f(x);
 		err = fabs(fx - acc);
-		fprintf(fileP, "%lf %lf %lf %lf\n", x, acc, fx, err);
+		fprintf(fileP, "%lf %lf %lf %10le\n", x, acc, fx, err);
 		x += step;
 	}
 

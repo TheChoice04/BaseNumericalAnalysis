@@ -54,9 +54,9 @@ int triSupSolver(Matrix A, Vector b, int m, int n, Vector x){
 
 	}
 
-	for (i = n-1; i >= 0; i--){
+	for (i = n - 1; i >= 0; i--){
 		acc = b[i];
-		for (j = i+1; j < n; j++)
+		for (j = i + 1; j < n; j++)
 			acc = acc - (A[i][j] * x[j]);
 		acc = acc / A[i][i];
 		x[i] = acc;

@@ -15,7 +15,7 @@
 
 #include "an1.utils.h"
 
-void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
+int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np);
 void updateSolution(Matrix B, Vector c, Vector x, int n);
 void printSystem(Matrix, Vector, int, int);
 void printSolution(Vector x, int n);
@@ -27,6 +27,8 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
  *	This method parse a linear system:
  *	  - from the default file;
  *	  - a particular file;
+ *	  - a Vandermonde matrix coefficient matrix;
+ *	  - an Hilbert coefficient matrix;
  *	  - with random values;
  *	  - from keyboard input.
  *
@@ -44,15 +46,19 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
  *	@param *mp int: pointer to the integer field of the equations number.
  *	@param *np int: pointer to the integer field of the unknowns number.
  *
- *	@return NULL
+ *	@return int exit-code:
+ *	  `0` : Correct outcome.
+ *	  `3` : Method not encoded yet.
  *
  *************************************************************************/
 
-void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
-	int    i, j;        // counters
-	int    m, n;        // dimensions
-	int    choice;      // choicer
-	FILE   *fileP;      // file pointer
+int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
+	int i, j;           // counters
+	int m, n;           // dimensions
+	int n1;             // n plus 1
+	int choice;         // choicer
+	FILE *fileP;        // file pointer
+	char filepath[256]; // file path to .txt
 	double x;           // temp variable
 	double min, max;    // random min and max
 	Matrix A;           // coefficient matrix
@@ -61,22 +67,15 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	printf("You can choose one of the following to parse a matrix:\n");
 	printf(" - type `1` to parse the default system `source/DefaultSystem.txt`;\n");
 	printf(" * type `2` to parse a `.txt` file;\n");
-	printf(" - type `3` to parse a random system;\n");
-	printf(" - type `4` to parse a system manually (discouraged).\n");
-	choice = scanInt(1, 4);
+	printf(" - type `3` to parse a Vandermonde system;\n");
+	printf(" - type `4` to parse a Hilbert system;\n");
+	printf(" - type `5` to parse a random system;\n");
+	printf(" - type `6` to parse a system manually (discouraged).\n");
+	choice = scanInt(1, 6);
 
-	if (choice == 1 || choice == 2){
-		// Default Source
-		if (choice == 1)
-			fileP = fopen("source/DefaultSystem.txt", "r");
-		// Particular Source
-		else{
-			char filepath[256];
-			printf("Please specify a file-path.\n>> ");
-			fgets(filepath, 256, stdin);
-			fileP = fopen(filepath, "r");
-		}
-
+	switch (choice) {
+	case 1 :
+		fileP = fopen("source/DefaultSystem.txt", "r");
 		if (fileP == NULL){
 			printf("ERROR: can't open the source file in reading mode.\n");
 			exit(1);
@@ -84,57 +83,110 @@ void parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 
 		// Scan the Source
 		fscanf(fileP, "%d %d", &m, &n);
-		A = allocMatrix(m, n);
-		b = allocVector(m);
-		int np = n + 1;
 
-		for (i=0; i<m*np; i++){
+		break;
+
+	case 2:
+		printf("Please specify a file-path.\n>> ");
+		fgets(filepath, 256, stdin);
+		fileP = fopen(filepath, "r");
+		if (fileP == NULL){
+			printf("ERROR: can't open the source file in reading mode.\n");
+			exit(1);
+		}
+
+		// Scan the Source
+		fscanf(fileP, "%d %d", &m, &n);
+		break;
+
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+		printf("Type in the number of equations:\n");
+		m = scanInt(1, 100);
+		printf("Type in the number of unknowns:\n");
+		n = scanInt(1, 100);
+		break;
+
+	default:
+		printf("WARNING: the chosen method has not been encoded yet.\n");
+		return 3;
+	}
+
+	A = allocMatrix(m, n);
+	b = allocVector(m);
+
+	switch (choice){
+	case 1:
+	case 2:
+		n1 = n + 1;
+
+		for (i=0; i<m*n1; i++){
 			fscanf(fileP, "%lf", &x);
-			if (i%np == n)
-				b[i/np] = x;
+			if (i%n1 == n)
+				b[i/n1] = x;
 			else
-				A[i/np][i%np] = x;
+				A[i/n1][i%n1] = x;
 		}
 
 		fclose(fileP);
+		break;
 
-		// Manual Scan
-	} else {
-		printf("Insert the number of equations:\n");
-		m = scanInt(1, 100);
-		printf("Insert the number of unknowns:\n");
-		n = scanInt(1, 100);
-
-		A = allocMatrix(m, n);
-		b = allocVector(m);
-
-		// Random Scan
-		if (choice == 3){
-			printf("Insert minimum and maximum values for your system value range:\n>> ");
-			scanf("%lf %lf", &min, &max);
-			ln;ln;
-			for (i = 0; i < m; i++){
-				for (j = 0; j < n; j++){
-					A[i][j] = Random(min, max);
-				}
-				b[i] = Random(min, max);
-			}
-			// Manual Scan
-		} else {
-			for (i = 0; i < m; i++){
-				printf("Insert the coefficient list for the %d-th equation and its known term:\n>> ", (i+1));
-				for (j = 0; j < m; j++)
-					scanf("%lf", &A[i][j]);
-				scanf("%lf", &b[i]);
+	case 3: // Vandermonde
+		for (i = 0; i < m; i ++){
+			A[i][0] = 1.0;
+			printf("Type in the %d-th Vandermonde coefficient and the corresponding known term:\n>> ", i+1);
+			scanf("%lf %lf", &x, &b[i]);
+			for(j = 1; j < n; j++){
+				A[i][j] = A[i][j-1] * x;
 			}
 		}
+		break;
+
+	case 4:	// Hilbert
+		for (i = 0; i < m; i++)
+			for (j = 0; j < n; j++)
+				A[i][j] = 1.0/(i + j + 1);
+		printf("Type in the %d known terms:\n>> ", m);
+		for (i = 0; i < m; i++)
+			scanf("%lf", &b[i]);
+
+		break;
+	case 5:	// Random
+		printf("Type in minimum and maximum values for your system value range:\n>> ");
+		scanf("%lf %lf", &min, &max);
+		ln;ln;
+		for (i = 0; i < m; i++){
+			for (j = 0; j < n; j++){
+				A[i][j] = Random(min, max);
+			}
+			b[i] = Random(min, max);
+		}
+		break;
+
+	case 6:	// Manual
+		for (i = 0; i < m; i++){
+			printf("Type in the coefficient list for the %d-th equation and its known term:\n>> ", (i+1));
+			for (j = 0; j < m; j++)
+				scanf("%lf", &A[i][j]);
+			scanf("%lf", &b[i]);
+		}
+		break;
+
+	default:
+		printf("WARNING: the chosen method has not been encoded yet.\n");
+		return 3;
+
 	}
+
+
 
 	*Ap = A;
 	*bp = b;
 	*mp = m;
 	*np = n;
-	return ;
+	return 0;
 }
 
 
@@ -298,13 +350,13 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n){
 
 	printf("The error norm is:\n");
 	norm = taxicabNorm(err, m);
-	printf(" - Taxicaban norm : %lf.\n", norm);
+	printf(" - Taxicaban norm : %10e.\n", norm);
 
 	norm = euclideanNorm(err, m);
-	printf(" - Euclidean norm : %lf.\n", norm);
+	printf(" - Euclidean norm : %10e.\n", norm);
 
 	norm = infinityNorm(err, m);
-	printf(" - infinity norm : %lf.\n", norm);
+	printf(" - infinity norm : %10e.\n", norm);
 
 	free(b1);
 	free(err);

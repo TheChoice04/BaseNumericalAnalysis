@@ -108,5 +108,7 @@ int jacobi(Matrix A, Vector b, int n, Vector x, double err, int p){
 		return 2;
 	}
 
+	printf("The solution was found in %d iterations.\n", counter--);
+
 	return 0;
 }
