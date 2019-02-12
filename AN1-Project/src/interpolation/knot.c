@@ -259,7 +259,7 @@ Vector knotUserValues(Vector knot, int npts){
 	knotVal = allocVector(npts);
 
 	for (i = 0; i < npts; i++){
-		printf("Type in the value from the %d-th knot %lf.\n>> ", i, knot[i]);
+		printf("Type in the value from the %d-th knot "lfpf".\n>> ", i, knot[i]);
 		scanf("%lf", &x);
 		knotVal[i] = x;
 		fprintPoint(fileP, knot[i], knotVal[i]);

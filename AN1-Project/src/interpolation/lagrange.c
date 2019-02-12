@@ -83,7 +83,7 @@ int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpt
 		}
 		fx = f(x);
 		err = fabs(fx-acc);
-		fprintf(fileP, "%lf %lf %lf %10le\n", x, acc, fx, err);
+		fprintf(fileP, ""flfpf" "flfpf" "flfpf" %10le\n", x, acc, fx, err);
 		x += step;
 	}
 

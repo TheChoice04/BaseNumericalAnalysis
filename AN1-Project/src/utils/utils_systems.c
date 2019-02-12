@@ -241,12 +241,10 @@ void printSystem(Matrix A, Vector b, int m, int n){
 		printf("  | ");
 		for (j = 0; j < n; j++){
 			if ( !(isApproxZero(A[i][j])) ){
-				printf("%lf x_%d", A[i][j], j);
-				if (j < n-1)
-					printf(" + ");
+				printf(""lfpf" x_%d ", A[i][j], j);
 			}
 		}
-		printf(" = %lf\n", b[i]);
+		printf("= "lfpf"\n", b[i]);
 	}
 	printf("\n");
 }
@@ -266,7 +264,7 @@ void printSystem(Matrix A, Vector b, int m, int n){
 void printSolution(Vector x, int n){
 	int i;              // counter
 	for (i = 0; i < n; i++)
-		printf("  x_%d = %lf\n", i, x[i]);
+		printf("  x_%d = "lfpf"\n", i, x[i]);
 	return ;
 }
 

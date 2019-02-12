@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  **
  *	Macros used:
- *	 fprintPoint(p, x, fx) -> fprintf(p, "%lf %lf\n", x, fx);
+ *	 fprintPoint(p, x, fx) -> fprintf(p, flfpf" "flfpf"\n", x, fx);
  *	 MAX_ATTEMPTs
  */
 
@@ -50,13 +50,13 @@ int bisection(double a, double b, double e, double (*f)(double)){
 
 	if (f(a) * f(b)>=0) {
 		if (f(a) == 0){
-			printf("The function has a `0` in %lf.\n", a);
+			printf("The function has a `0` in "lfpf".\n", a);
 			fprintPoint(fileP, a, 0.0);
 			fclose(fileP);
 			return 0;
 		}
 		if (f(b) == 0){
-			printf("The function has a `0` in %lf.\n", b);
+			printf("The function has a `0` in "lfpf".\n", b);
 			fprintPoint(fileP, b, 0.0);
 			fclose(fileP);
 			return 0;
@@ -93,6 +93,6 @@ int bisection(double a, double b, double e, double (*f)(double)){
 		return 2;
 	}
 	else
-		printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%10le`.\n", c, counter, e);
+		printf("The function has a zero in `"lfpf"` (found in %d iteration) with a maximum error of `%10le`.\n", c, counter, e);
 	return 0;
 }

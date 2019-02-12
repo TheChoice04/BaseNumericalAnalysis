@@ -5,7 +5,7 @@
  *      Author: Elia Onofri
  **
  *	Macros used:
- *	 fprintPoint(p, x, fx) -> fprintf(p, "%lf %lf\n", x, fx);
+ *	 fprintPoint(p, x, fx) -> fprintf(p, flfpf" "flfpf"\n", x, fx);
  *	 MAX_ATTEMPTs
  */
 
@@ -85,15 +85,15 @@ int newtonQuotient(double x, double h, double e, double (*f)(double)){
 	fprintFunction(f, min, max);
 
 	if (fxh == fx){
-		printf("The method failed (at step %d, x = %lf) as the quotient was zero.", counter, x);
+		printf("The method failed (at step %d, x = "lfpf") as the quotient was zero.", counter, x);
 		return 1;
 	}
 	if (counter >= MAX_ATTEMPTs){
 		printf("No zeros were found within the first %d iterations with the required precision.\n", counter);
-		printf("The partial zero found is located at `%lf`.\n", x);
+		printf("The partial zero found is located at `"lfpf"`.\n", x);
 		return 2;
 	}
-	printf("The function has a zero in `%lf` (found in %d iteration) with a maximum error of `%10le`.\n", x, counter, e);
+	printf("The function has a zero in `"lfpf"` (found in %d iteration) with a maximum error of `%10le`.\n", x, counter, e);
 
 	return 0;
 }

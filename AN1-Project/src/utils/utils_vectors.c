@@ -171,7 +171,7 @@ void printVector(Vector v, int n){
 	int i;              // counter
 
 	for (i = 0; i < n; i++){
-		printf("\t%lf", v[i]);
+		printf("\t"lfpf"", v[i]);
 	}
 
 	return ;
@@ -203,7 +203,7 @@ void fprintVector(char *dest, Vector arg, int len){
 	}
 
 	for (i = 0; i < len; i++)
-		fprintf(fileP, "%lf\n", arg[i]);
+		fprintf(fileP, ""flfpf"\n", arg[i]);
 
 	fclose(fileP);
 
