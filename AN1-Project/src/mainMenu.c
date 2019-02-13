@@ -19,7 +19,6 @@ int mainMenu();
  *	@return int exit-code:
  *	  `0` : correct outcome
  *	  `1` : wrong exit from the main menu
- *	  `2` : wrong attempts in main menu more than MAX_ATTEMPTs
  *	  `9` : manual exit.
  *
  *************************************************************************/
@@ -60,6 +59,7 @@ int mainMenu() {
 			break;
 
 		case 5:
+			regressionAnalysisMenu();
 			break;
 
 		case 0:

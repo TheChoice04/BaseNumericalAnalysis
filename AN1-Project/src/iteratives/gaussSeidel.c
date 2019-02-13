@@ -8,7 +8,6 @@
  *	 fprintPoint(p, x, fx) -> fprintf(p, ""flfpf" "flfpf"\n", x, fx)
  *	 Matrix -> double**
  *	 Vector -> double*
- *	 MAX_ATTEMPTs
  */
 
 
