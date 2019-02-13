@@ -49,19 +49,19 @@ To change the path to the executable of `GnuPlot` it is necessary to change the 
    - interpolation: interpolation methods implementation
    - iteratives: iteratives methods implementation
    - utils: all the utilities usefull for the program
-     - an1.utils.h
-     - utils_functions.c
-     - utils_matrices.c
-     - utils_systems.c
-     - utils_utility.c
-     - utils_vectors.c
+     - `an1.utils.h`
+     - `utils_functions.c`
+     - `utils_matrices.c`
+     - `utils_systems.c`
+     - `utils_utility.c`
+     - `utils_vectors.c`
 
 The file `src/utils/an1.utils.h` also declare all the `macros` used here also as global parameter.
 
 Some of them could be modified in order to change the outputs:
 
-    **Macro**   | **Usage**
-----------------|--------------------------------------------------------
+ **Macro**      | **Usage**
+----------------|--------------
  `lfpf`         | long float print format
  `flfpf`        | long float print format over files
  `gnuplot(x)`   | gnuplot application path
