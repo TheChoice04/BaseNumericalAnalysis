@@ -28,11 +28,11 @@
 #define gnuplot(x) system("/usr/local/Cellar/gnuplot/5.2.5/bin/gnuplot "" -p 'gnuplot-scripts/"x"'")
 
 //  Global Const Declaration
-#define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
-#define MAX_ERRs 5           // max number of error during choosings
+#define MAX_ATTEMPTs 1000    // 10^3,   max attempts for iterative methods
+#define MAX_ERRs 5           // 5,      max number of error during choosings
 #define ERR 0.0000000001     // 10^-10, default max error
-#define MAX_POINTs 1000000   // 10^6, max number of point that could be evaluated
-#define CONST_DATA 1000      // 10^4, number of data points for sample functions evaluation
+#define MAX_POINTs 1000000   // 10^6,   max number of point that could be evaluated
+#define CONST_DATA 1000      // 10^4,   number of data points for sample functions evaluation
 
 //  New Type Declaration
 #define Vector double*
