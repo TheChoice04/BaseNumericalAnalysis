@@ -61,7 +61,7 @@ int regressionAnalysisMenu(){
 	case 1:
 		ans = leastSquare(P, n, 1);
 		if (ans == 0)
-			gnuplot("regression-analysis/leastSquare.gp");
+			gnuplot("regression-analysis/leastSquareLine.gp");
 
 		break;
 
