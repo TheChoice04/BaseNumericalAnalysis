@@ -30,7 +30,8 @@ It follows a list of the main methods implemented:
     - [X] Newton interpolate
     - [ ] Hermite interpolate
   - Least-square method for function approximation
-    - [ ] Least-square systems
+    - [X] First Order Least-squares
+    - [ ] Higher Order Least-Squares
 
 ## Dependecies
 
