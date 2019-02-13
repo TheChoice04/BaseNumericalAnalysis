@@ -12,7 +12,7 @@
 
 #include "an1.polynomialApproximation.h"
 
-int interpolationMenu();
+int polynomialApproximationMenu();
 
 
 /** interpolationMenu *****************************************************
@@ -26,7 +26,7 @@ int interpolationMenu();
  *
  *************************************************************************/
 
-int interpolationMenu(){
+int polynomialApproximationMenu(){
 	int c;              // choicer
 	int i;              // counter
 	int p;              // norm value
