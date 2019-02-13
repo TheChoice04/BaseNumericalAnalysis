@@ -20,7 +20,7 @@
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
-#define allocate(num, type) ((type*)malloc(num * sizeof(type)))
+#define allocate(num, type) ((type*)calloc(num, sizeof(type)))
 #define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
 #define fprintPoint(p, x, fx) fprintf(p, flfpf" "flfpf"\n", x, fx)
 #define isApproxZero(x) fabs(x) < ERR
