@@ -31,7 +31,8 @@
 		- [X] Newton interpolate
 		- [ ] [ToDo] Hermite interpolate
 	- Least-square method for function approximation
-		- [ ] [ToDo] Least-square systems
+		- [X] First order Least-square
+		- [ ] [ToDo] Higher order Least-square
 		
 ## Tasks
 
