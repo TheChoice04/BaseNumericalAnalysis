@@ -20,6 +20,8 @@ int regressionAnalysisMenu();
 //	regression analysis functions
 //
 
+int leastSquare(Matrix P, int n, int ord);
+int leastSquareLine(Matrix P, int n);
 
 
 
