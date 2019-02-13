@@ -33,12 +33,11 @@ int mainMenu() {
 		printf("You can choose one of the following:\n");
 		printf(" - type `1` to solve a linear system via direct method;\n");
 		printf(" - type `2` to solve a linear system via iterative method;\n");
-		printf(" - type `3` to find a zero of a function\n");
-		printf(" - type `4` to approximate a function via interpolation\n");
-		printf(" - type `5` to approximate a function via least squares method.\n");
+		printf(" - type `3` to find a zero of a function;\n");
+		printf(" - type `4` to approximate a polynomial function;\n");
 		printf(" - type `0` to quit.\n");
 
-		choice = scanInt(0, 5);
+		choice = scanInt(0, 4);
 
 		printf("\n\n");
 
@@ -56,10 +55,7 @@ int mainMenu() {
 			break;
 
 		case 4:
-			interpolationMenu();
-			break;
-
-		case 5:
+			polynomialApproximationMenu();
 			break;
 
 		case 0:
@@ -67,7 +63,7 @@ int mainMenu() {
 			break;
 
 		default:
-			printf("No choices associated to %c.\n", choice);
+			printf("WARNING: the chosen method has not been encoded yet.\n");
 			break;
 		}
 	}
