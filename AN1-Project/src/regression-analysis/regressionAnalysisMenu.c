@@ -14,6 +14,7 @@
 
 int regressionAnalysisMenu();
 
+
 /** regressionAnalysisMenu ************************************************
  *
  * This function is meant to be a menu to choose between the regression
@@ -25,11 +26,12 @@ int regressionAnalysisMenu();
  *
  *************************************************************************/
 
-
 int regressionAnalysisMenu(){
 	int c;              // choicer
 	int i;              // counter
 	int n;              // number of points
+	int ans;            // regression exit-code
+	int ord;            // order of the regression
 	Matrix P;           // points matrix
 	FILE *fileP;        // Points output file pointer
 
@@ -57,6 +59,18 @@ int regressionAnalysisMenu(){
 
 	switch (c) {
 	case 1:
+		ans = leastSquare(P, n, 1);
+		if (ans == 0)
+			gnuplot("regression-analysis/leastSquare.gp");
+
+		break;
+
+	case 2:
+		printf("Type in the order of the least square method you want to evaluate:\n");
+		ord = scanInt(1, 100);
+		ans = leastSquare(P, n, ord);
+		if (ans == 0)
+			gnuplot("regression-analysis/leastSquare.gp");
 
 		break;
 
