@@ -11,7 +11,7 @@
  */
 
 
-#include "an1.interpolation.h"
+#include "an1.polynomialApproximation.h"
 
 Vector buildEquidistantKnots(int npts, float a, float b, int isClose);
 Vector buildChebyshevKnots(int npts, float a, float b, int isClose);
@@ -35,7 +35,7 @@ Vector knotUserValues(Vector knot, int npts);
  *	 if knots are open.
  *
  *	The knot are printed on the file:
- *	`results/interpolation/knots.txt`
+ *	`results/polynomialApproximation/knots.txt`
  *
  *	@param npts int: number of points of the knot vector.
  *	@param a double: left margin of the range.
@@ -65,7 +65,7 @@ Vector buildEquidistantKnots(int npts, float a, float b, int isClose){
 		knot[j] = knot[j - 1] + step;
 	}
 
-	fprintVector("results/interpolation/knots.txt", knot, npts);
+	fprintVector("results/polynomialApproximation/knots.txt", knot, npts);
 
 	return knot;
 }
@@ -85,7 +85,7 @@ Vector buildEquidistantKnots(int npts, float a, float b, int isClose){
  *	 if knots are open.
  *
  *	The knot are printed on the file:
- *	 `results/interpolation/knots.txt`
+ *	 `results/polynomialApproximation/knots.txt`
  *
  *	@param npts int: number of points of the knot vector.
  *	@param a double: left margin of the range.
@@ -115,7 +115,7 @@ Vector buildChebyshevKnots(int npts, float a, float b, int isClose){
 		cosArg += step;
 	}
 
-	fprintVector("results/interpolation/knots.txt", knot, npts);
+	fprintVector("results/polynomialApproximation/knots.txt", knot, npts);
 
 	return knot;
 
@@ -127,7 +127,7 @@ Vector buildChebyshevKnots(int npts, float a, float b, int isClose){
  *	This Method reads a `npts` Vector from keyboard over `[a, b]`.
  *
  *	The knot are printed on the file:
- *	`results/interpolation/knots.txt`
+ *	`results/polynomialApproximation/knots.txt`
  *
  *	@param npts int: number of points of the knot vector.
  *	@param a double: left margin of the range.
@@ -182,7 +182,7 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
 		}
 	}
 
-	fprintVector("results/interpolation/knots.txt", knot, npts);
+	fprintVector("results/polynomialApproximation/knots.txt", knot, npts);
 
 	return knot;
 }
@@ -193,7 +193,7 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
  *	This Method evaluates a `knot` Vector with a function `f`.
  *
  *	The tuples `knot - knot value` are printed on the file:
- *	`results/interpolation/knot_values.txt`
+ *	`results/polynomialApproximation/knot_values.txt`
  *
  *	@param f double *(double): the function.
  *	@param knot Vector: the knot vector.
@@ -208,10 +208,10 @@ Vector knotFunctionValues(double (*f)(double), Vector knot, int npts){
 	Vector knotVal;     // knot vector
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/interpolation/knot_values.txt", "w");
+	fileP = fopen("results/polynomialApproximation/knot_values.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/interpolation/knot_values.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/polynomialApproximation/knot_values.txt` in writing mode.\n");
 		exit(1);
 	}
 
@@ -233,7 +233,7 @@ Vector knotFunctionValues(double (*f)(double), Vector knot, int npts){
  *	This Method reads the value of a `knot` Vector from the keyboard.
  *
  *	The tuples `knot - knot value` are printed on the file:
- *	`results/interpolation/knot_values.txt`
+ *	`results/polynomialApproximation/knot_values.txt`
  *
  *	@param knot Vector: the knot vector.
  *	@param npts int: number of points of the knot vector.
@@ -248,10 +248,10 @@ Vector knotUserValues(Vector knot, int npts){
 	Vector knotVal;     // knot vector
 	FILE *fileP;        // output file pointer
 
-	fileP = fopen("results/interpolation/knot_values.txt", "w");
+	fileP = fopen("results/polynomialApproximation/knot_values.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/interpolation/knot_values.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/polynomialApproximation/knot_values.txt` in writing mode.\n");
 		exit(1);
 	}
 

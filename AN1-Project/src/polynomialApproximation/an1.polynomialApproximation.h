@@ -15,7 +15,7 @@
 //	interpolationMenu.c
 //
 
-int interpolationMenu();
+int polynomialApproximationMenu();
 
 //
 //	Interpolation Functions

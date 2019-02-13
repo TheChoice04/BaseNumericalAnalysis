@@ -9,7 +9,7 @@
  */
 
 
-#include "an1.interpolation.h"
+#include "an1.polynomialApproximation.h"
 
 int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
@@ -63,10 +63,10 @@ int lagrange(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpt
 		return 1;
 	}
 
-	fileP = fopen("results/interpolation/lagrange_interpolate.txt", "w");
+	fileP = fopen("results/polynomialApproximation/lagrange_interpolate.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/polynomialApproximation/lagrange_interpolate.txt` in writing mode.\n");
 		exit(1);
 	}
 

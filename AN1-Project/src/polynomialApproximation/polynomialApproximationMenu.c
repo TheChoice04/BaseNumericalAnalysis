@@ -10,7 +10,7 @@
  */
 
 
-#include "an1.interpolation.h"
+#include "an1.polynomialApproximation.h"
 
 int interpolationMenu();
 
@@ -110,7 +110,7 @@ int interpolationMenu(){
 
 	printf("Choose a norm for the evaluation:\n");
 	printf(" - type `1` for taxicab norm.\n");
-	printf(" - type `2` for euclidean norm.\n");
+	printf(" - type `2` for Euclidean norm.\n");
 	printf(" - type `0` for infinite norm.\n");
 	p = scanInt(0, 2);
 
@@ -128,12 +128,12 @@ int interpolationMenu(){
 	case 1:
 		ans = lagrange(f, npts, knot, knotVal, dpts, a, b);
 		if (ans == 0)
-			gnuplot("interpolation/lagrange.gp");
+			gnuplot("polynomialApproximation/lagrange.gp");
 
-		fileP = fopen("results/interpolation/lagrange_interpolate.txt", "r");
+		fileP = fopen("results/polynomialApproximation/lagrange_interpolate.txt", "r");
 
 		if (fileP == NULL) {
-			printf("ERROR: can't open `results/interpolation/lagrange_interpolate.txt` in reading mode.\n");
+			printf("ERROR: can't open `results/polynomialApproximation/lagrange_interpolate.txt` in reading mode.\n");
 			exit(1);
 		}
 
@@ -148,12 +148,12 @@ int interpolationMenu(){
 	case 2:
 		ans = newtonInterpolate(f, npts, knot, knotVal, dpts, a, b);
 		if (ans == 0)
-			gnuplot("interpolation/newton_interpolate.gp");
+			gnuplot("polynomialApproximation/newton_interpolate.gp");
 
-		fileP = fopen("results/interpolation/newton_interpolate.txt", "r");
+		fileP = fopen("results/polynomialApproximation/newton_interpolate.txt", "r");
 
 		if (fileP == NULL) {
-			printf("ERROR: can't open `results/interpolation/newton_interpolate.txt` in reading mode.\n");
+			printf("ERROR: can't open `results/polynomialApproximation/newton_interpolate.txt` in reading mode.\n");
 			exit(1);
 		}
 

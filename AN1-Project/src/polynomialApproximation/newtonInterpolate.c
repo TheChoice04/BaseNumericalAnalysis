@@ -10,7 +10,7 @@
  */
 
 
-#include "an1.interpolation.h"
+#include "an1.polynomialApproximation.h"
 
 int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal, int dpts, float a, float b);
 
@@ -42,7 +42,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
  *		x    \Pi(x)    f(x)    delta
  *
  *	and saves the divided differences table in the file:
- *	 `results/interpolation/divided_differences.txt`
+ *	 `results/interppolynomialApproximationolation/divided_differences.txt`
  *
  *	@param f double *(double): The real function.
  *	@param npts int: number of knots.
@@ -76,10 +76,10 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 		return 1;
 	}
 
-	fileP = fopen("results/interpolation/newton_interpolate.txt", "w");
+	fileP = fopen("results/polynomialApproximation/newton_interpolate.txt", "w");
 
 	if (fileP == NULL) {
-		printf("ERROR: can't open `results/interpolation/newton_interpolate.txt` in writing mode.\n");
+		printf("ERROR: can't open `results/polynomialApproximation/newton_interpolate.txt` in writing mode.\n");
 		exit(1);
 	}
 
@@ -99,7 +99,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 		}
 	}
 
-	fprintMatrix("results/interpolation/divided_differences.txt", dd, npts, npts);
+	fprintMatrix("results/polynomialApproximation/divided_differences.txt", dd, npts, npts);
 
 	// evaluation of the data points
 	for (k = 0; k < dpts; k++){
