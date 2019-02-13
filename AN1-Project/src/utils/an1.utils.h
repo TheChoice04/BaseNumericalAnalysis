@@ -39,6 +39,12 @@
 #define Matrix double**
 
 //
+//	From utils_cloud.c
+//
+
+int parseCloud(Matrix* Pp, int *np);
+
+//
 //	From utils_function.c
 //
 

@@ -12,7 +12,7 @@
 #include "iteratives/an1.iteratives.h"
 #include "function-zeros/an1.function-zeros.h"
 #include "interpolation/an1.interpolation.h"
-//#include "least-squares/an1.least-squares.h"
+#include "regression-analysis/an1.regression-analysis.h"
 
 
 //

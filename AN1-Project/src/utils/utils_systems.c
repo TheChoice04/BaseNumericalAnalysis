@@ -26,7 +26,7 @@ void printSystemError(Matrix A, Vector x, Vector b, int m, int n);
  *
  *	This method parse a linear system:
  *	  - from the default file;
- *	  - a particular file;
+ *	  - from a particular file;
  *	  - a Vandermonde matrix coefficient matrix;
  *	  - an Hilbert coefficient matrix;
  *	  - with random values;
@@ -122,7 +122,7 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	case 2:
 		n1 = n + 1;
 
-		for (i=0; i<m*n1; i++){
+		for (i = 0; i < m * n1; i++){
 			fscanf(fileP, "%lf", &x);
 			if (i%n1 == n)
 				b[i/n1] = x;
@@ -156,7 +156,7 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	case 5:	// Random
 		printf("Type in minimum and maximum values for your system value range:\n>> ");
 		scanf("%lf %lf", &min, &max);
-		ln;ln;
+		ln;
 		for (i = 0; i < m; i++){
 			for (j = 0; j < n; j++){
 				A[i][j] = Random(min, max);
