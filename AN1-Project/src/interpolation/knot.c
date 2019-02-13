@@ -49,7 +49,7 @@ Vector knotUserValues(Vector knot, int npts);
 Vector buildEquidistantKnots(int npts, float a, float b, int isClose){
 	int j;              // counter
 	float step;         // step between knots
-	Vector knot;        // the knot vector
+	Vector knot = NULL; // the knot vector
 
 	knot = allocVector(npts);
 
@@ -100,7 +100,7 @@ Vector buildChebyshevKnots(int npts, float a, float b, int isClose){
 	int j;              // counter
 	float step;         // step between cos arguments
 	float cosArg = 0;   // cos argument
-	Vector knot;        // knot vector
+	Vector knot = NULL; // knot vector
 
 	knot = allocVector(npts);
 
@@ -142,7 +142,7 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
 	int i = 0;          // counter
 	int err = 0;        // errors counter
 	double x;           // reader;
-	Vector knot;        // knot vector
+	Vector knot = NULL; // knot vector
 
 	knot = allocVector(npts);
 
@@ -205,8 +205,8 @@ Vector buildUserKnots(int npts, float a, float b, int isClose){
 
 Vector knotFunctionValues(double (*f)(double), Vector knot, int npts){
 	int i;              // counter
-	Vector knotVal;     // knot vector
 	FILE *fileP;        // output file pointer
+	Vector knotVal = NULL;   // knot vector
 
 	fileP = fopen("results/interpolation/knot_values.txt", "w");
 
@@ -245,8 +245,8 @@ Vector knotFunctionValues(double (*f)(double), Vector knot, int npts){
 Vector knotUserValues(Vector knot, int npts){
 	int i;              // counter
 	double x;           // reader
-	Vector knotVal;     // knot vector
 	FILE *fileP;        // output file pointer
+	Vector knotVal = NULL;   // knot vector
 
 	fileP = fopen("results/interpolation/knot_values.txt", "w");
 

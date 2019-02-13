@@ -32,7 +32,7 @@ int regressionAnalysisMenu(){
 	int n;              // number of points
 	int ans;            // regression exit-code
 	int ord;            // order of the regression
-	Matrix P;           // points matrix
+	Matrix P = NULL;    // points matrix
 	FILE *fileP;        // Points output file pointer
 
 	parseCloud(&P, &n);

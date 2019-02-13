@@ -67,7 +67,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 	float err;          // data point distance
 	float fx;           // real value on x
 	FILE *fileP;        // output file pointer
-	Matrix dd;          // divided differences table
+	Matrix dd = NULL;   // divided differences table
 
 	step = (b - a)/(dpts - 1);
 

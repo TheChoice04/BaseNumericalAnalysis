@@ -38,7 +38,7 @@ int directMenu(){
 	Matrix oA = NULL;   // original coefficient matrix
 	Vector b = NULL;    // known terms Vector
 	Vector ob = NULL;   // original known terms Vector
-	Vector x;           // unknown vector
+	Vector x = NULL;    // unknown vector
 
 	parseLinearSystem(&A, &b, &m, &n);
 

@@ -47,7 +47,7 @@ int parseCloud(Matrix* Pp, int *np){
 	double minY, maxY;  // min_y and max_y random value
 	char filepath[256]; // file path to .txt
 	FILE *fileP;        // input file pointer
-	Matrix P;
+	Matrix P = NULL;    // Points matrix
 
 	printf("You can choose one of the following input methods for the data cloud:\n");
 	printf(" - type `1` to parse the default data cloud `source/DefaultDataCloud.txt`;\n");

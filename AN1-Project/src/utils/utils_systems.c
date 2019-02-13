@@ -61,8 +61,8 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
 	char filepath[256]; // file path to .txt
 	double x;           // temp variable
 	double min, max;    // random min and max
-	Matrix A;           // coefficient matrix
-	Vector b;           // known terms Vector
+	Matrix A = NULL;    // coefficient matrix
+	Vector b = NULL;    // known terms Vector
 
 	printf("You can choose one of the following to parse a matrix:\n");
 	printf(" - type `1` to parse the default system `source/DefaultSystem.txt`;\n");
@@ -208,7 +208,7 @@ int parseLinearSystem(Matrix* Ap, Vector* bp, int *mp, int *np){
  *************************************************************************/
 
 void updateSolution(Matrix B, Vector c, Vector x, int n){
-	Vector x0;          // copy of the original vector `x`
+	Vector x0 = NULL;   // copy of the original vector `x`
 
 	x0 = copyVector(x, n);
 
@@ -292,8 +292,8 @@ void printSolution(Vector x, int n){
 double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p){
 	int i;              // counter
 	double norm;        // error norm
-	Vector b1;          // effective result of `Ax`
-	Vector err;         // error vector
+	Vector b1 = NULL;   // effective result of `Ax`
+	Vector err = NULL;  // error vector
 
 	b1 = allocVector(m);
 	err = allocVector(m);
@@ -334,8 +334,8 @@ double evalSystemError(Matrix A, Vector x, Vector b, int m, int n, int p){
 void printSystemError(Matrix A, Vector x, Vector b, int m, int n){
 	int i;              // counter
 	double norm;        // error norm
-	Vector b1;          // effective result of `Ax`
-	Vector err;         // error vector
+	Vector b1 = NULL;   // effective result of `Ax`
+	Vector err = NULL;  // error vector
 
 	b1 = allocVector(m);
 	err = allocVector(m);

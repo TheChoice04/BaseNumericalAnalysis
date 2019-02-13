@@ -63,7 +63,7 @@ Vector allocVector(int n){
 
 Vector allocRandVector(int n, double x, double y){
 	int i;              // counter
-	Vector v;           // the vector
+	Vector v = NULL;    // the vector
 
 	v = allocate(n, double);
 	for (i=0; i<n; i++)
@@ -86,7 +86,7 @@ Vector allocRandVector(int n, double x, double y){
 
 Vector scanVector(int n){
 	int i;              // counter
-	Vector v;           // the vector
+	Vector v = NULL;    // the vector
 
 	v = allocate(n, double);
 	for (i=0; i<n; i++){
@@ -117,7 +117,7 @@ Vector scanVector(int n){
 
 Vector copyVector(Vector v, int n){
 	int i;              // counter
-	Vector c;           // the copied vector
+	Vector c = NULL;    // the vector
 
 	c = allocVector(n);
 

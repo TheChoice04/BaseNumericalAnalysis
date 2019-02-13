@@ -10,18 +10,18 @@
   - Direct methods for solving linear systems
     - [ ] [Total Pivoting] Gauss Elimination
     - [ ] [ToDo] LU Factorization
-      - [ ] [ToDo] Cholesky Factorization
-      - [ ] [ToDo] Doolittle Factorization
-    - [ ] [ToDo] QR factorization
+      - [ ] (ToDo) Cholesky Factorization
+      - [ ] (ToDo) Doolittle Factorization
+    - [ ] (To Do) QR factorization
   - Iteratives methods for solving linear systems
     - [X] Jacobi method
     - [X] Gauss-Seidel method
     - [X] SOR method
-    - [X] [ToCheck] Richardson
+    - [X] Richardson
   - Recursive methods for function zeros
     - [X] Bisection
     - [X] Chord
-    - [ ] [ToDo] Muller
+    - [ ] (To Do) Muller
     - [X] Newton
     - [X] Newton Quotient
     - [X] Secantes
@@ -29,10 +29,10 @@
   - Interpolation methods for function approximation over equidistant/chebyshev knots
     - [X] Lagrange interpolate
     - [X] Newton interpolate
-    - [ ] [ToDo] Hermite interpolate
+    - [ ] (To Do) Hermite interpolate
   - Least-square method for function approximation
     - [X] First order Least-square
-    - [ ] [ToDo] Higher order Least-square
+    - [ ] (To Do) Higher order Least-square
 		
 ## Tasks
 

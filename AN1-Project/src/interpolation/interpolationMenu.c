@@ -37,10 +37,10 @@ int interpolationMenu(){
 	double a, b;        // left and right margin of the range
 	double norm;        // norm value
 	double delta;       // delta for each data point
-	Vector err;         // error vector
-	Vector knot;        // knot vector
-	Vector knotVal;     // knot values
+	Vector err = NULL;  // error vector
+	Vector knot = NULL; // knot vector
 	FILE *fileP;        // file pointer to method response
+	Vector knotVal = NULL;   // knot values
 	double (*f)(double);     // function pointer
 
 	selectFunction(&f, &f);

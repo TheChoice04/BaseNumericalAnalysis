@@ -44,7 +44,7 @@ int iterativeMenu(){
 	double beta;        // Richardson parameter
 	Matrix A = NULL;    // coefficient Matrix
 	Vector b = NULL;    // known terms Vector
-	Vector x;           // unknown vector
+	Vector x = NULL;    // unknown vector
 
 	parseLinearSystem(&A, &b, &m, &n);
 
@@ -170,6 +170,8 @@ int iterativeMenu(){
 	free(A);
 	free(b);
 	free(x);
+
+	//printSolution(x, n);
 
 	return ret;
 }

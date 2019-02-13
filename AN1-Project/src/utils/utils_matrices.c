@@ -54,7 +54,7 @@ void fprintQMatrix(char *dest, Matrix arg, int n);
 
 Matrix allocMatrix(int m, int n){
 	int i;              // counter
-	Matrix mat;         // new matrix
+	Matrix mat = NULL;  // new matrix
 
 	mat = allocate(m, double*);
 	for (i = 0; i<m; i++)
@@ -95,7 +95,7 @@ Matrix allocQMatrix(int n){
 
 Matrix allocRandMatrix(int m, int n, double x, double y){
 	int i;              // counter
-	Matrix mat;         // new matrix
+	Matrix mat = NULL;  // new matrix
 
 	mat = allocate(m, double*);
 	for (i = 0; i<m; i++)
@@ -137,7 +137,7 @@ Matrix allocRandQMatrix(int n, double x, double y){
 
 Matrix copyMatrix(Matrix M, int m, int n){
 	int i, j;           // counters
-	Matrix C;           // the copied matrix
+	Matrix C = NULL;    // the copied matrix
 
 	C = allocMatrix(m, n);
 
