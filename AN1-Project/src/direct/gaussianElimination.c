@@ -74,8 +74,8 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 	for (p = 0; p < m; p++){
 		for (q = 0; q < n; q++)
-			fprintf(fileP, "%lf  ", A[p][q]);
-		fprintf(fileP, "|  %lf\n", b[p]);
+			fprintf(fileP, ""flfpf"  ", A[p][q]);
+		fprintf(fileP, "|  "flfpf"\n", b[p]);
 	}
 	fprintf(fileP, "\n\n");
 
@@ -141,8 +141,8 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 		for (p = 0; p < m; p++){
 			for (q = 0; q < n; q++)
-				fprintf(fileP, "%lf  ", A[p][q]);
-			fprintf(fileP, "|  %lf\n", b[p]);
+				fprintf(fileP, ""flfpf"  ", A[p][q]);
+			fprintf(fileP, "|  "flfpf"\n", b[p]);
 		}
 		fprintf(fileP, "\n\n");
 
@@ -153,7 +153,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 	if (ans == 0){
 		for (i = 0; i < n; i++)
-			fprintf(fileP, "x[%d] = %lf\n", i, x[i]);
+			fprintf(fileP, "x[%d] = "flfpf"\n", i, x[i]);
 	} else if (ans == 1) {
 		fprintf(fileP, "The system is not compatible.");
 	} else {

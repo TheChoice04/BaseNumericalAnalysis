@@ -95,7 +95,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 	for (j = 1; j < npts; j++){
 		for (i = 0; i < npts - j; i++){
 			dd[i][i+j] = (dd[i+1][i+j] - dd[i][i+j-1]) / (knot[i+j] - knot[i]);
-			//printf("dd[%d][%d] = %lf\n", i, i+j, dd[i][i+j]);
+			//printf("dd[%d][%d] = "lfpf"\n", i, i+j, dd[i][i+j]);
 		}
 	}
 
@@ -111,7 +111,7 @@ int newtonInterpolate(double (*f)(double), int npts, Vector knot, Vector knotVal
 		}
 		fx = f(x);
 		err = fabs(fx - acc);
-		fprintf(fileP, "%lf %lf %lf %10le\n", x, acc, fx, err);
+		fprintf(fileP, ""flfpf" "flfpf" "flfpf" %10le\n", x, acc, fx, err);
 		x += step;
 	}
 

@@ -14,24 +14,25 @@
 #include <time.h>
 
 //  Macros Declaration
-#define lfpf "%.15lf"
+#define lfpf "%+.6lf"
+#define flfpf "%+.15lf"
 #define DEBUG(x) printf("DEBUG %d", x);
 #define max(a,b) a>=b?a:b
 #define hi printf("Hello, World!\n")
 #define ln printf("\n")
 #define allocate(num, type) ((type*)malloc(num * sizeof(type)))
 #define Random(x, y) (x + ((double) rand()/RAND_MAX)*(y-x))
-#define fprintPoint(p, x, fx) fprintf(p, "%lf %lf\n", x, fx)
+#define fprintPoint(p, x, fx) fprintf(p, flfpf" "flfpf"\n", x, fx)
 #define isApproxZero(x) fabs(x) < ERR
 #define isApprox(x, y) fabs(x - y) < ERR
 #define gnuplot(x) system("/usr/local/Cellar/gnuplot/5.2.5/bin/gnuplot "" -p 'gnuplot-scripts/"x"'")
 
 //  Global Const Declaration
-#define MAX_ATTEMPTs 1000    // 10^3 max attempts for iterative methods
-#define MAX_ERRs 5           // max number of error during choosings
+#define MAX_ATTEMPTs 1000    // 10^3,   max attempts for iterative methods
+#define MAX_ERRs 5           // 5,      max number of error during choosings
 #define ERR 0.0000000001     // 10^-10, default max error
-#define MAX_POINTs 1000000   // 10^6, max number of point that could be evaluated
-#define CONST_DATA 1000      // 10^4, number of data points for sample functions evaluation
+#define MAX_POINTs 1000000   // 10^6,   max number of point that could be evaluated
+#define CONST_DATA 1000      // 10^4,   number of data points for sample functions evaluation
 
 //  New Type Declaration
 #define Vector double*

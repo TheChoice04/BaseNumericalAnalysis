@@ -344,7 +344,7 @@ void printMatrix(Matrix M, int m, int n){
 	int i, j;           // counters
 	for (i = 0; i < m; i++){
 		for (j = 0; j < n; j++)
-			printf("\t%lf", M[i][j]);
+			printf("\t"lfpf"", M[i][j]);
 		ln;
 	}
 }
@@ -393,7 +393,7 @@ void fprintMatrix(char *dest, Matrix arg, int m, int n){
 
 	for (i = 0; i < m; i++){
 		for (j = 0; j < n; j++)
-			fprintf(fileP, "  %lf", arg[i][j]);
+			fprintf(fileP, "  "flfpf"", arg[i][j]);
 		fprintf(fileP, "\n");
 	}
 

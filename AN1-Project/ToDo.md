@@ -48,4 +48,4 @@ Do the following:
  - [X] Build Vandermonde and Hilber Matrix.
  - [X] Check Triangular Solver
  - [X] Change error norma to `%10le`
- - [ ] Find a way to change all the `%lf` into `%.15lf`
+ - [X] Find a way to change all the `%lf` into `%.15lf`
