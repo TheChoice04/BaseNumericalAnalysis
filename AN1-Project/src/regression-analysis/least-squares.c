@@ -125,7 +125,7 @@ int leastSquareLine(Matrix P, int n){
 	res *= 0.5;
 
 	printf("The points could be approximated by the straight line:\n");
-	printf("\ty = "lfpf"x + "lfpf"\n", m, q);
+	printf("\ty = "lfpf"x "lfpf"\n", m, q);
 	printf("And its residue is %10le.\n", res);
 
 
