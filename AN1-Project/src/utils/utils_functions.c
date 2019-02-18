@@ -54,6 +54,14 @@ double dsamplef3(double x){
 	return (4 * x);
 }
 
+double samplef4(double x){
+	return (1. / (1. + (x * x)));
+}
+
+double dsamplef4(double x){
+	return (1. / (1. + x * x));
+}
+
 
 /** selectFunction ********************************************************
  *
@@ -81,9 +89,10 @@ void selectFunction(double (**f)(double), double (**df)(double)){
 	printf(" - type `1` to choose: (e^x)-1\n");
 	printf(" - type `2` to choose: x/2-sin(x)\n");
 	printf(" - type `3` to choose: 2x^2\n");
+	printf(" - type `4` to choose Runge's function: 1 / (1 + x^2)\n");
 	// Insert more choices here...
 
-	c = scanInt(1, 3);
+	c = scanInt(1, 4);
 	printf("\n\n");
 
 	switch (c){
@@ -102,6 +111,11 @@ void selectFunction(double (**f)(double), double (**df)(double)){
 		*df = &dsamplef3;
 		*f = &samplef3;
 		break;
+
+	case 4 :
+			*df = &dsamplef4;
+			*f = &samplef4;
+			break;
 	}
 
 
