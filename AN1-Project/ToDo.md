@@ -8,7 +8,7 @@
 ## Methods
 
   - Direct methods for solving linear systems
-    - [ ] [Total Pivoting] Gauss Elimination
+    - [X] Gauss Elimination
     - [ ] [ToDo] LU Factorization
       - [ ] (ToDo) Cholesky Factorization
       - [ ] (ToDo) Doolittle Factorization

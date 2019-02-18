@@ -53,15 +53,19 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 	int i, j, k;        // counters
 	int p, q;           // printer counters
 	int ans;            // compatibility
-	int max;            // max value (index) in the column
+	int maxR;           // max value (index) of the row
+	int maxC;           // max value (index) of the column
 	int pivoting;       // kind of pivoting
 	float aij;          // factor
-	int *piv =          // pivoting vector (for total pivoting)
-			allocate(n, int);
+	int *piv            // total pivoting index vector
+	= calloc(n, sizeof(int));
+	Vector xp = NULL;   // total pivoted solution vector x
+	Matrix Ap = NULL;   // total pivoted matrix A
 	FILE *fileP;        // output file pointer
 
 	if (m < n) {
 		printf("ERROR: The system is under-determined.");
+		free(piv);
 		return 2;
 	}
 
@@ -69,6 +73,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 	if (fileP == NULL) {
 		printf("ERROR: can't open `results/direct/gaussian_elimination.txt` in writing mode.\n");
+		free(piv);
 		exit(1);
 	}
 
@@ -81,6 +86,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 	for (i = 0; i < n; i++)
 		piv[i] = i;
+
 
 	printf("===Running Gaussian Elimination===\n");
 	printf("Do you want to have pivoting?\n");
@@ -99,30 +105,54 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 			// Partial Pivoting
 		case 1:
-			max = i;
+			maxR = i;
 			for (j = i+1; j < m; j++)
-				if (fabs(A[j][i]) > fabs(A[max][i]))
-					max = j;
+				if (fabs(A[j][i]) > fabs(A[maxR][i]))
+					maxR = j;
 
-			if (max != i){
+			if (maxR != i){
 				double *app = A[i];
-				A[i] = A[max];
-				A[max] = app;
+				A[i] = A[maxR];
+				A[maxR] = app;
 				double temp = b[i];
-				b[i] = b[max];
-				b[max] = temp;
+				b[i] = b[maxR];
+				b[maxR] = temp;
 			}
 			break;
 
-
-
 			// Total Pivoting
 		case 2:
-			//ToDo
+			maxR = i;
+			maxC = i;
+
+			for (j = i; j < m; j++){
+				for (k = i; k < n; k++){
+					if (fabs(A[j][k]) > fabs(A[maxR][piv[maxC]])){
+						maxR = j;
+						maxC = k;
+					}
+				}
+			}
+			// Row inversion
+			if (maxR != i){
+				double *app = A[i];
+				A[i] = A[maxR];
+				A[maxR] = app;
+				double temp = b[i];
+				b[i] = b[maxR];
+				b[maxR] = temp;
+			}
+			// Column inversion
+			if (maxC != i){
+				int p = piv[i];
+				piv[i] = piv[maxC];
+				piv[maxC] = p;
+			}
+
 			break;
 		}
 		// Check for singularity
-		if (A[i][i] == 0.0){
+		if (A[i][piv[i]] == 0.0){
 			printMatrix(A, m, n);
 			printf("ERROR: The coefficient matrix is Singular.\n");
 			return 1;
@@ -130,14 +160,19 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 		// Row Cicle
 		for (j = i+1; j < m; j++){
 			// Head Coefficient Calculus
-			aij = A[j][i]/A[i][i];
+			aij = A[j][piv[i]]/A[i][piv[i]];
 			// Column Cicle
-			A[j][i] = 0.0;
+			A[j][piv[i]] = 0.0;
 			for (k = i+1; k < n; k++){
-				A[j][k] = A[j][k] - (aij * A[i][k]);
+				A[j][piv[k]] = A[j][piv[k]] - (aij * A[i][piv[k]]);
 			}
 			b[j] = b[j] - (aij * b[i]);
 		}
+
+		fprintf(fileP, "Cicle no.%d\nPivotation vector:\t[", i+1);
+		for (q = 0; q < n; q++)
+			fprintf(fileP, "%d ", piv[q]);
+		fprintf(fileP, "]\n");
 
 		for (p = 0; p < m; p++){
 			for (q = 0; q < n; q++)
@@ -149,7 +184,26 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 
 	}
 
-	ans = triSupSolver(A, b, m, n, x);
+	Ap = allocMatrix(m, n);
+	xp = allocVector(n);
+
+	for (i = 0; i < m; i++)
+		for (j = 0; j < n; j++)
+			Ap[i][j] = A[i][piv[j]];
+
+	fprintf(fileP, "Pivoted Matrix:\n");
+
+	for (p = 0; p < m; p++){
+		for (q = 0; q < n; q++)
+			fprintf(fileP, ""flfpf"  ", Ap[p][q]);
+		fprintf(fileP, "|  "flfpf"\n", b[p]);
+	}
+	fprintf(fileP, "\n\n");
+
+	ans = triSupSolver(Ap, b, m, n, xp);
+
+	for (i = 0; i < n; i++)
+		x[i] = xp[piv[i]];
 
 	if (ans == 0){
 		for (i = 0; i < n; i++)
@@ -161,6 +215,7 @@ int gaussianSolution(Matrix A, Vector b, int m, int n, Vector x){
 	}
 
 	fclose(fileP);
+	free(piv);
 
 	return ans;
 }
